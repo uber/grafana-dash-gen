@@ -21,7 +21,7 @@ function publish(dashboard) {
 	var j = request.jar();
 	var cookie = request.cookie(config.getConfig().cookie);
 	j.setCookie(cookie, url);
-	
+
 	request({
 		url: putUrl,
 		method: 'PUT',
@@ -30,14 +30,15 @@ function publish(dashboard) {
 	}, function responseHandler(err, response) {
 		if (err) {
 			console.log('Unable to publish dashboard ' + dashboardTitle);
-		}
-		if (response.statusCode !== 200) {
-			console.log('Unable to publish dashboard ' + dashboardTitle);
-			console.log(response.body);
-			console.log('Got statusCode' + response.statusCode);
-			console.log('An invalid auth token results in a 302 error!');
 		} else {
-			console.log('Published the dashboard ' + dashboardTitle);
+			if (response.statusCode !== 200) {
+				console.log('Unable to publish dashboard ' + dashboardTitle);
+				console.log(response.body);
+				console.log('Got statusCode' + response.statusCode);
+				console.log('An invalid auth token results in a 302 error!');
+			} else {
+				console.log('Published the dashboard ' + dashboardTitle);
+			}
 		}
 	});
 }
