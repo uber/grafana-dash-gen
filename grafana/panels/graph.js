@@ -56,6 +56,8 @@ function Graph(opts) {
 		'links': []
 	};
 
+	this.state.legend = opts.legend || this.state.legend;
+	this.state.aliasColors = opts.aliasColors || this.state.aliasColors;
 	this.state.type = opts.type || 'graph';
 	this.state.span = opts.span || 12;
 	this.state.title = opts.title || this.state.title;
