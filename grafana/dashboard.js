@@ -17,7 +17,7 @@ function Dashboard(opts) {
 	this.state.editable = true;
 	this.state.hideControls = !!opts.hideControls;
 	this.state.sharedCrosshair = !!opts.sharedCrosshair;
-	this.state.refresh = true;
+	this.state.refresh = opts.refresh || false;
 	this.state.version = opts.version || 6;
 	this.state.hideAllLegends = !!opts.hideAllLegends;
 
