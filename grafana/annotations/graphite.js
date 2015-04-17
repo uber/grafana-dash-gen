@@ -8,8 +8,8 @@ function Graphite(opts) {
 		name: opts.name,
 		datasource: 'graphite',
 		showLine: true,
-        iconColor: 'rgb(255, 0, 53)',
-        lineColor: 'rgba(165, 70, 70, 0.59)',
+        iconColor: 'rgb(255, 234, 0)',
+        lineColor: 'rgba(165, 161, 70, 0.59)',
         iconSize: 10,
 		enable: true,
 		target: opts.target
