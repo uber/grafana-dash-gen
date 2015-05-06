@@ -3,8 +3,8 @@
 var test = require('cached-tape');
 var Dashboard = require('../grafana/dashboard');
 
-var simpleDashboard = require('./fixtures/simple_dashboard.js');
-var overrideDashboard = require('./fixtures/override_dashboard.js');
+var simpleDashboard = require('./fixtures/simple_dashboard');
+var overrideDashboard = require('./fixtures/override_dashboard');
 
 test('simple Dashboard', function t(assert) {
   var dashboard = new Dashboard();
