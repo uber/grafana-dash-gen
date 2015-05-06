@@ -1,1 +1,2 @@
-require('./panels/index');
+require('./dashboard');
+require('./panels');

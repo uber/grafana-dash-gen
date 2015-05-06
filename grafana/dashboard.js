@@ -21,6 +21,9 @@ function Dashboard(opts) {
 	this.state.version = opts.version || 6;
 	this.state.hideAllLegends = !!opts.hideAllLegends;
 
+  this.state.meta = {};
+  this.state.meta.slug = opts.slug || this.state.title.split(' ').join('-');
+
 	this.state.rows = [];
 
 	this.state.annotations = {

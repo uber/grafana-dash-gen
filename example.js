@@ -12,6 +12,7 @@ grafana.config({
 
 var dashboard = new Dashboard({
    title: 'TEST Api dashboard',
+   slug: 'test-api',
    templating: [{
        name: 'dc',
        options: ['dc1', 'dc2']

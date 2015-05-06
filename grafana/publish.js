@@ -4,12 +4,11 @@ var config = require('./config');
 
 function publish(dashboard) {
 	var dashboardTitle = dashboard.state.title;
-	var dashboardUrl = dashboardTitle.split('-').join('');
-
+  var dashboardSlug = dashboard.state.meta.slug;
 	var dashboardJson = dashboard.generate();
 
 	var url = config.getConfig().url;
-	var putUrl = url + dashboardUrl;
+	var putUrl = url + slug;
 	var putData = {
 		user: config.getConfig().user,
 		group: config.getConfig().group,
