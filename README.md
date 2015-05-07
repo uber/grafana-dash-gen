@@ -36,10 +36,11 @@ var dashboard = new Dashboard({
 	title: 'Api dashboard'
 });
 ```
-(or) Below is an example of a dashboard with templates `dc` and `smoothing`. and annotations. 
+(or) Below is an example of a dashboard with a custom slug, templates `dc` and `smoothing` and annotations.
 ```
  var dashboard = new Dashboard({
  	title: 'Api dashboard',
+  slug: 'api',
  	templating: [{
  		name: 'dc',
  		options: ['dc1', 'dc2']
