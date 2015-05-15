@@ -8,7 +8,7 @@ function publish(dashboard) {
 	var dashboardJson = dashboard.generate();
 
 	var url = config.getConfig().url;
-	var putUrl = url + slug;
+	var putUrl = url + dashboardSlug;
 	var putData = {
 		user: config.getConfig().user,
 		group: config.getConfig().group,
@@ -30,7 +30,7 @@ function publish(dashboard) {
 		if (err) {
 			console.log('Unable to publish dashboard ' + dashboardTitle);
 		} else {
-			if (response.statusCode !== 200) {
+			if ([200, 201].indexOf(response.statusCode) === -1) {
 				console.log('Unable to publish dashboard ' + dashboardTitle);
 				console.log(response.body);
 				console.log('Got statusCode' + response.statusCode);
