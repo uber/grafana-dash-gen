@@ -1,6 +1,7 @@
 'use strict';
 
 var test = require('cached-tape');
+var panels = require('../grafana/panels'); // for coverage
 var Dashboard = require('../grafana/dashboard');
 
 var simpleDashboard = require('./fixtures/simple_dashboard');
