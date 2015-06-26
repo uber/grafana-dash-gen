@@ -16,7 +16,8 @@ test('simple graph', function t(assert) {
 test('graph with overriden information', function t(assert) {
     var graph = new Graph({
         span: 4,
-        title: 'custom title'
+        title: 'custom title',
+        targets: ['target']
     });
     graph.state.id = overrideGraph.id;
 
@@ -24,7 +25,7 @@ test('graph with overriden information', function t(assert) {
     assert.end();
 });
 
-test('add graph to row and dashboard when passed', function t(assert){
+test('add graph to row and dashboard when passed', function t(assert) {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 
