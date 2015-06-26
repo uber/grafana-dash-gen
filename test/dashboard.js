@@ -36,7 +36,6 @@ test('Dashboard with overriden information', function t(assert) {
     assert.end();
 });
 
-
 test('Dashboard can add rows', function t(assert) {
     var dashboard = new Dashboard();
     var row = {foo: 'foo'};
