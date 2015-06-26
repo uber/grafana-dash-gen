@@ -3,5 +3,5 @@
 var Graphite = require('./graphite');
 
 module.exports = {
-	Graphite: Graphite
+    Graphite: Graphite
 };
