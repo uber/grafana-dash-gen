@@ -7,27 +7,28 @@ test('config extends default configuration', function t(assert) {
     var foo = 'foo';
     var bar = 1;
     var user = 'notguest';
+    var group = 'guest';
     var url = 'http://myfakeurl.com';
-    var defaultGroup = 'guest';
-    var defaultCookie = 'auth-openid=AAAAG';
+    var cookie = 'auth=value';
 
     var cfg = {
         foo: foo,
         bar: bar,
         user: user,
-        url: url
+        url: url,
+        cookie: cookie
     };
 
     var expected = {
         foo: foo,
         bar: bar,
         user: user,
-        group: defaultGroup,
+        group: group,
         url: url,
-        cookie: defaultCookie
+        cookie: cookie
     };
 
-    config.config(cfg);
+    config.configure(cfg);
     var result = config.getConfig();
 
     assert.deepEqual(result, expected);

@@ -24,10 +24,11 @@
   },
   "devDependencies": {
     "cached-tape": "^2.0.0",
-    "tap-spec": "^3.0.0",
+    "eslint": "^0.18.0",
     "istanbul": "^0.3.13",
     "lint-trap": "^1.0.1",
-    "eslint": "^0.18.0",
-    "pre-commit": "^1.0.6"
+    "nock": "^2.6.0",
+    "pre-commit": "^1.0.6",
+    "tap-spec": "^3.0.0"
   }
 }

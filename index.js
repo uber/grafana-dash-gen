@@ -19,5 +19,5 @@ module.exports = {
     Target: Target,
     publish: publish,
     generateGraphId: generateGraphId,
-    config: config.config
+    configure: config.configure
 };

@@ -8,14 +8,14 @@ function Graphite(opts) {
 
     if (!opts.name) {
         throw errors.UnfulfilledRequirement({
-            constructor: 'grafana.annotations.Graphite',
+            component: 'grafana.annotations.Graphite',
             unfulfilledArg: 'name'
         });
     }
 
     if (!opts.target) {
         throw errors.UnfulfilledRequirement({
-            constructor: 'grafana.annotations.Graphite',
+            component: 'grafana.annotations.Graphite',
             unfulfilledArg: 'target'
         });
     }
