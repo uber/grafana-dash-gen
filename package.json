@@ -17,6 +17,7 @@
   "author": "Madan Thangavelu",
   "license": "ISC",
   "dependencies": {
+    "defaults-deep": "^0.2.2",
     "error": "^7.0.2",
     "request": "^2.55.0",
     "underscore": "^1.8.3",

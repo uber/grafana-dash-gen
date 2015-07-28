@@ -20,14 +20,18 @@
 
 'use strict';
 
+var _ = require('underscore');
+var defaultsDeep = require('defaults-deep');
 var generateGraphId = require('../id');
 
 function SingleStat(opts) {
     opts = opts || {};
     var self = this;
 
-    this.state = {
+    var defaults = {
+        id: generateGraphId(),
         title: 'single stat',
+        targets: [],
         error: false,
         span: 12,
         editable: true,
@@ -67,14 +71,10 @@ function SingleStat(opts) {
         datasource: 'graphite'
     };
 
-    this.state.title = opts.title || this.state.title;
-    this.state.id = opts.id || generateGraphId();
-    this.state.span = opts.span || 12;
-    this.state.postfix = opts.postfix || '';
-    this.state.targets = [];
-    this.state.datasource = opts.datasource || this.state.datasource;
+    this.state = defaultsDeep(_.clone(opts), defaults);
 
     if (opts.targets) {
+        this.state.targets = [];
         opts.targets.forEach(function addT(target) {
             self.addTarget(target);
         });
