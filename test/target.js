@@ -75,7 +75,6 @@ test('Target color methods are generated correctly', function t(assert) {
         assert.ok((typeof target[color]) === 'function');
         var str = target[color]().toString();
         var expected = util.format('color(path.to.metric, "%s")', color);
-        // debugger;
         assert.equal(str, expected);
     });
     assert.end();
