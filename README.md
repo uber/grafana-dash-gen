@@ -130,6 +130,7 @@ console.log(dashboard.generate());
 
 ## Contributors
 
+ - Evan Culver
  - Madan Thangavelu
 
 ## MIT Licenced
