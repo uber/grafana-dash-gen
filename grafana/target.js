@@ -3,7 +3,11 @@
 var _ = require('underscore');
 var util = require('util');
 
-var Target = function Target() {
+function Target() {
+    if (arguments.length === 0) {
+        throw new Error('Incorrect invocation of Target. ' +
+                        'Must provide at least one argument');
+    }
     if (typeof arguments[0] === 'string') {
         // Format string
         this.source = util.format.apply(null, arguments);
@@ -12,7 +16,7 @@ var Target = function Target() {
         this.source = arguments[0];
         this.func = arguments[1];
     }
-};
+}
 
 Target.prototype.toString = function toString() {
     if (this.func) {
@@ -32,7 +36,7 @@ Target.prototype.toString = function toString() {
 
 // Primitive methods
 // Method Name: arity ignoring first target input
-var methods = {
+Target.PRIMITIVES = {
     absolute: 0,
     aggregateLine: 0,
     alias: 1,
@@ -125,18 +129,20 @@ var methods = {
     useSeriesAbove: 3
 };
 
-_.each(methods, function each(n, method) {
+_.each(Target.PRIMITIVES, function each(n, method) {
     Target.prototype[method] = function t() {
         if (arguments.length < n) {
+            /*eslint-disable*/
             console.warn("Incorrect number of arguments passed to %s", method);
             console.trace();
+            /*eslint-enable*/
         }
         return new Target(this,
             [method].concat(Array.prototype.slice.call(arguments, 0)));
     };
 });
 
-var colors = [
+Target.COLORS = [
     'orange',
     'blue',
     'green',
@@ -149,7 +155,7 @@ var colors = [
     'aqua'
 ];
 
-_.each(colors, function each(color) {
+_.each(Target.COLORS, function each(color) {
     Target.prototype[color] = function t() {
         return this.color(color);
     };

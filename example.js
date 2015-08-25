@@ -30,7 +30,7 @@ var row = new Row();
 
 var pannel = new Panels.Graph({
   title: 'api req/sec',
-  span: 5, 
+  span: 5,
   targets: [
       new Target('api.statusCode.*').
                   transformNull(0).sum().hitcount('1seconds').scale(0.1).alias('rps')
