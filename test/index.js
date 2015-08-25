@@ -6,4 +6,5 @@ require('./dashboard');
 require('./panels');
 require('./publish');
 require('./row');
+require('./target');
 require('./templates');
