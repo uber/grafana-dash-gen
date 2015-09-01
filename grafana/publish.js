@@ -57,7 +57,6 @@ function publish(dashboard) {
         var resp = rawResp && rawResp.toJSON() || {};
 
         if (err) {
-            debugger;
             chalk.red('Unable to publish dashboard ' + state.title);
             return;
         }

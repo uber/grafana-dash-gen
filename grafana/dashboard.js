@@ -10,6 +10,7 @@ function Dashboard(opts) {
     // initialize internal state
     this.state = {};
     this._init(opts);
+    this._initMeta(opts);
     this._initRows(opts);
     this._initAnnotations(opts);
     this._initTemplating(opts);
