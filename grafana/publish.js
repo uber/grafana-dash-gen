@@ -23,9 +23,10 @@ var request = require('request');
 var config = require('./config');
 var errors = require('./errors');
 
-// Utility method for determining whether a string ends with a specific character
+// Utility method for determining whether a string ends with a
+// specific character
 function endsWith(str, char) {
-    return str.lastIndexOf(char) === str.length-1;
+    return str.lastIndexOf(char) === str.length - 1;
 }
 
 function publish(dashboard) {
@@ -47,7 +48,7 @@ function publish(dashboard) {
         });
     }
 
-    if (!state.meta.slug) {
+    if (!state.slug && !state.meta.slug) {
         throw errors.InvalidState({
             component: 'grafana.Dashboard',
             invalidArg: 'meta.slug',
@@ -84,13 +85,9 @@ function publish(dashboard) {
         });
     }
 
-    var separator = endsWith(cfg.url, '/') ? '' : '/';
-    var putUrl = [cfg.url, state.meta.slug].join(separator);
-    var putData = {
-        user: cfg.user,
-        group: cfg.group,
-        title: state.title,
-        tags: state.tags,
+    // var separator = endsWith(cfg.url, '/') ? '' : '/';
+    // var deleteUrl = [cfg.url, state.slug].join(separator);
+    var createData = {
         dashboard: dashboard.generate()
     };
 
@@ -99,18 +96,35 @@ function publish(dashboard) {
     j.setCookie(cookie, cfg.url);
 
     request({
-        url: putUrl,
-        method: 'PUT',
-        json: putData,
+        url: cfg.url,
+        method: 'POST',
+        json: createData,
         jar: j
-    }, function responseHandler(err, response) {
-        if (err) {
+    }, function createResponseHandler(createErr, rawCreateResp) {
+        var createResp = rawCreateResp.toJSON();
+        if (createErr) {
             console.log('Unable to publish dashboard ' + state.title);
+        } else if (createResp.statusCode === 412) {
+            console.log('Unable to publish dashboard: ' + state.title + ' already exists');
+            /* TODO: should delete here?
+            request({
+              url: deleteUrl,
+              method: 'DELETE',
+              jar: j
+            }, function deleteResponseHandler(deleteErr, rawDeleteResp) {
+                if (deleteErr) {
+                    console.log('Unable to publish dashboard ' + state.title);
+                }
+                var deleteResp = rawDeleteResp.toJSON();
+                console.log(deleteResp.statusCode);
+                // if success, re-publish
+            });
+            */
         } else {
-            if ([200, 201].indexOf(response.statusCode) === -1) {
+            if ([200, 201].indexOf(createResp.statusCode) === -1) {
                 console.log('Unable to publish dashboard ' + state.title);
-                console.log(response.body);
-                console.log('Got statusCode' + response.statusCode);
+                console.log(createResp.body);
+                console.log('Got statusCode' + createResp.statusCode);
                 console.log('An invalid auth token results in a 302 error!');
             } else {
                 console.log('Published the dashboard ' + state.title);
