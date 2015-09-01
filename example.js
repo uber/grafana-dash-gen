@@ -5,7 +5,7 @@ var Panels = grafana.Panels;
 var Target = grafana.Target;
 var Templates = grafana.Templates;
 
-grafana.config({
+grafana.configure({
     url: 'https://your.grafana.com/elasticsearch/grafana-dash/dashboard/',
     cookie: 'auth-openid=someidhere'
 });
