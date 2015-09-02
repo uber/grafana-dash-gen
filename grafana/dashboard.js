@@ -10,7 +10,6 @@ function Dashboard(opts) {
     // initialize internal state
     this.state = {};
     this._init(opts);
-    this._initMeta(opts);
     this._initRows(opts);
     this._initAnnotations(opts);
     this._initTemplating(opts);
@@ -31,7 +30,6 @@ function Dashboard(opts) {
 }
 
 Dashboard.prototype._init = function _init(opts) {
-    this.state = this.state || {};
     this.state.id = opts.id || null;
     this.state.title = opts.title || 'Generated Grafana Dashboard';
     this.state.originalTitle = opts.originalTitle || 'Generated Dashboard';
@@ -46,12 +44,7 @@ Dashboard.prototype._init = function _init(opts) {
     this.state.hideAllLegends = !!opts.hideAllLegends;
 };
 
-Dashboard.prototype._initMeta = function _initMeta(opts) {
-    this.state.meta = {};
-    this.state.slug = opts.slug || this.state.title.split(' ').join('-');
-};
-
-Dashboard.prototype._initRows = function _initMeta(opts) {
+Dashboard.prototype._initRows = function _initRows(opts) {
     this.rows = [];
     this.state.rows = [];
 };

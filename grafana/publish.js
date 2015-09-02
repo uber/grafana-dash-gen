@@ -1,13 +1,9 @@
 'use strict';
+
+var chalk = require('chalk');
 var request = require('request');
 var config = require('./config');
 var errors = require('./errors');
-
-// Utility method for determining whether a string ends with a
-// specific character
-function endsWith(str, char) {
-    return str.lastIndexOf(char) === str.length - 1;
-}
 
 function publish(dashboard) {
     if (!dashboard) {
@@ -28,33 +24,11 @@ function publish(dashboard) {
         });
     }
 
-    if (!state.slug && !state.meta.slug) {
-        throw errors.InvalidState({
-            component: 'grafana.Dashboard',
-            invalidArg: 'meta.slug',
-            reason: 'undefined'
-        });
-    }
-
     if (!cfg.url) {
         throw errors.Misconfigured({
             invalidArg: 'url',
             reason: 'undefined',
             resolution: 'Must call grafana.configure before publishing'
-        });
-    }
-
-    if (!cfg.user) {
-        throw errors.Misconfigured({
-            invalidArg: 'user',
-            reason: 'undefined'
-        });
-    }
-
-    if (!cfg.group) {
-        throw errors.Misconfigured({
-            invalidArg: 'group',
-            reason: 'undefined'
         });
     }
 
@@ -65,10 +39,9 @@ function publish(dashboard) {
         });
     }
 
-    // var separator = endsWith(cfg.url, '/') ? '' : '/';
-    // var deleteUrl = [cfg.url, state.slug].join(separator);
-    var createData = {
-        dashboard: dashboard.generate()
+    var reqData = {
+        dashboard: dashboard.generate(),
+        overwrite: true // always overwrite existing when publishing
     };
 
     var j = request.jar();
@@ -78,38 +51,31 @@ function publish(dashboard) {
     request({
         url: cfg.url,
         method: 'POST',
-        json: createData,
+        json: reqData,
         jar: j
-    }, function createResponseHandler(createErr, rawCreateResp) {
-        var createResp = rawCreateResp.toJSON();
-        if (createErr) {
-            console.log('Unable to publish dashboard ' + state.title);
-        } else if (createResp.statusCode === 412) {
-            console.log('Unable to publish dashboard: ' + state.title + ' already exists');
-            /* TODO: should delete here?
-            request({
-              url: deleteUrl,
-              method: 'DELETE',
-              jar: j
-            }, function deleteResponseHandler(deleteErr, rawDeleteResp) {
-                if (deleteErr) {
-                    console.log('Unable to publish dashboard ' + state.title);
-                }
-                var deleteResp = rawDeleteResp.toJSON();
-                console.log(deleteResp.statusCode);
-                // if success, re-publish
-            });
-            */
-        } else {
-            if ([200, 201].indexOf(createResp.statusCode) === -1) {
-                console.log('Unable to publish dashboard ' + state.title);
-                console.log(createResp.body);
-                console.log('Got statusCode' + createResp.statusCode);
-                console.log('An invalid auth token results in a 302 error!');
-            } else {
-                console.log('Published the dashboard ' + state.title);
-            }
+    }, function publishResponseHandler(err, rawResp) {
+        var resp = rawResp && rawResp.toJSON() || {};
+
+        if (err) {
+            debugger;
+            chalk.red('Unable to publish dashboard ' + state.title);
+            return;
         }
+
+        if (resp.statusCode === 412) {
+            chalk.red('Unable to publish dashboard: ' + state.title);
+            chalk.red('Error: ' + (resp.body && resp.body.message || 'n/a'));
+            return;
+        }
+
+        if ([200, 201].indexOf(resp.statusCode) === -1) {
+            chalk.red('Unable to publish dashboard ' + state.title);
+            chalk.red('Body: ' + resp.body);
+            chalk.red('Got statusCode: ' + resp.statusCode);
+            chalk.white('An invalid auth token results in a 302 error!');
+            return;
+        }
+        chalk.green('Published the dashboard ' + state.title);
     });
 }
 

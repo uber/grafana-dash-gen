@@ -9,9 +9,8 @@ module.exports = {
   hideControls: false,
   sharedCrosshair: false,
   refresh: false,
-  version: 6,
+  schemaVersion: 6,
   hideAllLegends: false,
-  meta: { slug: 'custom-slug' },
   rows: [],
   templating: {
     enable: true,
