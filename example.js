@@ -14,7 +14,7 @@ var Target = grafana.Target;
 // has it's own backend. Because of this, the URL for grafana v2 should look
 // something like this:
 //
-//   https://your.grafana.com/grafana2/grafana-dash/dashboard/
+//   https://your.grafana.com/api/dashboards/db/
 
 var TOKEN = 'my-awesome-token';
 
