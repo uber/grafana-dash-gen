@@ -25,8 +25,7 @@ grafana.configure({
 });
 
 var dashboard = new Dashboard({
-   title: 'TEST Api dashboard',
-   slug: 'test-api',
+   title: 'TEST dashboard',  // resulting slug will be /test-dashboard
    templating: [{
        name: 'dc',
        options: ['dc1', 'dc2']

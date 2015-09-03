@@ -5,6 +5,18 @@ var request = require('request');
 var config = require('./config');
 var errors = require('./errors');
 
+/* eslint-disable no-console,no-undef */
+var info = function info(str) {
+    console.log(chalk.white(str));
+};
+var success = function success(str) {
+    console.log(chalk.green(str));
+};
+var error = function error(str) {
+    console.log(chalk.red(str));
+};
+/* eslint-enable no-console, no-undef */
+
 function publish(dashboard) {
     if (!dashboard) {
         throw errors.UnfulfilledRequirement({
@@ -55,26 +67,25 @@ function publish(dashboard) {
         jar: j
     }, function publishResponseHandler(err, rawResp) {
         var resp = rawResp && rawResp.toJSON() || {};
-
         if (err) {
-            chalk.red('Unable to publish dashboard ' + state.title);
+            error('Unable to publish dashboard ' + state.title);
             return;
         }
 
         if (resp.statusCode === 412) {
-            chalk.red('Unable to publish dashboard: ' + state.title);
-            chalk.red('Error: ' + (resp.body && resp.body.message || 'n/a'));
+            error('Unable to publish dashboard: ' + state.title);
+            error('Error: ' + (resp.body && resp.body.message || 'n/a'));
             return;
         }
 
         if ([200, 201].indexOf(resp.statusCode) === -1) {
-            chalk.red('Unable to publish dashboard ' + state.title);
-            chalk.red('Body: ' + resp.body);
-            chalk.red('Got statusCode: ' + resp.statusCode);
-            chalk.white('An invalid auth token results in a 302 error!');
+            error('Unable to publish dashboard ' + state.title);
+            error('Body: ' + resp.body);
+            error('Got statusCode: ' + resp.statusCode);
+            info('An invalid auth token results in a 302 error!');
             return;
         }
-        chalk.green('Published the dashboard ' + state.title);
+        success('Published the dashboard ' + state.title);
     });
 }
 
