@@ -8,18 +8,19 @@ var Target = grafana.Target;
 
 // For grafana v1, the URL should look something like:
 //
-//   https://your.grafana.com/elasticsearch/grafana-dash/dashboard/
+//   https://grafana.example.com/grafana-dash/dashboard/
 //
 // Bascially, grafana v1 used elastic search as its backend, but grafana v2
 // has it's own backend. Because of this, the URL for grafana v2 should look
 // something like this:
 //
-//   https://your.grafana.com/api/dashboards/db/
+//   https://grafana.example.com/grafana2/api/dashboards/db/
+
 
 var TOKEN = 'my-awesome-token';
 
 grafana.configure({
-    url: 'http://see.above.rtfm',
+    url: 'https://grafana.example.com/grafana2/api/dashboards/db/',
     cookie: ['auth-openid', TOKEN].join('=')
 });
 
