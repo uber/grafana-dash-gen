@@ -20,17 +20,17 @@ function Row(opts) {
     if (opts.panels) {
         opts.panels.forEach(function addP(panel) {
             self.addPanel(panel);
-        })
+        });
     }
 }
 
 Row.prototype.generate = function generate() {
-    var generatedJson = [];
-    this.panels.forEach(function generatePannelJson(panel) {
-        generatedJson.push(panel.generate());
+    var generatedPanels = [];
+    this.panels.forEach(function generatePanel(panel) {
+        generatedPanels.push(panel.generate());
     });
 
-    this.state.panels = generatedJson;
+    this.state.panels = generatedPanels;
     return this.state;
 };
 
