@@ -9,8 +9,9 @@ module.exports = {
   hideControls: false,
   sharedCrosshair: false,
   refresh: false,
-  schemaVersion: 6,
+  version: 6,
   hideAllLegends: false,
+  meta: { slug: 'Generated-Grafana-Dashboard' },
   rows: [],
   annotations: { list: [], enable: true },
   templating: { list: [], enable: true }
