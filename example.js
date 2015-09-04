@@ -1,31 +1,18 @@
-'use strict';
-
 var grafana = require('./index');
 var Row = grafana.Row;
 var Dashboard = grafana.Dashboard;
 var Panels = grafana.Panels;
 var Target = grafana.Target;
-
-// For grafana v1, the URL should look something like:
-//
-//   https://grafana.example.com/grafana-dash/dashboard/
-//
-// Bascially, grafana v1 used elastic search as its backend, but grafana v2
-// has it's own backend. Because of this, the URL for grafana v2 should look
-// something like this:
-//
-//   https://grafana.example.com/grafana2/api/dashboards/db/
-
-
-var TOKEN = 'my-awesome-token';
+var Templates = grafana.Templates;
 
 grafana.configure({
-    url: 'https://grafana.example.com/grafana2/api/dashboards/db/',
-    cookie: ['auth-openid', TOKEN].join('=')
+    url: 'https://your.grafana.com/elasticsearch/grafana-dash/dashboard/',
+    cookie: 'auth-openid=someidhere'
 });
 
 var dashboard = new Dashboard({
-   title: 'TEST dashboard',  // resulting slug will be /test-dashboard
+   title: 'TEST Api dashboard',
+   slug: 'test-api',
    templating: [{
        name: 'dc',
        options: ['dc1', 'dc2']
@@ -41,7 +28,7 @@ var dashboard = new Dashboard({
 
 var row = new Row();
 
-var panel = new Panels.Graph({
+var pannel = new Panels.Graph({
   title: 'api req/sec',
   span: 5,
   targets: [
@@ -63,4 +50,5 @@ var requestVolume = new Panels.SingleStat({
     dashboard: dashboard
 });
 
+console.log(dashboard.generate());
 grafana.publish(dashboard);

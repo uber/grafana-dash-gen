@@ -1,21 +1,12 @@
 'use strict';
-
-var chalk = require('chalk');
 var request = require('request');
 var config = require('./config');
 var errors = require('./errors');
 
-/* eslint-disable no-console,no-undef */
-var info = function info(str) {
-    console.log(chalk.white(str));
-};
-var success = function success(str) {
-    console.log(chalk.green(str));
-};
-var error = function error(str) {
-    console.log(chalk.red(str));
-};
-/* eslint-enable no-console, no-undef */
+// Utility method for determining whether a string ends with a specific character
+function endsWith(str, char) {
+    return str.lastIndexOf(char) === str.length-1;
+}
 
 function publish(dashboard) {
     if (!dashboard) {
@@ -36,11 +27,33 @@ function publish(dashboard) {
         });
     }
 
+    if (!state.meta.slug) {
+        throw errors.InvalidState({
+            component: 'grafana.Dashboard',
+            invalidArg: 'meta.slug',
+            reason: 'undefined'
+        });
+    }
+
     if (!cfg.url) {
         throw errors.Misconfigured({
             invalidArg: 'url',
             reason: 'undefined',
             resolution: 'Must call grafana.configure before publishing'
+        });
+    }
+
+    if (!cfg.user) {
+        throw errors.Misconfigured({
+            invalidArg: 'user',
+            reason: 'undefined'
+        });
+    }
+
+    if (!cfg.group) {
+        throw errors.Misconfigured({
+            invalidArg: 'group',
+            reason: 'undefined'
         });
     }
 
@@ -51,9 +64,14 @@ function publish(dashboard) {
         });
     }
 
-    var reqData = {
-        dashboard: dashboard.generate(),
-        overwrite: true // always overwrite existing when publishing
+    var separator = endsWith(cfg.url, '/') ? '' : '/';
+    var putUrl = [cfg.url, state.meta.slug].join(separator);
+    var putData = {
+        user: cfg.user,
+        group: cfg.group,
+        title: state.title,
+        tags: state.tags,
+        dashboard: dashboard.generate()
     };
 
     var j = request.jar();
@@ -61,31 +79,23 @@ function publish(dashboard) {
     j.setCookie(cookie, cfg.url);
 
     request({
-        url: cfg.url,
-        method: 'POST',
-        json: reqData,
+        url: putUrl,
+        method: 'PUT',
+        json: putData,
         jar: j
-    }, function publishResponseHandler(err, rawResp) {
-        var resp = rawResp && rawResp.toJSON() || {};
+    }, function responseHandler(err, response) {
         if (err) {
-            error('Unable to publish dashboard ' + state.title);
-            return;
+            console.log('Unable to publish dashboard ' + state.title);
+        } else {
+            if ([200, 201].indexOf(response.statusCode) === -1) {
+                console.log('Unable to publish dashboard ' + state.title);
+                console.log(response.body);
+                console.log('Got statusCode' + response.statusCode);
+                console.log('An invalid auth token results in a 302 error!');
+            } else {
+                console.log('Published the dashboard ' + state.title);
+            }
         }
-
-        if (resp.statusCode === 412) {
-            error('Unable to publish dashboard: ' + state.title);
-            error('Error: ' + (resp.body && resp.body.message || 'n/a'));
-            return;
-        }
-
-        if ([200, 201].indexOf(resp.statusCode) === -1) {
-            error('Unable to publish dashboard ' + state.title);
-            error('Body: ' + resp.body);
-            error('Got statusCode: ' + resp.statusCode);
-            info('An invalid auth token results in a 302 error!');
-            return;
-        }
-        success('Published the dashboard ' + state.title);
     });
 }
 

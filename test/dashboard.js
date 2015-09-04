@@ -17,6 +17,7 @@ test('Simple Dashboard', function t(assert) {
 test('Dashboard with overriden information', function t(assert) {
     var dashboard = new Dashboard({
         title: 'custom title',
+        slug: 'custom-slug',
         tags: ['foo', 'bar'],
         templating: [{
             name: 'myvar',
@@ -44,7 +45,7 @@ test('Dashboard can add rows', function t(assert) {
     assert.end();
 });
 
-test('Dashboard can generate correct body', function t(assert) {
+test('Dashboard can generate JSON string', function t(assert) {
     var rowData = {foo: 'foo'};
     var dashboard = new Dashboard();
     var row = {
@@ -55,6 +56,7 @@ test('Dashboard can generate correct body', function t(assert) {
     dashboard.addRow(row);
     simpleDashboard.rows = [rowData];
     var json = dashboard.generate();
-    assert.deepEqual(json, simpleDashboard);
+    var expectedJSON = JSON.stringify(simpleDashboard, null, '\t');
+    assert.equal(json, expectedJSON);
     assert.end();
 });
