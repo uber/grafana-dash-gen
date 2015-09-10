@@ -17,7 +17,7 @@ You will be able to generate and publish a grafana graph using the following ste
 
 #### Step 1: Configure grafana 
 if you would like grafana to publish your dashboard you need this step. If you do not need grafana to publish your dashboard, you can skip this step. 
-```
+```js
 var grafana = require('grafana-dash-gen');
 var Row = grafana.Row;
 var Dashboard = grafana.Dashboard;
@@ -31,13 +31,13 @@ grafana.config({
 });
 ```
 #### Step 2: Create a dashboard
-```
+```js
 var dashboard = new Dashboard({
 	title: 'Api dashboard'
 });
 ```
 (or) Below is an example of a dashboard with a custom slug, templates `dc` and `smoothing` and annotations.
-```
+```js
  var dashboard = new Dashboard({
  	title: 'Api dashboard',
   slug: 'api',
@@ -59,13 +59,13 @@ If you do not wish to have any templates and annotations
 
 #### Step 3: Create a new row
 As said abolve, grafana dashboard contains a number of rows. 
-```
+```js
 var row = new Row();
 ```
 
 #### Step 4: Create graphs to add to the row
 There are two ways to add the graph to a row. Pass it while a graph is created as below
-```
+```js
 var pannel = new Panels.Graph({
 	title: 'api req/sec',
 	span: 5, 
@@ -79,7 +79,7 @@ var pannel = new Panels.Graph({
 ```
 
 (or) add it in a separate step
-```
+```js
 var pannel = new Panels.Graph({
 	title: 'api req/sec',
 	span: 5,
@@ -92,7 +92,7 @@ row.addPanel(pannel);
 ```
 
 If you would like to create a full width single stat (as in the image) the code is below. Notice how we create a new row on the fly. 
-```
+```js
 var requestVolume = new Panels.SingleStat({
 	title: 'Current Request Volume',
 	postfix: 'req/sec',
@@ -105,13 +105,13 @@ var requestVolume = new Panels.SingleStat({
 });
 ```
 #### Step 5: Publish the graph
-```
+```js
 grafana.publish(dashboard);
 ```
 
 to generate the json and not publish use
 
-```
+```js
 console.log(dashboard.generate());
 ```
 
