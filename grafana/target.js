@@ -126,7 +126,8 @@ Target.PRIMITIVES = {
     timeShift: 1,
     timeStack: 3,
     transformNull: 0,
-    useSeriesAbove: 3
+    useSeriesAbove: 3,
+    weightedAverage: 2
 };
 
 _.each(Target.PRIMITIVES, function each(n, method) {
