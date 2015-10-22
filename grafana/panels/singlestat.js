@@ -71,6 +71,9 @@ function SingleStat(opts) {
     this.state.span = opts.span || 12;
     this.state.postfix = opts.postfix || '';
     this.state.targets = [];
+    this.state.sparkline = opts.sparkline || this.state.sparkline;
+    this.state.colorValue = typeof opts.colorValue === 'boolean' ? opts.colorValue : this.state.colorValue;
+    this.state.colors = opts.colors || this.state.colors;
 
     if (opts.targets) {
         opts.targets.forEach(function addT(target) {
