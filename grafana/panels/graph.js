@@ -83,7 +83,7 @@ function Graph(opts) {
     this.state.title = opts.title || this.state.title;
     this.state.id = opts.id || generateGraphId();
     this.state.renderer = opts.renderer || 'flot';
-    this.state.fill = opts.fill || this.state.fill;
+    this.state.fill = typeof opts.fill === 'number' ? opts.fill : this.state.fill;
     this.state.nullPointMode = opts.nullPointMode || this.state.nullPointMode;
 
     this.state.targets = [];
