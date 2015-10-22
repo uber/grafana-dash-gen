@@ -23,7 +23,7 @@ module.exports = {
     bars: false,
     editable: true,
     error: false,
-    fill: 2,
+    fill: 0,
     grid: {
         leftMax: null,
         leftMin: null,
@@ -47,7 +47,7 @@ module.exports = {
     lines: true,
     linewidth: 1,
     links: [],
-    nullPointMode: 'null as zero',
+    nullPointMode: 'connected',
     percentage: false,
     pointradius: 5,
     points: false,
