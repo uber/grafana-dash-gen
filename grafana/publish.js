@@ -23,11 +23,7 @@ var request = require('request');
 var config = require('./config');
 var errors = require('./errors');
 
-// Utility method for determining whether a string ends with a specific character
-function endsWith(str, char) {
-    return str.lastIndexOf(char) === str.length-1;
-}
-
+/* eslint-disable max-statements, max-len, no-console, no-undef */
 function publish(dashboard) {
     if (!dashboard) {
         throw errors.UnfulfilledRequirement({
@@ -47,33 +43,11 @@ function publish(dashboard) {
         });
     }
 
-    if (!state.meta.slug) {
-        throw errors.InvalidState({
-            component: 'grafana.Dashboard',
-            invalidArg: 'meta.slug',
-            reason: 'undefined'
-        });
-    }
-
     if (!cfg.url) {
         throw errors.Misconfigured({
             invalidArg: 'url',
             reason: 'undefined',
             resolution: 'Must call grafana.configure before publishing'
-        });
-    }
-
-    if (!cfg.user) {
-        throw errors.Misconfigured({
-            invalidArg: 'user',
-            reason: 'undefined'
-        });
-    }
-
-    if (!cfg.group) {
-        throw errors.Misconfigured({
-            invalidArg: 'group',
-            reason: 'undefined'
         });
     }
 
@@ -84,14 +58,9 @@ function publish(dashboard) {
         });
     }
 
-    var separator = endsWith(cfg.url, '/') ? '' : '/';
-    var putUrl = [cfg.url, state.meta.slug].join(separator);
-    var putData = {
-        user: cfg.user,
-        group: cfg.group,
-        title: state.title,
-        tags: state.tags,
-        dashboard: dashboard.generate()
+    var createData = {
+        dashboard: dashboard.generate(),
+        overwrite: true
     };
 
     var j = request.jar();
@@ -99,24 +68,23 @@ function publish(dashboard) {
     j.setCookie(cookie, cfg.url);
 
     request({
-        url: putUrl,
-        method: 'PUT',
-        json: putData,
-        jar: j
-    }, function responseHandler(err, response) {
-        if (err) {
+        url: cfg.url,
+        method: 'POST',
+        json: createData,
+        jar: j,
+        timeout: 1000
+    }, function createResponseHandler(createErr, createResp) {
+        if (createErr) {
+            console.log('Unable to publish dashboard: ' + createErr);
+        } else if ([200, 201].indexOf(createResp.statusCode) === -1) {
             console.log('Unable to publish dashboard ' + state.title);
+            console.log(createResp.body);
+            console.log('Got statusCode' + createResp.statusCode);
         } else {
-            if ([200, 201].indexOf(response.statusCode) === -1) {
-                console.log('Unable to publish dashboard ' + state.title);
-                console.log(response.body);
-                console.log('Got statusCode' + response.statusCode);
-                console.log('An invalid auth token results in a 302 error!');
-            } else {
-                console.log('Published the dashboard ' + state.title);
-            }
+            console.log('Published the dashboard ' + state.title);
         }
     });
 }
+/* eslint-enable */
 
 module.exports = publish;

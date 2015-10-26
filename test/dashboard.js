@@ -18,31 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-// Copyright (c) 2015 Uber Technologies, Inc.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
 'use strict';
 
 var test = require('cached-tape');
-var panels = require('../grafana/panels'); // for coverage
 var Dashboard = require('../grafana/dashboard');
+require('../grafana/panels'); // for coverage
 
 var simpleDashboard = require('./fixtures/simple_dashboard');
 var overrideDashboard = require('./fixtures/override_dashboard');
@@ -57,7 +37,6 @@ test('Simple Dashboard', function t(assert) {
 test('Dashboard with overriden information', function t(assert) {
     var dashboard = new Dashboard({
         title: 'custom title',
-        slug: 'custom-slug',
         tags: ['foo', 'bar'],
         templating: [{
             name: 'myvar',
@@ -70,7 +49,14 @@ test('Dashboard with overriden information', function t(assert) {
             name: 'Deploy Completed',
             target: 'path.to.metric.with.annotation'
         }],
-        refresh: '1m'
+        refresh: '1m',
+        rows: [{
+            title: 'New row',
+            height: '250px',
+            editable: true,
+            collapse: false,
+            panels: []
+        }]
     });
     dashboard.state.id = overrideDashboard.id;
     assert.deepEqual(dashboard.state, overrideDashboard);
@@ -85,7 +71,7 @@ test('Dashboard can add rows', function t(assert) {
     assert.end();
 });
 
-test('Dashboard can generate JSON string', function t(assert) {
+test('Dashboard can generate correct body', function t(assert) {
     var rowData = {foo: 'foo'};
     var dashboard = new Dashboard();
     var row = {
@@ -96,7 +82,6 @@ test('Dashboard can generate JSON string', function t(assert) {
     dashboard.addRow(row);
     simpleDashboard.rows = [rowData];
     var json = dashboard.generate();
-    var expectedJSON = JSON.stringify(simpleDashboard, null, '\t');
-    assert.equal(json, expectedJSON);
+    assert.deepEqual(json, simpleDashboard);
     assert.end();
 });

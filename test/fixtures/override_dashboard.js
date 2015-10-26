@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+'use strict';
 module.exports = {
   id: null,
   title: 'custom title',
@@ -28,10 +29,9 @@ module.exports = {
   editable: true,
   hideControls: false,
   sharedCrosshair: false,
-  refresh: false,
-  version: 6,
+  refresh: '1m',
+  schemaVersion: 6,
   hideAllLegends: false,
-  meta: { slug: 'custom-slug' },
   rows: [],
   templating: {
     enable: true,
@@ -52,7 +52,7 @@ module.exports = {
             value: 'b'
         }],
         query: 'a,b',
-        refresh_on_load: false,
+        'refresh_on_load': false,
         type: 'custom'
     }, {
         allFormat: 'glob',
@@ -79,7 +79,7 @@ module.exports = {
             value: '1min'
         }],
         query: '30min,10min,5min,2min,1min',
-        refresh_on_load: false,
+        'refresh_on_load': false,
         type: 'custom'
     }]
   },
@@ -95,6 +95,5 @@ module.exports = {
         enable: true,
         target: 'path.to.metric.with.annotation'
     }]
-  },
-  refresh: '1m'
+  }
 };
