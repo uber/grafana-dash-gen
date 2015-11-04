@@ -88,7 +88,8 @@ function publish(dashboard) {
     // var separator = endsWith(cfg.url, '/') ? '' : '/';
     // var deleteUrl = [cfg.url, state.slug].join(separator);
     var createData = {
-        dashboard: dashboard.generate()
+        dashboard: dashboard.generate(),
+        overwrite: true
     };
 
     var j = request.jar();
@@ -107,19 +108,19 @@ function publish(dashboard) {
         } else if (createResp.statusCode === 412) {
             console.log('Unable to publish dashboard: ' + state.title + ' already exists');
             /* TODO: should delete here?
-            request({
-              url: deleteUrl,
-              method: 'DELETE',
-              jar: j
-            }, function deleteResponseHandler(deleteErr, rawDeleteResp) {
-                if (deleteErr) {
-                    console.log('Unable to publish dashboard ' + state.title);
-                }
-                var deleteResp = rawDeleteResp.toJSON();
-                console.log(deleteResp.statusCode);
-                // if success, re-publish
-            });
-            */
+             request({
+             url: deleteUrl,
+             method: 'DELETE',
+             jar: j
+             }, function deleteResponseHandler(deleteErr, rawDeleteResp) {
+             if (deleteErr) {
+             console.log('Unable to publish dashboard ' + state.title);
+             }
+             var deleteResp = rawDeleteResp.toJSON();
+             console.log(deleteResp.statusCode);
+             // if success, re-publish
+             });
+             */
         } else {
             if ([200, 201].indexOf(createResp.statusCode) === -1) {
                 console.log('Unable to publish dashboard ' + state.title);
