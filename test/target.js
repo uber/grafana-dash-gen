@@ -145,14 +145,6 @@ test('Target helper-method - lastWeek', function t(assert) {
     assert.end();
 });
 
-test('Target helper-method - perSecond', function t(assert) {
-    var arg = 'path.to.metric';
-    var expected = 'scale(path.to.metric, 0.1)';
-    var target = new Target(arg).perSecond().toString();
-    assert.equal(target, expected);
-    assert.end();
-});
-
 test('Target helper-method - summarize15min', function t(assert) {
     var arg = 'path.to.metric';
     var expected = 'summarize(path.to.metric, "15min")';

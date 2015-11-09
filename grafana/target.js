@@ -200,10 +200,6 @@ Target.prototype.lastWeek = function lastWeek() {
     return this.timeShift('7d');
 };
 
-Target.prototype.perSecond = function perSecond() {
-    return this.scale(0.1);
-};
-
 Target.prototype.summarize15min = function summarize15min() {
     return this.summarize('15min');
 };
