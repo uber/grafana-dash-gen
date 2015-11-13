@@ -21,8 +21,8 @@
 module.exports = {
     cacheTimeout: null,
     colorBackground: false,
-    colorValue: false,
-    colors: ['rgba(71, 212, 59, 0.4)', 'rgba(245, 150, 40, 0.73)', 'rgba(225, 40, 40, 0.59)'],
+    colorValue: true,
+    colors: ['rgba(1, 2, 3, 1)', 'rgba(1, 2, 3, 1)', 'rgba(1, 2, 3, 1)'],
     editable: true,
     error: false,
     format: 'none',
