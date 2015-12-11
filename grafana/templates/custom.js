@@ -60,7 +60,7 @@ Custom.prototype.addOption = function addOption(option, defaultOption) {
     // update the query
     var query = [];
     this.state.options.forEach(function forEach(op) {
-        query.push(op.text);
+        query.push(op.value);
     });
 
     this.state.query = query.join(',');

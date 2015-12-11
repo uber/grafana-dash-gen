@@ -29,7 +29,7 @@ module.exports = {
     refresh_on_load: false,
     includeAll: false,
     allFormat: 'glob',
-    query: 'myText',
+    query: 'myValue',
     current: {
         text: 'myText',
         value: 'myValue'
