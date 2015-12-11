@@ -18,6 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-require('./graph');
-require('./singlestat');
-require('./text');
+module.exports = {
+    "title": "",
+    "error": false,
+    "span": 4,
+    "editable": true,
+    "type": "text",
+    "id": 2,
+    "mode": "markdown",
+    "content": "TEST",
+    "style": {},
+    "links": []
+}
