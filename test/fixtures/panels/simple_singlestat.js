@@ -53,5 +53,6 @@ module.exports = {
 		text: 'N/A',
 		value: 'null'
 	}],
-	valueName: 'current'
+	valueName: 'current',
+	datasource: 'graphite'
 }

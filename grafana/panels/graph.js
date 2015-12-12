@@ -73,7 +73,8 @@ function Graph(opts) {
         'seriesOverrides': [
             {}
         ],
-        'links': []
+        'links': [],
+        'datasource': 'graphite'
     };
 
     this.state.legend = opts.legend || this.state.legend;
@@ -83,6 +84,7 @@ function Graph(opts) {
     this.state.title = opts.title || this.state.title;
     this.state.id = opts.id || generateGraphId();
     this.state.renderer = opts.renderer || 'flot';
+    this.state.datasource = opts.datasource || this.state.datasource;
 
     this.state.targets = [];
 

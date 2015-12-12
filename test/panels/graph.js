@@ -37,7 +37,8 @@ test('graph with overriden information', function t(assert) {
     var graph = new Graph({
         span: 4,
         title: 'custom title',
-        targets: ['target']
+        targets: ['target'],
+        datasource: 'M3'
     });
     graph.state.id = overrideGraph.id;
 
