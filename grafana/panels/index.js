@@ -22,8 +22,10 @@
 
 var Graph = require('./graph');
 var SingleStat = require('./singlestat');
+var Text = require('./text');
 
 module.exports = {
 	Graph: Graph,
-	SingleStat: SingleStat
+	SingleStat: SingleStat,
+	Text: Text
 };
