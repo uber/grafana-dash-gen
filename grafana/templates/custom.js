@@ -45,23 +45,30 @@ function Custom(opts) {
 }
 
 Custom.prototype.addOption = function addOption(option, defaultOption) {
-    this.state.options.push({
-        text: option,
-        value: option
-    });
+    var opt = {};
+    // Don't assume that the text and value should be the same
+    if (typeof option === 'object') {
+        opt = option;
+    } else {
+        opt = {
+            text: option,
+            value: option
+        }
+    }
+    this.state.options.push(opt);
 
     // update the query
     var query = [];
     this.state.options.forEach(function forEach(op) {
-        query.push(op.text);
+        query.push(op.value);
     });
 
     this.state.query = query.join(',');
 
     if (defaultOption) {
         this.state.current = {
-            text: option,
-            value: option
+            text: opt.text,
+            value: opt.value
         };
     }
 };

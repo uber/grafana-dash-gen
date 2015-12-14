@@ -25,6 +25,7 @@ var Custom = require('../../grafana/templates/custom');
 
 var simpleCustom = require('../fixtures/templates/simple_custom');
 var overrideCustom = require('../fixtures/templates/override_custom');
+var overrideCustomTextValue = require('../fixtures/templates/override_custom_text_value');
 
 test('Custom template has defaults', function t(assert) {
     var template = new Custom();
@@ -61,5 +62,20 @@ test('Custom template can add options', function t(assert) {
     template.addOption('b', true)
 
     assert.deepEqual(template.state, overrideCustom);
+    assert.end();
+});
+
+test('Custom template can specify text and value', function t(assert) {
+    var name = 'custom';
+    var opt = {
+        text: 'myText',
+        value: 'myValue'
+    };
+    var template = new Custom({
+        name: name,
+        options: [opt]
+    });
+
+    assert.deepEqual(template.generate(), overrideCustomTextValue);
     assert.end();
 });
