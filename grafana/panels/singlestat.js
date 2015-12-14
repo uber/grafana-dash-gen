@@ -63,7 +63,8 @@ function SingleStat(opts) {
             full: true,
             lineColor: 'rgb(31, 193, 58)',
             fillColor: 'rgba(134, 178, 214, 0.41)'
-        }
+        },
+        datasource: 'graphite'
     };
 
     this.state.title = opts.title || this.state.title;
@@ -71,6 +72,7 @@ function SingleStat(opts) {
     this.state.span = opts.span || 12;
     this.state.postfix = opts.postfix || '';
     this.state.targets = [];
+    this.state.datasource = opts.datasource || this.state.datasource;
 
     if (opts.targets) {
         opts.targets.forEach(function addT(target) {

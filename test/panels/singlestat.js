@@ -38,7 +38,8 @@ test('SingleStat panel with overriden information', function t(assert) {
     var graph = new SingleStat({
         span: 4,
         title: 'custom title',
-        targets: ['target']
+        targets: ['target'],
+        datasource: 'M3'
     });
     graph.state.id = overrideSingleStat.id;
 

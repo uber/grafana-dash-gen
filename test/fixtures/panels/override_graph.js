@@ -67,5 +67,6 @@ module.exports = {
     type: 'graph',
     'x-axis': true,
     'y-axis': true,
-    y_formats: ['short', 'short']
+    y_formats: ['short', 'short'],
+    datasource: 'M3'
 }
