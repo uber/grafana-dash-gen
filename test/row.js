@@ -47,6 +47,7 @@ test('Row with overriden information', function t(assert) {
         title: 'My Row',
         height: '1000px',
         editable: false,
+        showTitle: true,
         collapse: true,
         panels: [panel1]
     });
@@ -77,6 +78,7 @@ test('Row can add panels', function t(assert) {
     var row = new Row({
         title: 'My Row',
         height: '1000px',
+        showTitle: false,
         editable: false,
         collapse: true
     });
@@ -107,6 +109,7 @@ test('Row generates state', function t(assert) {
         title: 'My Row',
         height: '1000px',
         editable: false,
+        showTitle: true,
         collapse: true,
         panels: [panel]
     });
