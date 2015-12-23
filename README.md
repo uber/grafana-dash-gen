@@ -4,8 +4,8 @@ A collection of utility classes to construct and publish grafana graphs. The lib
 
 - **Dashboard**: Represents the final dashboard that is displayed.
 - **Row**: A row in grafana. Dashboard consists or many rows.
-- **Pannel**: A visual display item. A pannel could be a graph, single stat or others. A row consists of many panels.
-- **Target**: A dot separated graphite string. E.g, a.b.count. A Panel consissts of many targets.
+- **Panel**: A visual display item. A panel could be a graph, single stat or others. A row consists of many panels.
+- **Target**: A dot separated graphite string. E.g, a.b.count. A Panel consists of many targets.
 - **Annotations**: Lined markers that will annotate a graph (panel). A Dashboard can have annotations added to it. 
 - **Templates**: Variables that can be included in the state. E.g, a.$dc.b.count (to switch between datacenters). A Dashboard can have templates added to it. 
 
@@ -66,7 +66,7 @@ var row = new Row();
 #### Step 4: Create graphs to add to the row
 There are two ways to add the graph to a row. Pass it while a graph is created as below
 ```js
-var pannel = new Panels.Graph({
+var panel = new Panels.Graph({
 	title: 'api req/sec',
 	span: 5, 
 	targets: [
@@ -80,7 +80,7 @@ var pannel = new Panels.Graph({
 
 (or) add it in a separate step
 ```js
-var pannel = new Panels.Graph({
+var panel = new Panels.Graph({
 	title: 'api req/sec',
 	span: 5,
 	targets: [
@@ -88,7 +88,7 @@ var pannel = new Panels.Graph({
 					transformNull(0).sum().hitcount('1seconds').scale(0.1).alias('rps')
 	]
 });
-row.addPanel(pannel);
+row.addPanel(panel);
 ```
 
 If you would like to create a full width single stat (as in the image) the code is below. Notice how we create a new row on the fly. 

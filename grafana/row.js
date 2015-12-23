@@ -46,7 +46,7 @@ function Row(opts) {
 
 Row.prototype.generate = function generate() {
     var generatedJson = [];
-    this.panels.forEach(function generatePannelJson(panel) {
+    this.panels.forEach(function generatePanelJson(panel) {
         generatedJson.push(panel.generate());
     });
 
