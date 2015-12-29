@@ -20,6 +20,8 @@
 
 'use strict';
 
+var _ = require('underscore');
+var defaultsDeep = require('defaults-deep');
 var errors = require('../errors');
 
 function Graphite(opts) {
@@ -40,16 +42,18 @@ function Graphite(opts) {
         });
     }
 
-    self.state = {
-        name: opts.name,
+    var defaults = {
+        name: 'no name',
         datasource: 'graphite',
         showLine: true,
         iconColor: 'rgb(255, 234, 0)',
         lineColor: 'rgba(165, 161, 70, 0.59)',
         iconSize: 10,
         enable: true,
-        target: opts.target
+        target: ''
     };
+    
+    self.state = defaultsDeep(_.clone(opts), defaults);
 }
 
 Graphite.prototype.generate = function generate() {
