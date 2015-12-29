@@ -67,4 +67,4 @@ module.exports = {
 	'y-axis': true,
 	y_formats: ['short', 'short'],
 	datasource: 'graphite'
-}
+};
