@@ -40,7 +40,7 @@ var dashboard = new Dashboard({
 ```js
  var dashboard = new Dashboard({
  	title: 'Api dashboard',
-  slug: 'api',
+ 	slug: 'api',
  	templating: [{
  		name: 'dc',
  		options: ['dc1', 'dc2']
