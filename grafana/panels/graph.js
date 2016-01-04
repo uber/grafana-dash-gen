@@ -86,6 +86,10 @@ function Graph(opts) {
     this.state.renderer = opts.renderer || 'flot';
     this.state.datasource = opts.datasource || this.state.datasource;
 
+    if (opts.hasOwnProperty('fill')) {
+        this.state.fill = opts.fill;
+    }
+
     this.state.targets = [];
 
     if (opts.targets) {
