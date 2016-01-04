@@ -23,7 +23,7 @@ module.exports = {
     bars: false,
     editable: true,
     error: false,
-    fill: 2,
+    fill: 0,
     grid: {
         leftMax: null,
         leftMin: null,
