@@ -24,7 +24,9 @@ var config = require('./config');
 var errors = require('./errors');
 
 /* eslint-disable max-statements, max-len, no-console, no-undef */
-function publish(dashboard) {
+function publish(dashboard, opts) {
+    opts = opts || {};
+    
     if (!dashboard) {
         throw errors.UnfulfilledRequirement({
             component: 'grafana.publish',
@@ -72,7 +74,7 @@ function publish(dashboard) {
         method: 'POST',
         json: createData,
         jar: j,
-        timeout: 1000
+        timeout: opts.timeout || 1000
     }, function createResponseHandler(createErr, createResp) {
         if (createErr) {
             console.log('Unable to publish dashboard: ' + createErr);
