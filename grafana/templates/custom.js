@@ -22,55 +22,58 @@
 
 function Custom(opts) {
     opts = opts || {};
-    var self = this;
 
-    this.state = {
-        type: 'custom',
-        datasource: null,
-        refresh_on_load: false,
-        options: [],
-        includeAll: false,
+    var defaultState = {
         allFormat: 'glob',
+        current: null,
+        datasource: null,
+        includeAll: false,
+        name: 'template',
+        options: [],
         query: null,
-        current: null
+        refresh_on_load: false,
+        type: 'custom'
     };
+    this.state = defaultState;
 
-    this.state.name = opts.name || 'template';
+    // Overwrite defaults with custom values
+    for (var opt in opts) {
+        if (opts.hasOwnProperty(opt)) {
+            this.state[opt] = opts[opt];
+        }
+    }
 
-    if (opts.options) {
-        opts.options.forEach(function addOp(option) {
-            self.addOption(option, true);
-        });
+    if (this.state.options.length) {
+        this._processOptions();
     }
 }
 
-Custom.prototype.addOption = function addOption(option, defaultOption) {
-    var opt = {};
-    // Don't assume that the text and value should be the same
-    if (typeof option === 'object') {
-        opt = option;
-    } else {
-        opt = {
-            text: option,
-            value: option
-        }
-    }
-    this.state.options.push(opt);
+/*
+ * Ensures options are objects, and updates the state's query and current values.
+ */
+Custom.prototype._processOptions = function _processOptions() {
+    var self = this;
 
-    // update the query
-    var query = [];
-    this.state.options.forEach(function forEach(op) {
-        query.push(op.value);
+    var newOptions = [];
+    var newQuery = [];
+
+    this.state.options.forEach(function processOption(option) {
+        var opt = {};
+        if (typeof option === 'object') {
+            opt = option;
+        } else {
+            opt = {
+                text: option,
+                value: option
+            }
+        }
+        self.state.current = opt;
+        newOptions.push(opt);
+        newQuery.push(opt.value);
     });
 
-    this.state.query = query.join(',');
-
-    if (defaultOption) {
-        this.state.current = {
-            text: opt.text,
-            value: opt.value
-        };
-    }
+    this.state.options = newOptions;
+    this.state.query = newQuery.join(',');
 };
 
 Custom.prototype.generate = function generate() {

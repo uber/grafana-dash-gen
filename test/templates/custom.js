@@ -57,10 +57,11 @@ test('Custom template generates state', function t(assert) {
 
 test('Custom template can add options', function t(assert) {
     var name = 'custom';
-    var template = new Custom({name: name});
-    template.addOption('a');
-    template.addOption('b', true)
-
+    var options = ['a', 'b'];
+    var template = new Custom({
+        name: name,
+        options: options
+    });
     assert.deepEqual(template.state, overrideCustom);
     assert.end();
 });
@@ -75,7 +76,17 @@ test('Custom template can specify text and value', function t(assert) {
         name: name,
         options: [opt]
     });
-
     assert.deepEqual(template.generate(), overrideCustomTextValue);
+    assert.end();
+});
+
+test('Custom template overwrites default state', function t(assert) {
+    var defaultTemplate = new Custom();
+    assert.equal(defaultTemplate.state.includeAll, false);
+
+    var customTemplate = new Custom({
+        includeAll: true
+    });
+    assert.equal(customTemplate.state.includeAll, true);
     assert.end();
 });
