@@ -38,7 +38,8 @@ test('graph with overriden information', function t(assert) {
         span: 4,
         title: 'custom title',
         targets: ['target'],
-        datasource: 'M3'
+        datasource: 'M3',
+        fill: 0
     });
     graph.state.id = overrideGraph.id;
 
