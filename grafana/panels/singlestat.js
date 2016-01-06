@@ -26,8 +26,10 @@ function SingleStat(opts) {
     opts = opts || {};
     var self = this;
 
-    this.state = {
+    var defaults = {
+        id: generateGraphId(),
         title: 'single stat',
+        targets: [],
         error: false,
         span: 12,
         editable: true,
@@ -66,15 +68,15 @@ function SingleStat(opts) {
         },
         datasource: 'graphite'
     };
+    this.state = defaults;
 
-    this.state.title = opts.title || this.state.title;
-    this.state.id = opts.id || generateGraphId();
-    this.state.span = opts.span || 12;
-    this.state.postfix = opts.postfix || '';
-    this.state.targets = [];
-    this.state.datasource = opts.datasource || this.state.datasource;
+    // Overwrite defaults with custom values
+    Object.keys(opts).forEach(function eachOpt(opt) {
+        self.state[opt] = opts[opt];
+    });
 
     if (opts.targets) {
+        this.state.targets = [];
         opts.targets.forEach(function addT(target) {
             self.addTarget(target);
         });

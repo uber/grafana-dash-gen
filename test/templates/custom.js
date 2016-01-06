@@ -25,7 +25,8 @@ var Custom = require('../../grafana/templates/custom');
 
 var simpleCustom = require('../fixtures/templates/simple_custom');
 var overrideCustom = require('../fixtures/templates/override_custom');
-var overrideCustomTextValue = require('../fixtures/templates/override_custom_text_value');
+var overrideCustomTextValue =
+    require('../fixtures/templates/override_custom_text_value');
 
 test('Custom template has defaults', function t(assert) {
     var template = new Custom();
@@ -38,7 +39,8 @@ test('Custom template creates state', function t(assert) {
     var options = ['a', 'b'];
     var template = new Custom({
         name: name,
-        options: options
+        options: options,
+        arbitraryProperty: 'foo'
     });
     assert.deepEqual(template.state, overrideCustom);
     assert.end();
@@ -49,7 +51,8 @@ test('Custom template generates state', function t(assert) {
     var options = ['a', 'b'];
     var template = new Custom({
         name: name,
-        options: options
+        options: options,
+        arbitraryProperty: 'foo'
     });
     assert.deepEqual(template.generate(), overrideCustom);
     assert.end();
@@ -60,7 +63,8 @@ test('Custom template can add options', function t(assert) {
     var options = ['a', 'b'];
     var template = new Custom({
         name: name,
-        options: options
+        options: options,
+        arbitraryProperty: 'foo'
     });
     assert.deepEqual(template.state, overrideCustom);
     assert.end();
@@ -74,7 +78,8 @@ test('Custom template can specify text and value', function t(assert) {
     };
     var template = new Custom({
         name: name,
-        options: [opt]
+        options: [opt],
+        arbitraryProperty: 'foo'
     });
     assert.deepEqual(template.generate(), overrideCustomTextValue);
     assert.end();
@@ -85,7 +90,8 @@ test('Custom template overwrites default state', function t(assert) {
     assert.equal(defaultTemplate.state.includeAll, false);
 
     var customTemplate = new Custom({
-        includeAll: true
+        includeAll: true,
+        arbitraryProperty: 'foo'
     });
     assert.equal(customTemplate.state.includeAll, true);
     assert.end();

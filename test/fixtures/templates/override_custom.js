@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+'use strict';
+
 module.exports = {
     name: 'custom',
     type: 'custom',
@@ -29,12 +31,13 @@ module.exports = {
         value: 'b'
     }],
     datasource: null,
-    refresh_on_load: false,
+    'refresh_on_load': false,
     includeAll: false,
     allFormat: 'glob',
     query: 'a,b',
     current: {
         text: 'b',
         value: 'b'
-    }
-}
+    },
+    arbitraryProperty: 'foo'
+};

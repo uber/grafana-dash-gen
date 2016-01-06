@@ -20,6 +20,7 @@
 
 'use strict';
 
+/* eslint-disable no-new */
 var test = require('cached-tape');
 var SingleStat = require('../../grafana/panels/singlestat');
 
@@ -39,7 +40,8 @@ test('SingleStat panel with overriden information', function t(assert) {
         span: 4,
         title: 'custom title',
         targets: ['target'],
-        datasource: 'M3'
+        datasource: 'M3',
+        arbitraryProperty: 'foo'
     });
     graph.state.id = overrideSingleStat.id;
 
@@ -55,7 +57,7 @@ test('SingleStat can set title', function t(assert) {
     assert.end();
 });
 
-test('add graph to row and dashboard when passed', function t(assert){
+test('add graph to row and dashboard when passed', function t(assert) {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 

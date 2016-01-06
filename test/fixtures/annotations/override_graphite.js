@@ -18,13 +18,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+'use strict';
+
 module.exports = {
     name: 'custom name',
-    datasource: 'graphite',
-    showLine: true,
-    iconColor: 'rgb(255, 234, 0)',
-    lineColor: 'rgba(165, 161, 70, 0.59)',
-    iconSize: 10,
-    enable: true,
-    target: 'custom.target'
-}
+    datasource: 'custom datasource',
+    showLine: false,
+    iconColor: 'rgb(255, 0, 0)',
+    lineColor: 'rgb(0, 0, 255)',
+    iconSize: 5,
+    enable: false,
+    target: 'custom.target',
+    arbitraryProperty: 'foo'
+};

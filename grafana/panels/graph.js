@@ -26,7 +26,10 @@ function Graph(opts) {
     opts = opts || {};
     var self = this;
 
-    this.state = {
+    var defaults = {
+        'type': 'graph',
+        'id': generateGraphId(),
+        'renderer': 'flot',
         'title': 'no title (click here)',
         'error': false,
         'editable': true,
@@ -47,6 +50,7 @@ function Graph(opts) {
             'threshold2Color': 'rgba(234, 112, 112, 0.22)'
         },
         'lines': true,
+        'span': 12,
         'fill': 2,
         'linewidth': 1,
         'points': false,
@@ -54,6 +58,7 @@ function Graph(opts) {
         'bars': false,
         'stack': false,
         'percentage': false,
+        'targets': [],
         'legend': {
             'show': true,
             'values': true,
@@ -76,23 +81,15 @@ function Graph(opts) {
         'links': [],
         'datasource': 'graphite'
     };
+    this.state = defaults;
 
-    this.state.legend = opts.legend || this.state.legend;
-    this.state.aliasColors = opts.aliasColors || this.state.aliasColors;
-    this.state.type = opts.type || 'graph';
-    this.state.span = opts.span || 12;
-    this.state.title = opts.title || this.state.title;
-    this.state.id = opts.id || generateGraphId();
-    this.state.renderer = opts.renderer || 'flot';
-    this.state.datasource = opts.datasource || this.state.datasource;
-
-    if (opts.hasOwnProperty('fill')) {
-        this.state.fill = opts.fill;
-    }
-
-    this.state.targets = [];
+    // Overwrite defaults with custom values
+    Object.keys(opts).forEach(function eachOpt(opt) {
+        self.state[opt] = opts[opt];
+    });
 
     if (opts.targets) {
+        this.state.targets = [];
         opts.targets.forEach(function addT(target) {
             self.addTarget(target);
         });

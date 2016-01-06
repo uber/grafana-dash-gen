@@ -40,16 +40,22 @@ function Graphite(opts) {
         });
     }
 
-    self.state = {
-        name: opts.name,
+    var defaults = {
+        name: 'no name',
         datasource: 'graphite',
         showLine: true,
         iconColor: 'rgb(255, 234, 0)',
         lineColor: 'rgba(165, 161, 70, 0.59)',
         iconSize: 10,
         enable: true,
-        target: opts.target
+        target: ''
     };
+    self.state = defaults;
+
+    // Overwrite defaults with custom values
+    Object.keys(opts).forEach(function eachOpt(opt) {
+        self.state[opt] = opts[opt];
+    });
 }
 
 Graphite.prototype.generate = function generate() {
