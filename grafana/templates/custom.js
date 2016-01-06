@@ -22,7 +22,7 @@
 
 function Custom(opts) {
     opts = opts || {};
-
+    var self = this;
     var defaultState = {
         allFormat: 'glob',
         current: null,
@@ -31,17 +31,15 @@ function Custom(opts) {
         name: 'template',
         options: [],
         query: null,
-        refresh_on_load: false,
+        'refresh_on_load': false,
         type: 'custom'
     };
     this.state = defaultState;
 
     // Overwrite defaults with custom values
-    for (var opt in opts) {
-        if (opts.hasOwnProperty(opt)) {
-            this.state[opt] = opts[opt];
-        }
-    }
+    Object.keys(opts).forEach(function eachOpt(opt) {
+        self.state[opt] = opts[opt];
+    });
 
     if (this.state.options.length) {
         this._processOptions();
@@ -49,7 +47,8 @@ function Custom(opts) {
 }
 
 /*
- * Ensures options are objects, and updates the state's query and current values.
+ * Ensures options are objects, and updates the state's query and current
+ * values.
  */
 Custom.prototype._processOptions = function _processOptions() {
     var self = this;
@@ -65,7 +64,7 @@ Custom.prototype._processOptions = function _processOptions() {
             opt = {
                 text: option,
                 value: option
-            }
+            };
         }
         self.state.current = opt;
         newOptions.push(opt);

@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+'use strict';
+
 module.exports = {
     aliasColors: {},
     bars: false,
@@ -62,11 +64,12 @@ module.exports = {
     title: 'custom title',
     tooltip: {
         shared: false,
-        value_type: 'cumulative'
+        'value_type': 'cumulative'
     },
     type: 'graph',
     'x-axis': true,
     'y-axis': true,
-    y_formats: ['short', 'short'],
-    datasource: 'M3'
+    'y_formats': ['short', 'short'],
+    datasource: 'M3',
+    arbitraryProperty: 'foo'
 };

@@ -71,11 +71,9 @@ function SingleStat(opts) {
     this.state = defaults;
 
     // Overwrite defaults with custom values
-    for (var opt in opts) {
-        if (opts.hasOwnProperty(opt)) {
-            this.state[opt] = opts[opt];
-        }
-    }
+    Object.keys(opts).forEach(function eachOpt(opt) {
+        self.state[opt] = opts[opt];
+    });
 
     if (opts.targets) {
         this.state.targets = [];

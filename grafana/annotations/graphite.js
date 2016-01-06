@@ -53,11 +53,9 @@ function Graphite(opts) {
     self.state = defaults;
 
     // Overwrite defaults with custom values
-    for (var opt in opts) {
-        if (opts.hasOwnProperty(opt)) {
-            this.state[opt] = opts[opt];
-        }
-    }
+    Object.keys(opts).forEach(function eachOpt(opt) {
+        self.state[opt] = opts[opt];
+    });
 }
 
 Graphite.prototype.generate = function generate() {

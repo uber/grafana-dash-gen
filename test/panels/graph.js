@@ -20,6 +20,7 @@
 
 'use strict';
 
+/* eslint-disable no-new */
 var test = require('cached-tape');
 var Graph = require('../../grafana/panels/graph');
 
@@ -39,7 +40,8 @@ test('graph with overriden information', function t(assert) {
         title: 'custom title',
         targets: ['target'],
         datasource: 'M3',
-        fill: 0
+        fill: 0,
+        arbitraryProperty: 'foo'
     });
     graph.state.id = overrideGraph.id;
 
