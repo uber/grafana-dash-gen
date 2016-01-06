@@ -20,8 +20,6 @@
 
 'use strict';
 
-var _ = require('underscore');
-var defaultsDeep = require('defaults-deep');
 var generateGraphId = require('../id');
 
 function Graph(opts) {
@@ -83,9 +81,14 @@ function Graph(opts) {
         'links': [],
         'datasource': 'graphite'
     };
+    this.state = defaults;
 
-    // Allow overriding of any options
-    this.state = defaultsDeep(_.clone(opts), defaults);
+    // Overwrite defaults with custom values
+    for (var opt in opts) {
+        if (opts.hasOwnProperty(opt)) {
+            this.state[opt] = opts[opt];
+        }
+    }
 
     if (opts.targets) {
         this.state.targets = [];

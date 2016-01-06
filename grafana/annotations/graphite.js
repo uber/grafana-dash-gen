@@ -20,8 +20,6 @@
 
 'use strict';
 
-var _ = require('underscore');
-var defaultsDeep = require('defaults-deep');
 var errors = require('../errors');
 
 function Graphite(opts) {
@@ -52,8 +50,14 @@ function Graphite(opts) {
         enable: true,
         target: ''
     };
-    
-    self.state = defaultsDeep(_.clone(opts), defaults);
+    self.state = defaults;
+
+    // Overwrite defaults with custom values
+    for (var opt in opts) {
+        if (opts.hasOwnProperty(opt)) {
+            this.state[opt] = opts[opt];
+        }
+    }
 }
 
 Graphite.prototype.generate = function generate() {
