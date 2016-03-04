@@ -95,5 +95,6 @@ module.exports = {
         enable: true,
         target: 'path.to.metric.with.annotation'
     }]
-  }
+  },
+  time: {from: 'now-6h', to: 'now'}
 };
