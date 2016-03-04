@@ -15,7 +15,7 @@
     "generator"
   ],
   "author": "Madan Thangavelu",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "error": "^7.0.2",
     "request": "^2.55.0",
