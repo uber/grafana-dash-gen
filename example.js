@@ -74,6 +74,13 @@ function generateDashboard() {
         ]
     });
 
+    var favDashboardList = new Panels.DashboardList({
+        title: 'My Favorite Dashboard',
+        span: 4,
+        mode: 'search',
+        query: 'dashboard list'
+    });
+
     // Panels: system health
     var cpuGraph = new Panels.Graph({
         title: 'CPU',
@@ -125,6 +132,7 @@ function generateDashboard() {
     // Layout: panels
     volumeRow.addPanel(rpsGraphPanel);
     volumeRow.addPanel(rpsStatPanel);
+    volumeRow.addPanel(favDashboardList);
     systemRow.addPanel(cpuGraph);
     systemRow.addPanel(rssGraph);
     systemRow.addPanel(fdsGraph);
