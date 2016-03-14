@@ -20,10 +20,15 @@
 
 'use strict';
 
-var Custom = require('./custom');
-var Query = require('./query');
-
 module.exports = {
-    Custom: Custom,
-    Query: Query
+    type: 'query',
+    query: 'servers.*',
+    name: 'foo',
+    datasource: 'default',
+    options: [],
+    current: null,
+    includeAll: true,
+    allFormat: 'wildcard',
+    refresh: false,
+    multi: false
 };
