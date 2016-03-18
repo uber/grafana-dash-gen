@@ -31,7 +31,8 @@ function Row(opts) {
       height: '250px',
       editable: true,
       collapse: false,
-      panels: []
+      panels: [],
+      showTitle: true
     };
 
     this.state = xtend(state, opts);

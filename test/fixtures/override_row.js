@@ -22,6 +22,7 @@ module.exports = {
     title: 'My Row',
     height: '1000px',
     editable: false,
+    showTitle: true,
     collapse: true,
     panels: [{
         foo: 'foo',
