@@ -20,10 +20,15 @@
 
 'use strict';
 
-var Custom = require('./custom');
-var Query = require('./query');
-
 module.exports = {
-    Custom: Custom,
-    Query: Query
+    type: 'query',
+    query: 'stats.*',
+    name: 'template',
+    datasource: 'datasource',
+    options: [],
+    current: null,
+    includeAll: false,
+    allFormat: 'glob',
+    refresh: true,
+    multi: true
 };
