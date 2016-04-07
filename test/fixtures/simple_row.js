@@ -20,6 +20,7 @@
 
 module.exports = {
     title: 'New row',
+    showTitle: true,
     height: '250px',
     editable: true,
     collapse: false,

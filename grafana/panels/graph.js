@@ -51,7 +51,7 @@ function Graph(opts) {
         },
         'lines': true,
         'span': 12,
-        'fill': 2,
+        'fill': 0,
         'linewidth': 1,
         'points': false,
         'pointradius': 5,
