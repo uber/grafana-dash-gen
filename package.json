@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "fast-test": "node ./test/index.js | tap-spec",
-    "test-cover": "istanbul cover --include-all-source --root ./grafana --report html --report cobertura --print detail node ./test/index.js",
+    "test-cover": "istanbul cover --include-all-source --root ./grafana --report html --report cobertura --print detail ./test/index.js",
     "view-cover": "rm -rf ./coverage && npm run test-cover && open ./coverage/index.html",
     "test": "npm run fast-test && npm run test-cover"
   },
