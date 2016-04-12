@@ -23,7 +23,7 @@
 'use strict';
 
 var util = require('util');
-var test = require('cached-tape');
+var test = require('tape');
 var Target = require('../grafana/target');
 
 test('Target throws exception on invalid invocation', function t(assert) {

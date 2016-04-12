@@ -20,7 +20,7 @@
 
 'use strict';
 
-var test = require('cached-tape');
+var test = require('tape');
 var Row = require('../grafana/row');
 
 var simpleRow = require('./fixtures/simple_row.js');

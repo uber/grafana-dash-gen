@@ -21,7 +21,7 @@
 'use strict';
 
 /* eslint-disable no-new */
-var test = require('cached-tape');
+var test = require('tape');
 var Graphite = require('../../grafana/annotations/graphite');
 
 var simpleGraphite = require('../fixtures/annotations/simple_graphite');

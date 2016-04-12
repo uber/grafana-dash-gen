@@ -20,7 +20,7 @@
 
 'use strict';
 
-var test = require('cached-tape');
+var test = require('tape');
 var config = require('../grafana/config');
 
 test('config extends default configuration', function t(assert) {

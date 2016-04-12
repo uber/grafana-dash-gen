@@ -21,7 +21,7 @@
 'use strict';
 
 /* eslint-disable no-new */
-var test = require('cached-tape');
+var test = require('tape');
 var Graph = require('../../grafana/panels/graph');
 
 var simpleGraph = require('../fixtures/panels/simple_graph.js');
