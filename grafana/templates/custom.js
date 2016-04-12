@@ -66,10 +66,11 @@ Custom.prototype._processOptions = function _processOptions() {
                 value: option
             };
         }
-        self.state.current = opt;
         newOptions.push(opt);
         newQuery.push(opt.value);
     });
+
+    self.state.current = newOptions[0];
 
     this.state.options = newOptions;
     this.state.query = newQuery.join(',');
