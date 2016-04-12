@@ -204,4 +204,9 @@ Target.prototype.summarize15min = function summarize15min() {
     return this.summarize('15min');
 };
 
+Target.prototype.hide = function hide() {
+    this.hide = true;
+    return this;
+};
+
 module.exports = Target;
