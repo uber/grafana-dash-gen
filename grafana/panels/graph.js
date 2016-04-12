@@ -108,7 +108,8 @@ Graph.prototype.generate = function generate() {
 
 Graph.prototype.addTarget = function addTarget(target) {
     this.state.targets.push({
-        target: target.toString()
+        target: target.toString(),
+        hide: target.hide
     });
 };
 
