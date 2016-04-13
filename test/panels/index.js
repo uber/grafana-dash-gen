@@ -21,3 +21,4 @@
 require('./graph');
 require('./singlestat');
 require('./text');
+require('./dashboard_list');
