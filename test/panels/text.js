@@ -20,7 +20,7 @@
 
 'use strict';
 
-var test = require('cached-tape');
+var test = require('tape');
 var Text = require('../../grafana/panels/text');
 
 var simpleText = require('../fixtures/panels/simple_text.js');

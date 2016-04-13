@@ -20,7 +20,7 @@
 
 'use strict';
 
-var test = require('cached-tape');
+var test = require('tape');
 var Query = require('../../grafana/templates/query');
 
 var simpleQuery = require('../fixtures/templates/simple_query');

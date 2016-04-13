@@ -38,8 +38,8 @@ module.exports = {
     list: [{
         allFormat: 'glob',
         current: {
-          text: 'b',
-          value: 'b'
+          text: 'a',
+          value: 'a'
         },
         datasource: null,
         includeAll: false,
@@ -57,8 +57,8 @@ module.exports = {
     }, {
         allFormat: 'glob',
         current: {
-            text: '1min',
-            value: '1min'
+            text: '30min',
+            value: '30min'
         },
         datasource: null,
         includeAll: false,

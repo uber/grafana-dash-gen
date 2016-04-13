@@ -20,7 +20,7 @@
 
 'use strict';
 var nock = require('nock');
-var test = require('cached-tape');
+var test = require('tape');
 var config = require('../grafana/config');
 var publish = require('../grafana/publish');
 var Dashboard = require('../grafana/dashboard');

@@ -23,7 +23,7 @@
 'use strict';
 
 var util = require('util');
-var test = require('cached-tape');
+var test = require('tape');
 var Target = require('../grafana/target');
 
 test('Target throws exception on invalid invocation', function t(assert) {
@@ -150,5 +150,14 @@ test('Target helper-method - summarize15min', function t(assert) {
     var expected = 'summarize(path.to.metric, "15min")';
     var target = new Target(arg).summarize15min().toString();
     assert.equal(target, expected);
+    assert.equal(target.hide, undefined);
+    assert.end();
+});
+
+test('Target can call hide()', function t(assert) {
+    var target = new Target('path.to.metric').hide();
+
+    assert.equal(target.toString(), 'path.to.metric');
+    assert.equal(target.hide, true);
     assert.end();
 });

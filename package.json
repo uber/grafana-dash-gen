@@ -4,8 +4,8 @@
   "description": "A grafana dashboard generator",
   "main": "index.js",
   "scripts": {
-    "fast-test": "node_modules/.bin/cached-tape -- ./test/index.js | tap-spec",
-    "test-cover": "istanbul cover --include-all-source --root ./grafana --report html --report cobertura --print detail node_modules/.bin/cached-tape -- ./test/index.js",
+    "fast-test": "node ./test/index.js | tap-spec",
+    "test-cover": "istanbul cover --include-all-source --root ./grafana --report html --report cobertura --print detail ./test/index.js",
     "view-cover": "rm -rf ./coverage && npm run test-cover && open ./coverage/index.html",
     "test": "npm run fast-test && npm run test-cover"
   },
@@ -23,12 +23,12 @@
     "xtend": "^4.0.0"
   },
   "devDependencies": {
-    "cached-tape": "^2.0.0",
     "eslint": "^0.18.0",
     "istanbul": "^0.3.13",
     "lint-trap": "^1.0.1",
     "nock": "^2.6.0",
     "pre-commit": "^1.0.6",
-    "tap-spec": "^3.0.0"
+    "tap-spec": "^3.0.0",
+    "tape": "4.5.1"
   }
 }

@@ -59,7 +59,8 @@ module.exports = {
     stack: false,
     steppedLine: false,
     targets: [{
-        target: 'target'
+        target: 'target',
+        hide: undefined
     }],
     title: 'custom title',
     tooltip: {

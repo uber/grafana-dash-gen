@@ -36,8 +36,8 @@ module.exports = {
     allFormat: 'glob',
     query: 'a,b',
     current: {
-        text: 'b',
-        value: 'b'
+        text: 'a',
+        value: 'a'
     },
     arbitraryProperty: 'foo'
 };
