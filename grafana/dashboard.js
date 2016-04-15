@@ -46,6 +46,7 @@ Dashboard.prototype._init = function _init(opts) {
     this.state.refresh = opts.refresh || false;
     this.state.schemaVersion = opts.schemaVersion || 6;
     this.state.hideAllLegends = !!opts.hideAllLegends;
+    this.state.time = opts.time || null;
 };
 
 Dashboard.prototype._initRows = function _initRows(opts) {

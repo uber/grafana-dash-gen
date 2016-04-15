@@ -34,5 +34,6 @@ module.exports = {
   hideAllLegends: false,
   rows: [],
   annotations: {list: [], enable: true},
-  templating: {list: [], enable: true}
+  templating: {list: [], enable: true},
+  time: null
 };

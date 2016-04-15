@@ -71,6 +71,21 @@ test('Dashboard can add rows', function t(assert) {
     assert.end();
 });
 
+test('Dashboard can set time', function t(assert) {
+    var d = new Dashboard({
+        time: {
+            from: 'now-1h',
+            to: 'now'
+        }
+    });
+
+    assert.deepEqual(d.generate().time, {
+        from: 'now-1h',
+        to: 'now'
+    });
+    assert.end();
+});
+
 test('Dashboard can generate correct body', function t(assert) {
     var rowData = {foo: 'foo'};
     var dashboard = new Dashboard();

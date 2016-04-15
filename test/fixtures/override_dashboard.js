@@ -95,5 +95,6 @@ module.exports = {
         enable: true,
         target: 'path.to.metric.with.annotation'
     }]
-  }
+  },
+  time: null
 };
