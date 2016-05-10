@@ -142,7 +142,7 @@ Target.PRIMITIVES = {
     sum: 0,
     sumSeries: 0,
     sumSeriesWithWildcards: 1,
-    summarize: 1,
+    summarize: 2,
     timeShift: 1,
     timeStack: 3,
     transformNull: 0,
