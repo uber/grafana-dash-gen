@@ -19,13 +19,14 @@
 // THE SOFTWARE.
 
 'use strict';
-
 var Graph = require('./graph');
 var SingleStat = require('./singlestat');
 var Text = require('./text');
+var Table = require('./table');
 
 module.exports = {
 	Graph: Graph,
 	SingleStat: SingleStat,
-	Text: Text
+	Text: Text,
+	Table: Table
 };
