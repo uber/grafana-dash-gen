@@ -57,7 +57,6 @@ function Query(query, opts) {
     };
 
     this._required = [
-        'query',
         'name',
         'datasource'
     ];
@@ -68,7 +67,8 @@ function Query(query, opts) {
         'multi',
         'multiFormat',
         'refresh',
-        'regex'
+        'regex',
+        'tag'
     ];
 
     // Override overridable values
