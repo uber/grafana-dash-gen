@@ -26,8 +26,9 @@ function Text(opts) {
     opts = opts || {};
     var self = this;
 
-    this.state = {
+    var defaults = {
         title: '',
+        id: generateGraphId(),
         error: false,
         span: 12,
         editable: true,
@@ -37,12 +38,12 @@ function Text(opts) {
         style: {},
         links: []
     };
+    this.state = defaults;
 
-    this.state.title = opts.title || this.state.title;
-    this.state.id = opts.id || generateGraphId();
-    this.state.span = opts.span || 12;
-    this.state.content = opts.content || this.state.content;
-	this.state.mode = opts.mode || this.state.mode;
+    // Overwrite defaults with custom values
+    Object.keys(opts).forEach(function eachOpt(opt) {
+        self.state[opt] = opts[opt];
+    });
 
     // finally add to row/dashboard if given
     if (opts.row && opts.dashboard) {
