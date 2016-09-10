@@ -28,5 +28,7 @@ module.exports = {
     "mode": "markdown",
     "content": "TEST",
     "style": {},
-    "links": []
+    "links": [],
+    "height": "100px",
+    "transparent": true
 }

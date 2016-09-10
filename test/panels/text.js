@@ -37,7 +37,9 @@ test('simple Text panel', function t(assert) {
 test('Text panel with overriden information', function t(assert) {
     var graph = new Text({
         span: 4,
-        content: 'TEST'
+        content: 'TEST',
+        height: '100px',
+        transparent: true
     });
     graph.state.id = overrideText.id;
 
