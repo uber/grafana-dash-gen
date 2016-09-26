@@ -50,7 +50,8 @@ module.exports = {
         show: true
     },
     targets: [{
-        target: 'target'
+        target: 'target',
+        hide: true
     }],
     thresholds: '',
     title: 'custom title',

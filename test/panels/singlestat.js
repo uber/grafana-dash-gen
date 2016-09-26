@@ -23,6 +23,7 @@
 /* eslint-disable no-new */
 var test = require('tape');
 var SingleStat = require('../../grafana/panels/singlestat');
+var Target = require('../../grafana/target');
 
 var simpleSingleStat = require('../fixtures/panels/simple_singlestat.js');
 var overrideSingleStat = require('../fixtures/panels/override_singlestat.js');
@@ -39,7 +40,7 @@ test('SingleStat panel with overriden information', function t(assert) {
     var graph = new SingleStat({
         span: 4,
         title: 'custom title',
-        targets: ['target'],
+        targets: [new Target('target').hide()],
         datasource: 'M3',
         arbitraryProperty: 'foo'
     });

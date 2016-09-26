@@ -99,7 +99,8 @@ SingleStat.prototype.setTitle = function setTitle(title) {
 
 SingleStat.prototype.addTarget = function addTarget(target) {
     this.state.targets.push({
-        target: target.toString()
+        target: target.toString(),
+        hide: target.hide
     });
 };
 
