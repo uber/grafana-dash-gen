@@ -40,7 +40,7 @@ Dashboard.prototype._init = function _init(opts) {
     this.state.tags = opts.tags || [];
     this.state.style = opts.style || 'dark';
     this.state.timezone = opts.timezone || 'browser';
-    this.state.editable = opts.editable || true;
+    this.state.editable = (opts.editable === undefined ? true : opts.editable);
     this.state.hideControls = !!opts.hideControls;
     this.state.sharedCrosshair = !!opts.sharedCrosshair;
     this.state.refresh = opts.refresh || false;
