@@ -107,10 +107,14 @@ Graph.prototype.generate = function generate() {
 };
 
 Graph.prototype.addTarget = function addTarget(target) {
-    this.state.targets.push({
+    var targetObject = {
         target: target.toString(),
         hide: target.hide
-    });
+    };
+    if (target.ref) {
+        targetObject.refId = target.ref;
+    }
+    this.state.targets.push(targetObject);
 };
 
 module.exports = Graph;

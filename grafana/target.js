@@ -209,4 +209,9 @@ Target.prototype.hide = function hide() {
     return this;
 };
 
+Target.prototype.ref = function ref(id) {
+    this.ref = id;
+    return this;
+};
+
 module.exports = Target;

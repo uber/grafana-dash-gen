@@ -161,3 +161,11 @@ test('Target can call hide()', function t(assert) {
     assert.equal(target.hide, true);
     assert.end();
 });
+
+test('Target can call ref()', function t(assert) {
+    var target = new Target('path.to.metric').ref('A');
+
+    assert.equal(target.toString(), 'path.to.metric');
+    assert.equal(target.ref, 'A');
+    assert.end();
+});
