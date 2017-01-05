@@ -80,6 +80,7 @@ function publish(dashboard, opts) {
             console.log('Unable to publish dashboard: ' + createErr);
         } else if ([200, 201].indexOf(createResp.statusCode) === -1) {
             console.log('Unable to publish dashboard ' + state.title);
+            console.log(createResp.headers);
             console.log(createResp.body);
             console.log('Got statusCode' + createResp.statusCode);
         } else {
