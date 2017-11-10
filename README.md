@@ -1,5 +1,4 @@
-# Grafana Dash Gen [![Build Status](https://travis-ci.org/uber/grafana-dash-gen.svg?branch=master)] (https://travis-ci.org/uber/grafana-dash-gen)
-
+# Grafana Dash Gen ![Build Status](https://travis-ci.org/uber/grafana-dash-gen.svg?branch=master)
 A collection of utility classes to construct and publish grafana graphs. The library is built ground up to incorporate grafana terminologies. 
 
 - **Dashboard**: Represents the final dashboard that is displayed.
