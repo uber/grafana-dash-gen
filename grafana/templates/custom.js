@@ -31,7 +31,7 @@ function Custom(opts) {
         name: 'template',
         options: [],
         query: null,
-        'refresh_on_load': false,
+        refresh: false,
         type: 'custom'
     };
     this.state = defaultState;
