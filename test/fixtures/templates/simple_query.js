@@ -29,6 +29,7 @@ module.exports = {
     current: null,
     includeAll: true,
     allFormat: 'wildcard',
+    allValue: null,
     refresh: false,
     multi: false
 };
