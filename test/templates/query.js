@@ -107,6 +107,7 @@ test('Query template state overridden on init', function t(assert) {
         datasource: 'datasource',
         includeAll: false,
         allFormat: 'glob',
+        allValue: '*',
         refresh: true,
         multi: true
     });

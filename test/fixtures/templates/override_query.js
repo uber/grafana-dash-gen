@@ -29,6 +29,7 @@ module.exports = {
     current: null,
     includeAll: false,
     allFormat: 'glob',
+    allValue: '*',
     refresh: true,
     multi: true
 };
