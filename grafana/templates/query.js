@@ -50,6 +50,7 @@ function Query(query, opts) {
         type: 'query',
         includeAll: true,
         allFormat: 'wildcard',
+        allValue: null,
         refresh: false,
         multi: false,
         options: [],
@@ -64,6 +65,7 @@ function Query(query, opts) {
     this._overridable = [
         'includeAll',
         'allFormat',
+        'allValue',
         'multi',
         'multiFormat',
         'refresh',
