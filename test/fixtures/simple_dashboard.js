@@ -35,5 +35,6 @@ module.exports = {
   rows: [],
   annotations: {list: [], enable: true},
   templating: {list: [], enable: true},
-  time: null
+  time: null,
+  links: null
 };

@@ -100,3 +100,11 @@ test('Dashboard can generate correct body', function t(assert) {
     assert.deepEqual(json, simpleDashboard);
     assert.end();
 });
+
+test('Can add links to dashboard', function t(assert) {
+    var opts = {links: 'links'};
+    var dashboard = new Dashboard(opts);
+    var json = dashboard.generate();
+    assert.equal(json.links, 'links');
+    assert.end();
+});
