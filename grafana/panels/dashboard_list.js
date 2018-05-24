@@ -33,7 +33,7 @@ function DashboardList(opts) {
         editable: true,
         type: 'dashlist',
         isNew: true,
-        id: 7,
+        id: generateGraphId(),
         mode: 'search',
         query: 'dashboard list',
         limit: 10,
@@ -41,17 +41,15 @@ function DashboardList(opts) {
         links: []
     };
 
-    this.state.title = opts.title || this.state.title;
-    this.state.id = opts.id || generateGraphId();
-    this.state.span = opts.span || 3;
+    // Overwrite defaults with custom values
+    Object.keys(opts).forEach(function eachOpt(opt) {
+        self.state[opt] = opts[opt];
+    });
 
     // finally add to row/dashboard if given
     if (opts.row && opts.dashboard) {
         opts.row.addPanel(this);
         opts.dashboard.addRow(opts.row);
-    }
-    for (var k in opts) {
-        this.state[k] = opts[k];
     }
 }
 
