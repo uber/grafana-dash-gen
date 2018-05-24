@@ -18,8 +18,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-require('./graph');
-require('./singlestat');
-require('./text');
-require('./table');
-require('./dashboard_list');
+module.exports = {
+    title: 'dashboard list',
+    error: false,
+    span: 3,
+    editable: true,
+    type: 'dashlist',
+    isNew: true,
+    id: 7,
+    mode: 'search',
+    query: 'dashboard list',
+    limit: 10,
+    tags: [],
+    links: []
+};
