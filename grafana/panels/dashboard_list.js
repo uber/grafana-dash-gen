@@ -1,4 +1,4 @@
-// Copyright (c) 2015 Uber Technologies, Inc.
+// Copyright (c) 2018 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,8 +18,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-require('./graph');
-require('./singlestat');
-require('./text');
-require('./table');
-require('./dashboard_list');
+'use strict';
+
+var generateGraphId = require('../id');
+
+function DashboardList(opts) {
+    opts = opts || {};
+    var self = this;
+
+    this.state = {
+        title: 'dashboard list',
+        error: false,
+        span: 3,
+        editable: true,
+        type: 'dashlist',
+        isNew: true,
+        id: generateGraphId(),
+        mode: 'search',
+        query: 'dashboard list',
+        limit: 10,
+        tags: [],
+        links: []
+    };
+
+    // Overwrite defaults with custom values
+    Object.keys(opts).forEach(function eachOpt(opt) {
+        self.state[opt] = opts[opt];
+    });
+
+    // finally add to row/dashboard if given
+    if (opts.row && opts.dashboard) {
+        opts.row.addPanel(this);
+        opts.dashboard.addRow(opts.row);
+    }
+}
+
+DashboardList.prototype.setTitle = function setTitle(title) {
+    this.state.title = title;
+};
+
+DashboardList.prototype.generate = function generate() {
+    return this.state;
+};
+
+module.exports = DashboardList;

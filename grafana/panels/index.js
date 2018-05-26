@@ -23,10 +23,12 @@ var Graph = require('./graph');
 var SingleStat = require('./singlestat');
 var Text = require('./text');
 var Table = require('./table');
+var DashboardList = require('./dashboard_list');
 
 module.exports = {
 	Graph: Graph,
 	SingleStat: SingleStat,
 	Text: Text,
-	Table: Table
+	Table: Table,
+	DashboardList: DashboardList
 };
