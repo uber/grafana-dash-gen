@@ -53,10 +53,10 @@ function publish(dashboard, opts) {
         });
     }
 
-    if (!cfg.cookie) {
+    if (!cfg.token) {
         throw errors.Misconfigured({
-            invalidArg: 'cookie',
-            reason: 'undefined'
+            invalidArg: 'token',
+            reason: 'Token is required for API utilization'
         });
     }
 
@@ -65,21 +65,16 @@ function publish(dashboard, opts) {
         overwrite: true
     };
 
-    var j = request.jar();
-    var cookie = request.cookie(cfg.cookie);
-    j.setCookie(cookie, cfg.url);
-
     request({
         url: cfg.url,
         method: 'POST',
         json: createData,
-        rejectUnauthorized: cfg.rejectUnauthorized,
         headers: {
             "Authorization": "Bearer " + cfg.token
         },
-
         timeout: opts.timeout || 1000
     }, function createResponseHandler(createErr, createResp) {
+        console.log(createData);
         if (createErr) {
             console.log('Unable to publish dashboard: ' + createErr);
         } else if ([200, 201].indexOf(createResp.statusCode) === -1) {
