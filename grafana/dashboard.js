@@ -34,11 +34,11 @@ function Dashboard(opts) {
 
 Dashboard.prototype._init = function _init(opts) {
     this.state = this.state;
+    this.folderId = opts.folderId || null;
     this.state.id = opts.id || null;
     this.state.title = opts.title || 'Generated Grafana Dashboard';
     this.state.originalTitle = opts.originalTitle || 'Generated Dashboard';
     this.state.tags = opts.tags || [];
-    this.state.folderId = opts.folderId || null;
     this.state.style = opts.style || 'dark';
     this.state.timezone = opts.timezone || 'browser';
     this.state.editable = true;
@@ -62,6 +62,14 @@ Dashboard.prototype._initRows = function _initRows(opts) {
         });
     }
 };
+
+Dashboard.prototype.getFolderId = function getFolderId() {
+    var self = this;
+    // TODO: From FOLDER Api return from FOLDER NAME folderID
+    // TODO: If folderNAME not exists and no opts (createFolder) err
+    // TODO: Else create the folder and dashboard inside it
+    return self.folderId;
+}
 
 Dashboard.prototype._initTemplating = function _initRows(opts) {
     var self = this;

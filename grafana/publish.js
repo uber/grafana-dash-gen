@@ -62,6 +62,7 @@ function publish(dashboard, opts) {
 
     var createData = {
         dashboard: dashboard.generate(),
+        folderId: dashboard.getFolderId(),
         overwrite: true
     };
 
