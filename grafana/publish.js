@@ -26,7 +26,7 @@ var errors = require('./errors');
 /* eslint-disable max-statements, max-len, no-console, no-undef */
 function publish(dashboard, opts) {
     opts = opts || {};
-    
+
     if (!dashboard) {
         throw errors.UnfulfilledRequirement({
             component: 'grafana.publish',
@@ -73,14 +73,17 @@ function publish(dashboard, opts) {
         url: cfg.url,
         method: 'POST',
         json: createData,
-        jar: j,
+        rejectUnauthorized: cfg.rejectUnauthorized,
+        headers: {
+            "Authorization": "Bearer " + cfg.token
+        },
+
         timeout: opts.timeout || 1000
     }, function createResponseHandler(createErr, createResp) {
         if (createErr) {
             console.log('Unable to publish dashboard: ' + createErr);
         } else if ([200, 201].indexOf(createResp.statusCode) === -1) {
             console.log('Unable to publish dashboard ' + state.title);
-            console.log(createResp.body);
             console.log('Got statusCode' + createResp.statusCode);
         } else {
             console.log('Published the dashboard ' + state.title);
