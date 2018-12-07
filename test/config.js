@@ -29,14 +29,16 @@ test('config extends default configuration', function t(assert) {
     var user = 'notguest';
     var group = 'guest';
     var url = 'http://myfakeurl.com';
-    var cookie = 'auth=value';
+    var token = 'abcdef';
+    var folderId = 4;
 
     var cfg = {
         foo: foo,
         bar: bar,
         user: user,
         url: url,
-        cookie: cookie
+        token: token,
+        folderId: folderId
     };
 
     var expected = {
@@ -45,7 +47,8 @@ test('config extends default configuration', function t(assert) {
         user: user,
         group: group,
         url: url,
-        cookie: cookie
+        token: token,
+        folderId: folderId
     };
 
     config.configure(cfg);

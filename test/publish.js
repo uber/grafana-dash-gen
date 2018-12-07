@@ -28,7 +28,7 @@ var Dashboard = require('../grafana/dashboard');
 // configuration values, held constant for assertions
 var baseUrl = 'http://awesome.com';
 var url = [baseUrl, 'dashboard'].join('/');
-var cookie = 'auth=foo';
+var token = 'abcdefg';
 var title = 'Test Dashboard';
 var tags = ['tag1', 'tag2'];
 var refresh = '1m';
@@ -82,7 +82,7 @@ test('Publish dashboard - invalid title', function t(assert) {
 test('Publish dashboard - misconfigured url', function t(assert) {
     assert.throws(function assertThrows() {
         config.configure({
-            cookie: cookie,
+            token: token,
             url: null
         });
         publish({
@@ -94,10 +94,10 @@ test('Publish dashboard - misconfigured url', function t(assert) {
     assert.end();
 });
 
-test('Publish dashboard - misconfigured cookie', function t(assert) {
+test('Publish dashboard - misconfigured token', function t(assert) {
     assert.throws(function assertThrows() {
         config.configure({
-            cookie: null,
+            token: null,
             url: url
         });
         publish({
@@ -111,7 +111,7 @@ test('Publish dashboard - misconfigured cookie', function t(assert) {
 
 test('Publish dashboard - client error', function t(assert) {
     config.configure({
-        cookie: cookie,
+        token: token,
         url: url
     });
     nock(baseUrl)
@@ -126,31 +126,31 @@ test('Publish dashboard - client error', function t(assert) {
 
 test('Publish dashboard - client error (invalid)', function t(assert) {
     config.configure({
-        cookie: cookie,
+        token: token,
         url: url
     });
     nock(baseUrl)
         .post('/dashboard')
-        .reply(400, {status: 'error'});
+        .reply(400, { status: 'error' });
     publish(dashboard);
     assert.end();
 });
 
 test('Publish dashboard - client error (n/a)', function t(assert) {
     config.configure({
-        cookie: cookie,
+        token: token,
         url: url
     });
     nock(baseUrl)
         .post('/dashboard')
-        .reply(412, {status: 'error'});
+        .reply(412, { status: 'error' });
     publish(dashboard);
     assert.end();
 });
 
 test('Publish dashboard - bad response', function t(assert) {
     config.configure({
-        cookie: cookie,
+        token: token,
         url: url
     });
     nock(baseUrl)
@@ -162,7 +162,7 @@ test('Publish dashboard - bad response', function t(assert) {
 
 test('Publish dashboard - server unavailable', function t(assert) {
     config.configure({
-        cookie: cookie,
+        token: token,
         url: 'http://111.111.111.111'
     });
     publish(dashboard);
@@ -171,7 +171,7 @@ test('Publish dashboard - server unavailable', function t(assert) {
 
 test('Publish dashboard - server error', function t(assert) {
     config.configure({
-        cookie: cookie,
+        token: token,
         url: url
     });
     nock(baseUrl)
@@ -183,60 +183,59 @@ test('Publish dashboard - server error', function t(assert) {
 
 test('Publish dashboard - success', function t(assert) {
     config.configure({
-        cookie: cookie,
+        token: token,
         url: url
     });
     var expectedBody = {
         dashboard: dashboard.generate(),
-        overwrite: true
+        overwrite: true,
+        folderId: null
     };
+
     // hijack the calls to elastic search, need to test both response codes
     // since the initial request will return a 201 and the subsequent will
     // return a 200.
     nock(baseUrl)
         .post('/dashboard')
-        .reply(201, function createdHandler(uri, requestBody) {
-            var body = JSON.parse(requestBody);
-            assert.deepEqual(body, expectedBody);
+        .reply(201, function(uri, requestBody) {
+            assert.deepEqual(requestBody, expectedBody);
         })
         .post('/dashboard')
-        .reply(200, function okHandler(uri, requestBody) {
-            var body = JSON.parse(requestBody);
-            assert.deepEqual(body, expectedBody);
+        .reply(200, function(uri, requestBody) {
+            assert.deepEqual(requestBody, expectedBody);
             assert.end();
         });
-    publish(dashboard);  // 201
-    publish(dashboard);  // 200
+    publish(dashboard); // 201
+    publish(dashboard); // 200
 });
 
 test('Publish dashboard - success w/ custom timeout', function t(assert) {
     config.configure({
-        cookie: cookie,
+        token: token,
         url: url
     });
     var expectedBody = {
         dashboard: dashboard.generate(),
-        overwrite: true
+        overwrite: true,
+        folderId: null
     };
     // hijack the calls to elastic search, need to test both response codes
     // since the initial request will return a 201 and the subsequent will
     // return a 200.
     nock(baseUrl)
         .post('/dashboard')
-        .reply(201, function createdHandler(uri, requestBody) {
-            var body = JSON.parse(requestBody);
-            assert.deepEqual(body, expectedBody);
+        .reply(201, function(uri, requestBody) {
+            assert.deepEqual(requestBody, expectedBody);
         })
         .post('/dashboard')
-        .reply(200, function okHandler(uri, requestBody) {
-            var body = JSON.parse(requestBody);
-            assert.deepEqual(body, expectedBody);
+        .reply(200, function(uri, requestBody) {
+            assert.deepEqual(requestBody, expectedBody);
             assert.end();
         });
     publish(dashboard, {
         timeout: 2000
-    });  // 201
+    }); // 201
     publish(dashboard, {
         timeout: 2000
-    });  // 200
+    }); // 200
 });

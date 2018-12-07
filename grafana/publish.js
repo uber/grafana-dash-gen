@@ -75,7 +75,6 @@ function publish(dashboard, opts) {
         },
         timeout: opts.timeout || 1000
     }, function createResponseHandler(createErr, createResp) {
-        console.log(createData);
         if (createErr) {
             console.log('Unable to publish dashboard: ' + createErr);
         } else if ([200, 201].indexOf(createResp.statusCode) === -1) {
