@@ -20,40 +20,8 @@
 
 'use strict';
 
-var test = require('tape');
-var config = require('../grafana/config');
+var Folder = require('./folder');
 
-test('config extends default configuration', function t(assert) {
-    var foo = 'foo';
-    var bar = 1;
-    var user = 'notguest';
-    var group = 'guest';
-    var url = 'http://myfakeurl.com';
-    var token = 'abcdef';
-    var folder = 'foldername';
-
-    var cfg = {
-        foo: foo,
-        bar: bar,
-        user: user,
-        url: url,
-        token: token,
-        folder: folder
-    };
-
-    var expected = {
-        foo: foo,
-        bar: bar,
-        user: user,
-        group: group,
-        url: url,
-        token: token,
-        folder: folder
-    };
-
-    config.configure(cfg);
-    var result = config.getConfig();
-
-    assert.deepEqual(result, expected);
-    assert.end();
-});
+module.exports = {
+    Folder: Folder
+};

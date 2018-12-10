@@ -62,12 +62,12 @@ function publish(dashboard, opts) {
 
     var createData = {
         dashboard: dashboard.generate(),
-        folderId: dashboard.getFolderId(),
+        folderId: dashboard.getFolderId(opts),
         overwrite: true
     };
 
     request({
-        url: cfg.url,
+        url: cfg.url + '/api/dashboards/db/',
         method: 'POST',
         json: createData,
         headers: {

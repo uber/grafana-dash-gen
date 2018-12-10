@@ -22,6 +22,7 @@
 
 var Templates = require('./templates');
 var Annotations = require('./annotations');
+var Folder = require('./folder');
 
 function Dashboard(opts) {
     opts = opts || {};
@@ -34,7 +35,7 @@ function Dashboard(opts) {
 
 Dashboard.prototype._init = function _init(opts) {
     this.state = this.state;
-    this.folderId = opts.folderId || null;
+    this.folder = opts.folder || null;
     this.state.id = opts.id || null;
     this.state.title = opts.title || 'Generated Grafana Dashboard';
     this.state.originalTitle = opts.originalTitle || 'Generated Dashboard';
@@ -64,11 +65,10 @@ Dashboard.prototype._initRows = function _initRows(opts) {
 };
 
 Dashboard.prototype.getFolderId = function getFolderId() {
-    var self = this;
-    // TODO: From FOLDER Api return from FOLDER NAME folderID
-    // TODO: If folderNAME not exists and no opts (createFolder) err
-    // TODO: Else create the folder and dashboard inside it
-    return self.folderId;
+    if (!this.folder) return null;
+
+    var folder = new Folder.Folder({name: this.folder});
+    return folder.getFolderId();
 }
 
 Dashboard.prototype._initTemplating = function _initRows(opts) {

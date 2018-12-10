@@ -44,8 +44,24 @@ var Misconfigured = TypedError({
     resolution: 'Must call grafana.configure before publishing'
 });
 
+var ApiError = TypedError({
+    type: 'grafana.errors.ApiError',
+    message: 'Some error happened trying to use grafana API: {reason} - {apiCall} - code: {code}',
+    apiCall: null,
+    reason: null,
+    code: null
+});
+
+var NoFolderException = TypedError({
+    type: 'grafana.errors.NoFolderException',
+    message: 'Folder {folder} doesn\'t exists, please create it through grafana interface',
+    folder: null
+});
+
 module.exports = {
     UnfulfilledRequirement: UnfulfilledRequirement,
     InvalidState: InvalidState,
-    Misconfigured: Misconfigured
+    Misconfigured: Misconfigured,
+    ApiError: ApiError,
+    NoFolderException: NoFolderException
 };

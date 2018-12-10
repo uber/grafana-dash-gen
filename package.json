@@ -19,6 +19,7 @@
   "dependencies": {
     "error": "^7.0.2",
     "request": "2.88.0",
+    "sync-request": "^6.0.0",
     "underscore": "^1.9.0",
     "xtend": "^4.0.1"
   },
