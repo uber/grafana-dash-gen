@@ -60,31 +60,36 @@ function publish(dashboard, opts) {
         });
     }
 
-    var createData = {
-        dashboard: dashboard.generate(),
-        folderId: dashboard.getFolderId(opts),
-        overwrite: true
-    };
+    dashboard.getFolderId(opts, (dashboard, cfg, err, res) => {
+        if (err) throw err;
 
-    request({
-        url: cfg.url + '/api/dashboards/db/',
-        method: 'POST',
-        json: createData,
-        headers: {
-            "Authorization": "Bearer " + cfg.token
-        },
-        timeout: opts.timeout || 1000
-    }, function createResponseHandler(createErr, createResp) {
-        if (createErr) {
-            console.log('Unable to publish dashboard: ' + createErr);
-        } else if ([200, 201].indexOf(createResp.statusCode) === -1) {
-            console.log('Unable to publish dashboard ' + state.title);
-            console.log('Got statusCode' + createResp.statusCode);
-        } else {
-            console.log('Published the dashboard ' + state.title);
-        }
+        var createData = {
+            dashboard: dashboard.generate(),
+            folderId: res,
+            overwrite: true
+        };
+
+        request({
+            url: cfg.url + '/api/dashboards/db/',
+            method: 'POST',
+            json: createData,
+            headers: {
+                "Authorization": "Bearer " + cfg.token
+            },
+            timeout: opts.timeout || 1000
+        }, function createResponseHandler(createErr, createResp) {
+            if (createErr) {
+                console.log('Unable to publish dashboard: ' + createErr);
+            } else if ([200, 201].indexOf(createResp.statusCode) === -1) {
+                console.log('Unable to publish dashboard ' + state.title);
+                console.log('Got statusCode' + createResp.statusCode);
+            } else {
+                console.log('Published the dashboard ' + state.title);
+            }
+        });
     });
 }
+
 /* eslint-enable */
 
 module.exports = publish;

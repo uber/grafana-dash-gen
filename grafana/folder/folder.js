@@ -21,7 +21,7 @@
 'use strict';
 
 var errors = require('../errors');
-var request = require('sync-request');
+var request = require('request');
 var config = require('../config');
 
 function Folder(opts) {
@@ -47,42 +47,39 @@ Folder.prototype.generate = function generate() {
     return this.state;
 };
 
-Folder.prototype.getFolderId = function getFolderId(opts) {
+Folder.prototype.getFolderId = function getFolderId(opts, cb) {
     var self = this;
-    opts = opts || {};
 
-    // We trust that token & url are present because this action is called on publish
     var cfg = config.getConfig();
 
-    // Get all folders
-    var res = request('GET', cfg.url + "/api/folders", {
-            headers: {
-                "Authorization": "Bearer " + cfg.token
-            },
-            timeout: opts.timeout || 1000
-    });
+    var options = {
+        method: 'GET',
+        url: cfg.url + "/api/folders",
+        headers: {
+            "Authorization": "Bearer " + cfg.token
+        },
+        timeout: opts.timeout || 1000
+    };
 
-    if (!res || res && res.statusCode !== 200) {
-        throw errors.ApiError({
-            apiCall: "GET "+ url + "/api/folders",
-            reason: res.body.toString(),
-            code: res.statusCode
-        });
-    } else {
-        var found = JSON.parse(res.body.toString()).find(function(el) {
+    cb(cfg, request(options, (error, response, body) => {
+        if (error || response && response.statusCode !== 200) {
+            return (errors.ApiError({
+                apiCall: options.url,
+                reason: error || response.body.toString(),
+                code: response.statusCode
+            }), null);
+        }
+
+        var folder = body.find(function(el) {
             return el.title === self.state.name;
         });
 
-        if (!found) {
-            throw errors.NoFolderException({
-                folder: self.state.name
-            });
+        if (!folder) {
+            return (errors.NoFolderException({ folder: self.state.name }), null);
         }
 
-        self.state.folderId = found.id;
-    }
-
-    return self.state.folderId;
+        return (null, folder.id);
+    }));
 }
 
 module.exports = Folder;

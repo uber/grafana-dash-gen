@@ -19,15 +19,17 @@
 // THE SOFTWARE.
 
 'use strict';
-var Graph = require('./graph');
-var SingleStat = require('./singlestat');
-var Text = require('./text');
-var Table = require('./table');
-var DashboardList = require('./dashboard_list');
+const Graph = require('./graph');
+const SingleStat = require('./singlestat');
+const Pie = require('./pie');
+const Text = require('./text');
+const Table = require('./table');
+const DashboardList = require('./dashboard_list');
 
 module.exports = {
 	Graph: Graph,
 	SingleStat: SingleStat,
+	Pie: Pie,
 	Text: Text,
 	Table: Table,
 	DashboardList: DashboardList
