@@ -18,7 +18,8 @@ var Target = grafana.Target;
 
 grafana.configure({
     url: 'https://your.grafanahost.com/grafana2/api/dashboards/db/',
-    cookie: 'auth-openid=REPLACETOKENIFAPPLICABLE'
+    cookie: 'auth-openid=REPLACETOKENIFAPPLICABLE',
+    headers: {'x': 'y'}
 });
 
 // Dashboard Constants

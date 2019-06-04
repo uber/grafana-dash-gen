@@ -60,6 +60,11 @@ function publish(dashboard, opts) {
         });
     }
 
+    var headers = cfg.headers;
+    if (!headers) {
+        headers = {};
+    }
+
     var createData = {
         dashboard: dashboard.generate(),
         overwrite: true
@@ -72,6 +77,7 @@ function publish(dashboard, opts) {
     request({
         url: cfg.url,
         method: 'POST',
+        headers: headers,
         json: createData,
         jar: j,
         timeout: opts.timeout || 1000
