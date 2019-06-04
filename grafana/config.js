@@ -26,12 +26,14 @@ var xtend = require('xtend');
  * `group` - Auth group, defaults to "guest"
  * `url` - Full URL to grafana's elasticsearch endpoint
  * `cookie` - Key/value pair for auth, defaults to"auth-openid="
+ * `headers` - Map of header keys/values, defaults to no headers
  */
 var configurations = {
     user: 'guest',
     group: 'guest',
     url: 'https://your.graphite.url.com/elasticsearch/grafana-dash/dashboard/',
-    cookie: 'auth-openid='
+    cookie: 'auth-openid=',
+    headers: {}
 };
 
 function configure(opts) {

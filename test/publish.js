@@ -29,6 +29,7 @@ var Dashboard = require('../grafana/dashboard');
 var baseUrl = 'http://awesome.com';
 var url = [baseUrl, 'dashboard'].join('/');
 var cookie = 'auth=foo';
+var headers = {'asdf': 'qwer'};
 var title = 'Test Dashboard';
 var tags = ['tag1', 'tag2'];
 var refresh = '1m';
@@ -107,6 +108,22 @@ test('Publish dashboard - misconfigured cookie', function t(assert) {
         });
     }, /Misconfigured/);
     assert.end();
+});
+
+test('Publish dashboard - default empty headers', function t(assert) {
+    config.configure({
+        cookie: cookie,
+        headers: null,
+        url: url
+    });
+    nock(baseUrl)
+        .post('/dashboard')
+        .reply(200, function createdHandler() {
+            var headerType = typeof this.req.headers;
+            assert.equal(headerType, 'object');
+            assert.end();
+        });
+    publish(dashboard); // 200
 });
 
 test('Publish dashboard - client error', function t(assert) {
@@ -239,4 +256,33 @@ test('Publish dashboard - success w/ custom timeout', function t(assert) {
     publish(dashboard, {
         timeout: 2000
     });  // 200
+});
+
+test('Publish dashboard - passes headers', function t(assert) {
+    config.configure({
+        cookie: cookie,
+        headers: headers,
+        url: url
+    });
+    // hijack the calls to elastic search, need to test both response codes
+    // since the initial request will return a 201 and the subsequent will
+    // return a 200.
+    nock(baseUrl)
+        .post('/dashboard')
+        .reply(201, function createdHandler() {
+            var reqHeaders = this.req.headers;
+            Object.keys(headers).forEach(function(key) {
+                assert.equal(reqHeaders[key], headers[key]);
+            });
+        })
+        .post('/dashboard')
+        .reply(200, function okHandler() {
+            var reqHeaders = this.req.headers;
+            Object.keys(headers).forEach(function(key) {
+                assert.equal(reqHeaders[key], headers[key]);
+            });
+            assert.end();
+        });
+    publish(dashboard); // 201
+    publish(dashboard); // 200
 });
