@@ -19,14 +19,14 @@
 // THE SOFTWARE.
 
 'use strict';
-var request = require('request');
+var request = require('request-promise');
 var config = require('./config');
 var errors = require('./errors');
 
 /* eslint-disable max-statements, max-len, no-console, no-undef */
 function publish(dashboard, opts) {
     opts = opts || {};
-    
+
     if (!dashboard) {
         throw errors.UnfulfilledRequirement({
             component: 'grafana.publish',
@@ -74,25 +74,23 @@ function publish(dashboard, opts) {
     var cookie = request.cookie(cfg.cookie);
     j.setCookie(cookie, cfg.url);
 
-    request({
+    return request({
         url: cfg.url,
         method: 'POST',
         headers: headers,
         json: createData,
         jar: j,
         timeout: opts.timeout || 1000
-    }, function createResponseHandler(createErr, createResp) {
-        if (createErr) {
-            console.log('Unable to publish dashboard: ' + createErr);
-        } else if ([200, 201].indexOf(createResp.statusCode) === -1) {
-            console.log('Unable to publish dashboard ' + state.title);
-            console.log(createResp.headers);
-            console.log(createResp.body);
-            console.log('Got statusCode' + createResp.statusCode);
-        } else {
-            console.log('Published the dashboard ' + state.title);
-        }
-    });
+    })
+    .then((createResp) => {
+        console.log('Published the dashboard ' + state.title);
+        return createResp.body
+    })
+    .catch((e) => {
+        console.log("Caught e:", e)
+        console.log('Unable to publish dashboard ' + state.title);
+        return e
+    })
 }
 /* eslint-enable */
 
