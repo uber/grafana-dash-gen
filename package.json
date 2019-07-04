@@ -18,7 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "error": "^7.0.2",
-    "request": "2.81.0",
+    "request": "^2.88.0",
     "underscore": "^1.8.3",
     "xtend": "^4.0.0"
   },
@@ -26,7 +26,7 @@
     "eslint": "^0.18.0",
     "istanbul": "^0.3.13",
     "lint-trap": "^1.0.1",
-    "nock": "^2.6.0",
+    "nock": "^10.0.6",
     "pre-commit": "^1.0.6",
     "tap-spec": "^3.0.0",
     "tape": "4.5.1"

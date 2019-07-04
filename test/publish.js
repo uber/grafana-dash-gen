@@ -213,13 +213,11 @@ test('Publish dashboard - success', function t(assert) {
     nock(baseUrl)
         .post('/dashboard')
         .reply(201, function createdHandler(uri, requestBody) {
-            var body = JSON.parse(requestBody);
-            assert.deepEqual(body, expectedBody);
+            assert.deepEqual(requestBody, expectedBody);
         })
         .post('/dashboard')
         .reply(200, function okHandler(uri, requestBody) {
-            var body = JSON.parse(requestBody);
-            assert.deepEqual(body, expectedBody);
+            assert.deepEqual(requestBody, expectedBody);
             assert.end();
         });
     publish(dashboard);  // 201
@@ -241,13 +239,11 @@ test('Publish dashboard - success w/ custom timeout', function t(assert) {
     nock(baseUrl)
         .post('/dashboard')
         .reply(201, function createdHandler(uri, requestBody) {
-            var body = JSON.parse(requestBody);
-            assert.deepEqual(body, expectedBody);
+            assert.deepEqual(requestBody, expectedBody);
         })
         .post('/dashboard')
         .reply(200, function okHandler(uri, requestBody) {
-            var body = JSON.parse(requestBody);
-            assert.deepEqual(body, expectedBody);
+            assert.deepEqual(requestBody, expectedBody);
             assert.end();
         });
     publish(dashboard, {
