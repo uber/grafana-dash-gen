@@ -19,9 +19,9 @@
 // THE SOFTWARE.
 
 'use strict';
-var request = require('request');
-var config = require('./config');
-var errors = require('./errors');
+const request = require('request-promise-native');
+const config = require('./config');
+const errors = require('./errors');
 
 /* eslint-disable max-statements, max-len, no-console, no-undef */
 function publish(dashboard, opts) {
@@ -34,8 +34,8 @@ function publish(dashboard, opts) {
         });
     }
 
-    var state = dashboard.state;
-    var cfg = config.getConfig();
+    const state = dashboard.state;
+    const cfg = config.getConfig();
 
     if (!state || !state.title) {
         throw errors.InvalidState({
@@ -60,39 +60,37 @@ function publish(dashboard, opts) {
         });
     }
 
-    var headers = cfg.headers;
-    if (!headers) {
-        headers = {};
-    }
+    const headers = cfg.headers || {}
 
-    var createData = {
+    const createData = {
         dashboard: dashboard.generate(),
         overwrite: true
     };
 
-    var j = request.jar();
-    var cookie = request.cookie(cfg.cookie);
+    const j = request.jar();
+    const cookie = request.cookie(cfg.cookie);
     j.setCookie(cookie, cfg.url);
 
-    request({
+    return request({
         url: cfg.url,
         method: 'POST',
         headers: headers,
         json: createData,
         jar: j,
         timeout: opts.timeout || 1000
-    }, function createResponseHandler(createErr, createResp) {
-        if (createErr) {
-            console.log('Unable to publish dashboard: ' + createErr);
-        } else if ([200, 201].indexOf(createResp.statusCode) === -1) {
-            console.log('Unable to publish dashboard ' + state.title);
-            console.log(createResp.headers);
-            console.log(createResp.body);
-            console.log('Got statusCode' + createResp.statusCode);
-        } else {
-            console.log('Published the dashboard ' + state.title);
-        }
-    });
+    })
+    .then((resp) => {
+        console.log('Published the dashboard ' + state.title);
+        return resp
+    })
+    .catch((e) => {
+        console.log('grafana-dash-gen: publish: caught e: ', e.name, e.message);
+        console.log('Unable to publish dashboard ' + state.title);
+        console.log('response headers: ', e.response && e.response.headers)
+        console.log('response body: ', e.response && e.response.body)
+        console.log('response statusCode:', e.response &&  e.response.statusCode);
+        throw e // rethrow for downstream consumers
+    })
 }
 /* eslint-enable */
 
