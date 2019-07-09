@@ -18,79 +18,83 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-const request = require('request-promise-native');
-const config = require('./config');
-const errors = require('./errors');
+"use strict";
+const request = require("request-promise-native");
+const config = require("./config");
+const errors = require("./errors");
 
 /* eslint-disable max-statements, max-len, no-console, no-undef */
 function publish(dashboard, opts) {
-    opts = opts || {};
-    
-    if (!dashboard) {
-        throw errors.UnfulfilledRequirement({
-            component: 'grafana.publish',
-            unfulfilledArg: 'dashboard'
-        });
-    }
+  opts = opts || {};
 
-    const state = dashboard.state;
-    const cfg = config.getConfig();
+  if (!dashboard) {
+    throw errors.UnfulfilledRequirement({
+      component: "grafana.publish",
+      unfulfilledArg: "dashboard"
+    });
+  }
 
-    if (!state || !state.title) {
-        throw errors.InvalidState({
-            component: 'grafana.Dashboard',
-            invalidArg: 'title',
-            reason: 'undefined'
-        });
-    }
+  const state = dashboard.state;
+  const cfg = config.getConfig();
 
-    if (!cfg.url) {
-        throw errors.Misconfigured({
-            invalidArg: 'url',
-            reason: 'undefined',
-            resolution: 'Must call grafana.configure before publishing'
-        });
-    }
+  if (!state || !state.title) {
+    throw errors.InvalidState({
+      component: "grafana.Dashboard",
+      invalidArg: "title",
+      reason: "undefined"
+    });
+  }
 
-    if (!cfg.cookie) {
-        throw errors.Misconfigured({
-            invalidArg: 'cookie',
-            reason: 'undefined'
-        });
-    }
+  if (!cfg.url) {
+    throw errors.Misconfigured({
+      invalidArg: "url",
+      reason: "undefined",
+      resolution: "Must call grafana.configure before publishing"
+    });
+  }
 
-    const headers = cfg.headers || {}
+  if (!cfg.cookie) {
+    throw errors.Misconfigured({
+      invalidArg: "cookie",
+      reason: "undefined"
+    });
+  }
 
-    const createData = {
-        dashboard: dashboard.generate(),
-        overwrite: true
-    };
+  const headers = cfg.headers || {};
 
-    const j = request.jar();
-    const cookie = request.cookie(cfg.cookie);
-    j.setCookie(cookie, cfg.url);
+  const createData = {
+    dashboard: dashboard.generate(),
+    overwrite: true
+  };
 
-    return request({
-        url: cfg.url,
-        method: 'POST',
-        headers: headers,
-        json: createData,
-        jar: j,
-        timeout: opts.timeout || 1000
+  const j = request.jar();
+  const cookie = request.cookie(cfg.cookie);
+  j.setCookie(cookie, cfg.url);
+  return request({
+    url: cfg.url,
+    method: "POST",
+    headers: headers,
+    json: createData,
+    jar: j,
+    timeout: opts.timeout || 1000,
+    followAllRedirects: true
+  })
+    .then(resp => {
+      console.log("Published the dashboard", state.title);
+      return resp;
     })
-    .then((resp) => {
-        console.log('Published the dashboard ' + state.title);
-        return resp
-    })
-    .catch((e) => {
-        console.log('grafana-dash-gen: publish: caught e: ', e.name, e.message);
-        console.log('Unable to publish dashboard ' + state.title);
-        console.log('response headers: ', e.response && e.response.headers)
-        console.log('response body: ', e.response && e.response.body)
-        console.log('response statusCode:', e.response &&  e.response.statusCode);
-        throw e // rethrow for downstream consumers
-    })
+    .catch(e => {
+      console.log(
+        "grafana-dash-gen: publish: caught error: ",
+        e.name,
+        e.message
+      );
+      console.log("Unable to publish dashboard ", state.title);
+      console.log("response headers: ", e.response && e.response.headers);
+      console.log("response body: ", e.response && e.response.body);
+      console.log("response statusCode:", e.response && e.response.statusCode);
+      throw e; // rethrow for downstream consumers
+    });
 }
 /* eslint-enable */
 
