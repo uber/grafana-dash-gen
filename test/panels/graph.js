@@ -21,75 +21,95 @@
 'use strict';
 
 /* eslint-disable no-new */
-var test = require('tape');
-var Graph = require('../../grafana/panels/graph');
+const test = require('tape');
+const Graph = require('../../grafana/panels/graph');
+const {getAlert} = require('../fixtures/alert/alert.mock');
 
-var simpleGraph = require('../fixtures/panels/simple_graph.js');
-var overrideGraph = require('../fixtures/panels/override_graph.js');
+
+const simpleGraph = require('../fixtures/panels/simple_graph.js');
+const overrideGraph = require('../fixtures/panels/override_graph.js');
+const simpleGraphWithAlert = require('../fixtures/panels/graph_with_alert.js');
 
 test('simple graph', function t(assert) {
-    var graph = new Graph();
-    graph.state.id = simpleGraph.id;
-    assert.deepEqual(graph.generate(), simpleGraph);
-    assert.end();
+  const graph = new Graph();
+  graph.state.id = simpleGraph.id;
+  assert.deepEqual(graph.generate(), simpleGraph);
+  assert.end();
 });
 
 test('graph with overriden information', function t(assert) {
-    var graph = new Graph({
-        span: 4,
-        title: 'custom title',
-        targets: ['target'],
-        datasource: 'M3',
-        fill: 0,
-        arbitraryProperty: 'foo'
-    });
-    graph.state.id = overrideGraph.id;
+  const graph = new Graph({
+    span: 4,
+    title: 'custom title',
+    targets: ['target'],
+    datasource: 'M3',
+    fill: 0,
+    arbitraryProperty: 'foo'
+  });
+  graph.state.id = overrideGraph.id;
 
-    assert.deepEqual(graph.generate(), overrideGraph);
-    assert.end();
+  assert.deepEqual(graph.generate(), overrideGraph);
+  assert.end();
 });
 
 test('add graph to row and dashboard when passed', function t(assert) {
-    var calledAddPanel = 0;
-    var calledAddRow = 0;
+  let calledAddPanel = 0;
+  let calledAddRow = 0;
 
-    new Graph({
-        row: {
-            addPanel: function addPanel() {
-                calledAddPanel += 1;
-            }
-        },
+  new Graph({
+    row: {
+      addPanel: function addPanel() {
+        calledAddPanel += 1;
+      }
+    },
 
-        dashboard: {
-            addRow: function addRow() {
-                calledAddRow += 1;
-            }
-        }
-    });
+    dashboard: {
+      addRow: function addRow() {
+        calledAddRow += 1;
+      }
+    }
+  });
 
-    assert.deepEqual(calledAddRow, 1);
-    assert.deepEqual(calledAddPanel, 1);
-    assert.end();
+  assert.deepEqual(calledAddRow, 1);
+  assert.deepEqual(calledAddPanel, 1);
+  assert.end();
 });
 
 test('graph should assign a refId to each target added', assert => {
-  var graph = new Graph({
+  const firstTarget = 'target';
+  const secondTarget = 'target-2';
+
+  const expectedTargets = [{
+    hide: undefined,
+    refId: 'A',
+    target: firstTarget
+  }, {
+    hide: undefined,
+    refId: 'B',
+    target: secondTarget
+  }];
+
+  const graph = new Graph({
     span: 4,
     title: 'custom title',
-    targets: ['target', 'target-2'],
+    targets: [firstTarget, secondTarget],
     datasource: 'M3',
     fill: 0,
     arbitraryProperty: 'foo'
   });
 
-  assert.deepEqual(graph.generate().targets, [{
-    hide: undefined,
-    refId: 'A',
-    target: 'target'
-  }, {
-    hide: undefined,
-    refId: 'B',
-    target: 'target-2'
-  }]);
+  assert.deepEqual(graph.generate().targets, expectedTargets);
+  assert.end();
+});
+
+test('graph should be able to add alert', assert => {
+  const graph = new Graph({
+    targets: ['firstTarget'],
+  });
+
+  graph.state.id = simpleGraphWithAlert.id;
+  graph.addAlert(getAlert());
+
+  assert.deepEqual(graph.generate(), simpleGraphWithAlert);
   assert.end();
 });

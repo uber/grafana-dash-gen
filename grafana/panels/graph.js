@@ -107,6 +107,10 @@ Graph.prototype.generate = function generate() {
     return this.state;
 };
 
+Graph.prototype.addAlert = function addAlert(alert) {
+  this.state.alert = alert.generate();
+};
+
 Graph.prototype.addTarget = function addTarget(target) {
     const refs = 'abcdefghijklmnopqrstuvwxyz';
     this.state.targets.push({
