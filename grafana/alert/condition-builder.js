@@ -28,9 +28,11 @@ function ConditionBuilder() {
       throw Error(`Evaluator type must be one of [${types.toString()}]`);
     }
 
+    that._evaluator.type = type;
+
     if (['gt', 'lt'].includes(type)) {
       that._evaluator.params = [value];
-    } else {
+    } else if (Array.isArray(value)) {
       that._evaluator.params = value;
     }
 

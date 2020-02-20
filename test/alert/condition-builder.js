@@ -13,6 +13,18 @@ test('condition builder .withEvaluator', assert => {
   assert.end();
 });
 
+test('condition builder .withEvaluator should accept array of values', assert => {
+  const condition = new ConditionBuilder()
+    .withEvaluator([2, 4], 'within_range')
+    .build();
+
+  assert.deepEqual(condition.evaluator, {
+    params: [2, 4],
+    type: 'within_range',
+  });
+  assert.end();
+});
+
 test('condition builder .witEvaluator should throw when passing a weird value', assert => {
   const conditionBuilder = new ConditionBuilder();
   assert.throws(() => conditionBuilder.withEvaluator(2, 'bla'));
