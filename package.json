@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "fast-test": "node ./test/index.js | tap-spec",
+    "test-out": "node ./test/index.js",
     "test-cover": "istanbul cover --include-all-source --root ./grafana --report html --report cobertura --print detail ./test/index.js",
     "view-cover": "rm -rf ./coverage && npm run test-cover && open ./coverage/index.html",
     "test": "npm run fast-test && npm run test-cover"
@@ -17,14 +18,14 @@
   "author": "Madan Thangavelu",
   "license": "MIT",
   "dependencies": {
-    "error": "^7.0.2",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.7",
-    "underscore": "^1.8.3",
-    "xtend": "^4.0.0"
+    "error": "^7.2.1",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8",
+    "underscore": "^1.9.2",
+    "xtend": "^4.0.2"
   },
   "devDependencies": {
-    "eslint": "^0.18.0",
+    "eslint": "^6.8.0",
     "istanbul": "^0.3.13",
     "lint-trap": "^1.0.1",
     "nock": "^10.0.6",

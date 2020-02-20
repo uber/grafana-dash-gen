@@ -71,3 +71,25 @@ test('add graph to row and dashboard when passed', function t(assert) {
     assert.deepEqual(calledAddPanel, 1);
     assert.end();
 });
+
+test('graph should assign a refId to each target added', assert => {
+  var graph = new Graph({
+    span: 4,
+    title: 'custom title',
+    targets: ['target', 'target-2'],
+    datasource: 'M3',
+    fill: 0,
+    arbitraryProperty: 'foo'
+  });
+
+  assert.deepEqual(graph.generate().targets, [{
+    hide: undefined,
+    refId: 'A',
+    target: 'target'
+  }, {
+    hide: undefined,
+    refId: 'B',
+    target: 'target-2'
+  }]);
+  assert.end();
+});

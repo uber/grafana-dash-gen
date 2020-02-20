@@ -20,13 +20,14 @@
 
 'use strict';
 
-var generateGraphId = require('../id');
+const generateGraphId = require('../id');
 
 function Graph(opts) {
     opts = opts || {};
-    var self = this;
+    const self = this;
+    this._currentRefIndex = 0;
 
-    var defaults = {
+    const defaults = {
         'type': 'graph',
         'id': generateGraphId(),
         'renderer': 'flot',
@@ -107,9 +108,11 @@ Graph.prototype.generate = function generate() {
 };
 
 Graph.prototype.addTarget = function addTarget(target) {
+    const refs = 'abcdefghijklmnopqrstuvwxyz';
     this.state.targets.push({
         target: target.toString(),
-        hide: target.hide
+        hide: target.hide,
+        refId: refs[this._currentRefIndex++].toUpperCase(),
     });
 };
 
