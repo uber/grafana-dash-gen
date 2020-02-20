@@ -47,6 +47,9 @@ Dashboard.prototype._init = function _init(opts) {
     this.state.schemaVersion = opts.schemaVersion || 6;
     this.state.hideAllLegends = !!opts.hideAllLegends;
     this.state.time = opts.time || null;
+    if("editable" in opts) {
+        this.state.editable = opts.editable
+    }
 };
 
 Dashboard.prototype._initRows = function _initRows(opts) {
