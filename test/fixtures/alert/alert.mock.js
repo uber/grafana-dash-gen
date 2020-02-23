@@ -1,12 +1,11 @@
-const ConditionBuilder = require('../../../grafana/alert/condition-builder');
+const Condition = require('../../../grafana/alert/condition');
 const Alert = require('../../../grafana/alert/alert');
 
 const getAlert = () => {
-  const condition = new ConditionBuilder()
+  const condition = new Condition()
     .onQuery('A')
     .withReducer('min')
-    .withEvaluator(10, 'gt')
-    .build();
+    .withEvaluator(1.1, 'gt');
 
   return new Alert().addCondition(condition);
 };

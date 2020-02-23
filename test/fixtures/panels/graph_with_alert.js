@@ -36,7 +36,7 @@ module.exports = {
       },
       "evaluator": {
         "type": "gt",
-        "params": [10]
+        "params": [1.1]
       },
       "operator": {
         "type": "and"

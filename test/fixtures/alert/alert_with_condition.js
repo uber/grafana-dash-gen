@@ -10,12 +10,12 @@ module.exports = {
       ]
     },
     "reducer": {
-      "type": "avg",
+      "type": "min",
       "params": []
     },
     "evaluator": {
       "type": "gt",
-      "params": []
+      "params": [1.1]
     },
     "operator": {
       "type": "and"

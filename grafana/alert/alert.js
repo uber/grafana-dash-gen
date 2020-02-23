@@ -2,7 +2,7 @@ function Alert(opts) {
   opts = opts || {};
   const self = this;
 
-  const defaults = {
+  this.state = {
     name: 'Panel Title alert',
     for: '15m',
     frequency: '5m',
@@ -15,9 +15,6 @@ function Alert(opts) {
     handler: 1,
   };
 
-  this.state = defaults;
-
-  // Overwrite defaults with custom values
   Object.keys(opts).forEach(function eachOpt(opt) {
     self.state[opt] = opts[opt];
   });
@@ -29,6 +26,7 @@ Alert.prototype.addCondition = function addCondition(condition) {
 };
 
 Alert.prototype.generate = function generate() {
+  this.state.conditions = this.state.conditions.map(condition => condition.generate());
   return this.state;
 };
 
