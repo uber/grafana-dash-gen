@@ -1,3 +1,5 @@
+const Condition = require('./index').Condition;
+
 function Alert(opts) {
   opts = opts || {};
   const self = this;
@@ -16,7 +18,11 @@ function Alert(opts) {
   };
 
   Object.keys(opts).forEach(function eachOpt(opt) {
-    self.state[opt] = opts[opt];
+    if (opt === 'conditions') {
+      self.state[opt] = opts[opt].map(condition => new Condition(condition))
+    } else {
+      self.state[opt] = opts[opt];
+    }
   });
 }
 

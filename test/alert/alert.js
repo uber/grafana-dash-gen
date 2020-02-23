@@ -14,7 +14,7 @@ test('simple alert', function t(assert) {
 test('alert should be able to add condition', assert => {
   const alert = new Alert();
   const condition = new Condition()
-    .onQuery('A')
+    .onQuery('B')
     .withReducer('min')
     .withEvaluator(1.1, 'gt');
 
@@ -24,3 +24,33 @@ test('alert should be able to add condition', assert => {
   assert.end();
 });
 
+test('alert should be able to receive conditions in the constructor', assert => {
+  const overrideConditions = {
+    conditions: [{
+      type: 'query',
+      query: {
+        params: [
+          'B',
+          '5m',
+          'now'
+        ]
+      },
+      reducer: {
+        type: 'min',
+        params: []
+      },
+      evaluator: {
+        type: 'gt',
+        params: [1.1]
+      },
+      operator: {
+        type: 'and'
+      }
+    }]
+  };
+
+  const alert = new Alert(overrideConditions);
+
+  assert.deepEqual(alert.generate(), alertWithCondition);
+  assert.end();
+});
