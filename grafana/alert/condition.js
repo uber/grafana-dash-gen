@@ -2,6 +2,7 @@ function Condition(opts) {
   opts = opts || {};
 
   const that = this;
+  that.state = {};
 
   this._evaluator = {
     params: [],
@@ -85,13 +86,14 @@ function Condition(opts) {
   }
 
   function generate() {
-    return Object.assign({}, that.state, {
-      evaluator: that._evaluator,
-      operator: that._operator,
-      query: that._query,
-      reducer: that._reducer,
-      type: 'query',
-    });
+    return Object.assign({}, {
+        evaluator: that._evaluator,
+        operator: that._operator,
+        query: that._query,
+        reducer: that._reducer,
+        type: 'query',
+      },
+      that.state);
   }
 
   return {

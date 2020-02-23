@@ -100,3 +100,19 @@ test('condition should throw when using .withReducer with a weird value', assert
   assert.throws(() => condition.withReducer('bla'));
   assert.end();
 });
+
+test('override condition values from constructor', assert => {
+  const overrideReducer = {
+    reducer: {
+      params: [],
+      type: 'max',
+    }
+  };
+  const condition = new Condition(overrideReducer).generate();
+
+  assert.deepEqual(condition.reducer, {
+    params: [],
+    type: 'max',
+  });
+  assert.end();
+});
