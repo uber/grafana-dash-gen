@@ -24,6 +24,20 @@ test('alert should be able to add condition', assert => {
   assert.end();
 });
 
+test('alert should be able to override defaults from the constructor', assert => {
+  const overrideOptions = {
+    name: 'override name',
+    for: '30min',
+  };
+
+  const alert = new Alert(overrideOptions);
+  const actualAlert = alert.generate();
+
+  assert.deepEqual(actualAlert.name, overrideOptions.name);
+  assert.deepEqual(actualAlert.for, overrideOptions.for);
+  assert.end();
+});
+
 test('alert should be able to receive conditions in the constructor', assert => {
   const overrideConditions = {
     conditions: [{
