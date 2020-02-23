@@ -3,7 +3,7 @@ const Alert = require('../../../grafana/alert/alert');
 
 const getAlert = () => {
   const condition = new Condition()
-    .onQuery('A')
+    .onQuery('B')
     .withReducer('min')
     .withEvaluator(1.1, 'gt');
 

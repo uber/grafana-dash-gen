@@ -23,21 +23,21 @@
 /* eslint-disable no-new */
 const test = require('tape');
 const Graph = require('../../grafana/panels/graph');
-const {getAlert} = require('../fixtures/alert/alert.mock');
 
-
+const getAlert = require('../fixtures/alert/alert.mock').getAlert;
 const simpleGraph = require('../fixtures/panels/simple_graph.js');
 const overrideGraph = require('../fixtures/panels/override_graph.js');
 const simpleGraphWithAlert = require('../fixtures/panels/graph_with_alert.js');
+const alertWithCondition = require('../fixtures/alert/alert_with_condition.js');
 
-test('simple graph', function t(assert) {
+test('simple graph', assert => {
   const graph = new Graph();
   graph.state.id = simpleGraph.id;
   assert.deepEqual(graph.generate(), simpleGraph);
   assert.end();
 });
 
-test('graph with overriden information', function t(assert) {
+test('graph with overriden information', assert => {
   const graph = new Graph({
     span: 4,
     title: 'custom title',
@@ -52,7 +52,7 @@ test('graph with overriden information', function t(assert) {
   assert.end();
 });
 
-test('add graph to row and dashboard when passed', function t(assert) {
+test('add graph to row and dashboard when passed', assert => {
   let calledAddPanel = 0;
   let calledAddRow = 0;
 
@@ -109,6 +109,14 @@ test('graph should be able to add alert', assert => {
 
   graph.state.id = simpleGraphWithAlert.id;
   graph.addAlert(getAlert());
+
+  assert.deepEqual(graph.generate(), simpleGraphWithAlert);
+  assert.end();
+});
+
+test('graph should receive an alert in the constructor', assert => {
+  const graph = new Graph({alert: alertWithCondition, targets: ['firstTarget']});
+  graph.state.id = simpleGraphWithAlert.id;
 
   assert.deepEqual(graph.generate(), simpleGraphWithAlert);
   assert.end();

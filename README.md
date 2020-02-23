@@ -17,12 +17,14 @@ You will be able to generate and publish a grafana graph using the following ste
 #### Step 1: Configure grafana 
 if you would like grafana to publish your dashboard you need this step. If you do not need grafana to publish your dashboard, you can skip this step. 
 ```js
-var grafana = require('grafana-dash-gen');
-var Row = grafana.Row;
-var Dashboard = grafana.Dashboard;
-var Panels = grafana.Panels;
-var Target = grafana.Target;
-var Templates = grafana.Templates;
+const grafana = require('grafana-dash-gen');
+const Row = grafana.Row;
+const Dashboard = grafana.Dashboard;
+const Panels = grafana.Panels;
+const Target = grafana.Target;
+const Templates = grafana.Templates;
+const Alert = grafana.Alert;
+const Condition = grafana.Condition;
 
 grafana.configure({
 	url: 'https://your.grafana.com/elasticsearch/grafana-dash/dashboard/',
@@ -31,13 +33,13 @@ grafana.configure({
 ```
 #### Step 2: Create a dashboard
 ```js
-var dashboard = new Dashboard({
+const dashboard = new Dashboard({
 	title: 'Api dashboard'
 });
 ```
 (or) Below is an example of a dashboard with a custom slug, templates `dc` and `smoothing` and annotations.
 ```js
- var dashboard = new Dashboard({
+ const dashboard = new Dashboard({
  	title: 'Api dashboard',
  	slug: 'api',
  	templating: [{
@@ -59,13 +61,13 @@ If you do not wish to have any templates and annotations
 #### Step 3: Create a new row
 As said abolve, grafana dashboard contains a number of rows. 
 ```js
-var row = new Row();
+const row = new Row();
 ```
 
 #### Step 4: Create graphs to add to the row
 There are two ways to add the graph to a row. Pass it while a graph is created as below
 ```js
-var panel = new Panels.Graph({
+const panel = new Panels.Graph({
 	title: 'api req/sec',
 	span: 5, 
 	targets: [
@@ -79,7 +81,7 @@ var panel = new Panels.Graph({
 
 (or) add it in a separate step
 ```js
-var panel = new Panels.Graph({
+const panel = new Panels.Graph({
 	title: 'api req/sec',
 	span: 5,
 	targets: [
@@ -92,7 +94,7 @@ row.addPanel(panel);
 
 If you would like to create a full width single stat (as in the image) the code is below. Notice how we create a new row on the fly. 
 ```js
-var requestVolume = new Panels.SingleStat({
+const requestVolume = new Panels.SingleStat({
 	title: 'Current Request Volume',
 	postfix: 'req/sec',
 	targets: [
@@ -103,7 +105,32 @@ var requestVolume = new Panels.SingleStat({
 	dashboard: dashboard
 });
 ```
-#### Step 5: Publish the graph
+
+#### Step 5: Create an alert and add it to the graph
+An alert is set on a target, each target added to the panel receives a refId of 'A', 'B', ..., 'Z'.
+```js
+const conditionOnRequestLowVolume = new Condition()
+        .onQuery('A')
+        .withEvaluator(1, 'lt')
+        .withReducer('max');
+
+const alert = new Alert({ name: 'Low volume of requests' });
+alert.addCondition(conditionOnRequestLowVolume);
+
+// OR 
+
+const alert = new Alert({ name: 'Low volume of requests' })
+        .addCondition(conditionOnRequestLowVolume);
+
+requestVolume.addAlert(alert);
+```
+
+It is also possible to add an alert by passing it to the Graph constructor
+```js
+const graphWithAnAlert = new Graph({ alert: YOUR_ALERT_OBJECT });
+```
+
+#### Step 6: Publish the graph
 ```js
 grafana.publish(dashboard);
 ```
