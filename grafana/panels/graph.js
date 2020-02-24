@@ -108,16 +108,39 @@ Graph.prototype.generate = function generate() {
 };
 
 Graph.prototype.addAlert = function addAlert(alert) {
-  this.state.alert = alert.generate();
+    this.state.alert = alert.generate();
 };
 
 Graph.prototype.addTarget = function addTarget(target) {
     const refs = 'abcdefghijklmnopqrstuvwxyz';
-    this.state.targets.push({
-        target: target.toString(),
+    const builtTarget = target.toString();
+
+    const targetWithRefs = {
+        target: builtTarget,
         hide: target.hide,
         refId: refs[this._currentRefIndex++].toUpperCase(),
-    });
+    };
+
+    const targetFull = handleRefTargets(builtTarget, this.state.targets);
+    const targetToAdd = Object.assign({}, targetWithRefs, targetFull);
+    this.state.targets.push(targetToAdd);
 };
+
+function handleRefTargets(target, targets) {
+    if (target.includes('#')) {
+        const refMatchRegex = /.*?#(\w)[,)]/g;
+        const matches = [...target.matchAll(refMatchRegex)];
+        const refs = matches.map(refMatch => refMatch[1]);
+        const findTargetByRefId = (targets, refId) => targets.find(target => target.refId === refId).target;
+
+        return {
+            targetFull: refs.reduce((res, ref) =>
+                res.replace(`#${ref}`, findTargetByRefId(targets, ref)),
+              target)
+        };
+    }
+
+    return {}
+}
 
 module.exports = Graph;

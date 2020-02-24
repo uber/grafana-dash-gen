@@ -121,3 +121,24 @@ test('graph should receive an alert in the constructor', assert => {
   assert.deepEqual(graph.generate(), simpleGraphWithAlert);
   assert.end();
 });
+
+test('graph should add other targets when a target contains refs', assert => {
+  const graph = new Graph({
+    targets: [
+      "alias(scaleToSeconds(summarize(sumSeries(target-1), '60m', 'sum', false), 60), 'alias-1')",
+      "alias(scaleToSeconds(summarize(sumSeries(target-2), '60m', 'sum', false), 60), 'alias-2')",
+      "alias(divideSeries(#B, #A), 'success rate')"
+    ]
+  });
+
+  const actualDivideTarget = graph.generate().targets[2];
+  const expectedDivideTarget = {
+    hide: undefined,
+    refId: 'C',
+    target: 'alias(divideSeries(#B, #A), \'success rate\')',
+    targetFull: "alias(divideSeries(alias(scaleToSeconds(summarize(sumSeries(target-2), '60m', 'sum', false), 60), 'alias-2'), alias(scaleToSeconds(summarize(sumSeries(target-1), '60m', 'sum', false), 60), 'alias-1')), 'success rate')",
+  };
+
+  assert.deepEqual(actualDivideTarget, expectedDivideTarget);
+  assert.end();
+});
