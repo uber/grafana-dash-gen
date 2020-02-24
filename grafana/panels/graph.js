@@ -126,11 +126,20 @@ Graph.prototype.addTarget = function addTarget(target) {
     this.state.targets.push(targetToAdd);
 };
 
+function getRefsFromTarget(target) {
+    const refMatchRegex = /.*?#(\w)[,)]/g;
+    const refs = [];
+    let matches;
+
+    while (matches = refMatchRegex.exec(target)) {
+        refs.push(matches[1]);
+    }
+    return refs;
+}
+
 function handleRefTargets(target, targets) {
     if (target.includes('#')) {
-        const refMatchRegex = /.*?#(\w)[,)]/g;
-        const matches = [...target.matchAll(refMatchRegex)];
-        const refs = matches.map(refMatch => refMatch[1]);
+        const refs = getRefsFromTarget(target);
         const findTargetByRefId = (targets, refId) => targets.find(target => target.refId === refId).target;
 
         return {
