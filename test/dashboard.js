@@ -56,7 +56,8 @@ test('Dashboard with overriden information', function t(assert) {
             editable: true,
             collapse: false,
             panels: []
-        }]
+        }],
+        editable: true,
     });
     dashboard.state.id = overrideDashboard.id;
     assert.deepEqual(dashboard.state, overrideDashboard);
