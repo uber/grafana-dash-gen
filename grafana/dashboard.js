@@ -48,7 +48,7 @@ Dashboard.prototype._init = function _init(opts) {
     this.state.hideAllLegends = !!opts.hideAllLegends;
     this.state.time = opts.time || null;
     if("editable" in opts) {
-        this.state.editable = opts.editable
+        this.state.editable = opts.editable;
     }
 };
 
