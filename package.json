@@ -30,7 +30,6 @@
   "devDependencies": {
     "eslint": "^6.8.0",
     "nyc": "^15.0.0",
-    "lint-trap": "^1.0.1",
     "nock": "^12.0.2",
     "pre-commit": "^1.0.6",
     "tap-spec": "^5.0.0",
