@@ -73,10 +73,12 @@ test('condition should have default and operator', assert => {
 
 test('condition should allow setting the query metric with .onQuery', assert => {
   const condition = new Condition()
-    .onQuery('D')
+    .onQuery('D', '60m', 'now')
     .generate();
 
   assert.deepEqual(condition.query.params[0], 'D');
+  assert.deepEqual(condition.query.params[1], '60m');
+  assert.deepEqual(condition.query.params[2], 'now');
   assert.end();
 });
 

@@ -65,11 +65,13 @@ function Condition(opts) {
     return this;
   }
 
-  function onQuery(query) {
+  function onQuery(query, duration, from) {
     if (typeof query !== 'string') {
       throw Error('Query identifier must be a string. eg. "A" or "B", etc...');
     }
     that._query.params[0] = query;
+    that._query.params[1] = duration;
+    that._query.params[2] = from;
 
     return this;
   }

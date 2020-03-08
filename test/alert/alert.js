@@ -14,7 +14,7 @@ test('simple alert', function t(assert) {
 test('alert should be able to add condition', assert => {
   const alert = new Alert();
   const condition = new Condition()
-    .onQuery('B')
+    .onQuery('B', '5m','now')
     .withReducer('min')
     .withEvaluator(1.1, 'gt');
 
