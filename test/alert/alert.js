@@ -39,8 +39,7 @@ test('alert should be able to override defaults from the constructor', assert =>
 });
 
 test('alert should be able to receive conditions in the constructor', assert => {
-  const overrideConditions = {
-    conditions: [{
+  const condition = new Condition({
       type: 'query',
       query: {
         params: [
@@ -60,9 +59,9 @@ test('alert should be able to receive conditions in the constructor', assert => 
       operator: {
         type: 'and'
       }
-    }]
-  };
+    });
 
+  const overrideConditions = { conditions: [condition] };
   const alert = new Alert(overrideConditions);
 
   assert.deepEqual(alert.generate(), alertWithCondition);

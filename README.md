@@ -107,7 +107,7 @@ const requestVolume = new Panels.SingleStat({
 ```
 
 #### Step 5: Create an alert and add it to the graph
-An alert is set on a target, each target added to the panel receives a refId of 'A', 'B', ..., 'Z'.
+_Alerts are optional_. An alert is set on a target, each target added to the panel receives a refId of 'A', 'B', ..., 'Z'.
 ```js
 const conditionOnRequestLowVolume = new Condition()
         .onQuery('A')

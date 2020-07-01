@@ -112,13 +112,13 @@ Graph.prototype.addAlert = function addAlert(alert) {
 };
 
 Graph.prototype.addTarget = function addTarget(target) {
-    const refs = 'abcdefghijklmnopqrstuvwxyz';
+    const refs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const builtTarget = target.toString();
 
     const targetWithRefs = {
         target: builtTarget,
         hide: target.hide,
-        refId: refs[this._currentRefIndex++].toUpperCase(),
+        refId: refs[this._currentRefIndex++],
     };
 
     const targetFull = handleRefTargets(builtTarget, this.state.targets);
