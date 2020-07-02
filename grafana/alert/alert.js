@@ -19,7 +19,7 @@ function Alert(opts) {
   this._initConditions(opts);
 }
 
-Alert.prototype._init = function _inti(opts) {
+Alert.prototype._init = function _init(opts) {
   const self = this;
 
   Object.keys(opts).forEach(function eachOpt(opt) {
