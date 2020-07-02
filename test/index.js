@@ -28,3 +28,4 @@ require('./publish');
 require('./row');
 require('./target');
 require('./templates');
+require('./alert');

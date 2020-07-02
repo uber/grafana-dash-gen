@@ -24,6 +24,8 @@ var Dashboard = require('./grafana/dashboard');
 var Row = require('./grafana/row');
 var Target = require('./grafana/target');
 var Panels = require('./grafana/panels');
+var Alert = require('./grafana/alert/alert');
+var Condition = require('./grafana/alert/condition');
 var Templates = require('./grafana/templates');
 var publish = require('./grafana/publish');
 var generateGraphId = require('./grafana/id');
@@ -35,6 +37,8 @@ module.exports = {
     Row: Row,
     Panels: Panels,
     Templates: Templates,
+    Alert,
+    Condition,
     Annotations: Annotations,
     Target: Target,
     publish: publish,

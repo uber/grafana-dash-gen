@@ -5,6 +5,8 @@ var Row = grafana.Row;
 var Dashboard = grafana.Dashboard;
 var Panels = grafana.Panels;
 var Target = grafana.Target;
+var Alert = grafana.Alert;
+var Condition = grafana.Condition;
 
 // For grafana v1, the URL should look something like:
 //
@@ -64,6 +66,18 @@ function generateDashboard() {
                         alias('rps')
         ]
     });
+
+    // set alert on request volume when it's (max) value is lower than 1 req / sec
+    var condition = new Condition()
+      .withReducer('max')
+      .withEvaluator(1, 'lt')
+      .onQuery('A');
+
+    var alert = new Alert()
+      .addCondition(condition);
+
+    rpsGraphPanel.addAlert(alert);
+
     var rpsStatPanel = new Panels.SingleStat({
         title: 'Current Request Volume',
         postfix: 'req/sec',

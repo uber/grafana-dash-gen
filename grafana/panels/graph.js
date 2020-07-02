@@ -20,13 +20,14 @@
 
 'use strict';
 
-var generateGraphId = require('../id');
+const generateGraphId = require('../id');
 
 function Graph(opts) {
     opts = opts || {};
-    var self = this;
+    const self = this;
+    this._currentRefIndex = 0;
 
-    var defaults = {
+    const defaults = {
         'type': 'graph',
         'id': generateGraphId(),
         'renderer': 'flot',
@@ -106,11 +107,49 @@ Graph.prototype.generate = function generate() {
     return this.state;
 };
 
-Graph.prototype.addTarget = function addTarget(target) {
-    this.state.targets.push({
-        target: target.toString(),
-        hide: target.hide
-    });
+Graph.prototype.addAlert = function addAlert(alert) {
+    this.state.alert = alert.generate();
 };
+
+Graph.prototype.addTarget = function addTarget(target) {
+    const refs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const builtTarget = target.toString();
+
+    const targetWithRefs = {
+        target: builtTarget,
+        hide: target.hide,
+        refId: refs[this._currentRefIndex++],
+    };
+
+    const targetFull = handleRefTargets(builtTarget, this.state.targets);
+    const targetToAdd = Object.assign({}, targetWithRefs, targetFull);
+    this.state.targets.push(targetToAdd);
+};
+
+function getRefsFromTarget(target) {
+    const refMatchRegex = /.*?#(\w)[,)]/g;
+    const refs = [];
+    let matches;
+
+    while (matches = refMatchRegex.exec(target)) {
+        refs.push(matches[1]);
+    }
+    return refs;
+}
+
+function handleRefTargets(target, targets) {
+    if (target.includes('#')) {
+        const refs = getRefsFromTarget(target);
+        const findTargetByRefId = (targets, refId) => targets.find(target => target.refId === refId).target;
+
+        return {
+            targetFull: refs.reduce((res, ref) =>
+                res.replace(`#${ref}`, findTargetByRefId(targets, ref)),
+              target)
+        };
+    }
+
+    return {}
+}
 
 module.exports = Graph;

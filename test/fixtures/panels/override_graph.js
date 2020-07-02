@@ -60,7 +60,8 @@ module.exports = {
     steppedLine: false,
     targets: [{
         target: 'target',
-        hide: undefined
+        hide: undefined,
+        refId: 'A',
     }],
     title: 'custom title',
     tooltip: {
