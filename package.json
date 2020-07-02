@@ -24,13 +24,13 @@
     "error": "^7.2.1",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
-    "underscore": "^1.9.2",
+    "underscore": "^1.10.2",
     "xtend": "^4.0.2"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "nyc": "^15.0.0",
-    "nock": "^12.0.2",
+    "nock": "^12.0.3",
+    "nyc": "^15.1.0",
     "pre-commit": "^1.0.6",
     "tap-spec": "^5.0.0",
     "tape": "4.13.2"
