@@ -54,7 +54,7 @@ function Query(query, opts) {
         refresh: false,
         multi: false,
         options: [],
-        current: null
+        current: {},
     };
 
     this._required = [
