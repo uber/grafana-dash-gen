@@ -26,7 +26,7 @@ module.exports = {
     name: 'foo',
     datasource: 'default',
     options: [],
-    current: null,
+    current: {},
     includeAll: true,
     allFormat: 'wildcard',
     allValue: null,

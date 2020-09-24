@@ -26,7 +26,7 @@ module.exports = {
     name: 'template',
     datasource: 'datasource',
     options: [],
-    current: null,
+    current: {},
     includeAll: false,
     allFormat: 'glob',
     allValue: '*',
