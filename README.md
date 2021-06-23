@@ -74,7 +74,6 @@ const panel = new Panels.Graph({
 		new Target('api.statusCode.*').
 					transformNull(0).sum().hitcount('1seconds').scale(0.1).alias('rps')
 	],
-	row: row,
 	dashboard: dashboard
 });
 ```
