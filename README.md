@@ -1,4 +1,7 @@
-# Grafana Dash Gen ![Build Status](https://travis-ci.org/uber/grafana-dash-gen.svg?branch=master)
+# Grafana Dash Gen
+
+[![Node.js CI](https://github.com/uber/grafana-dash-gen/actions/workflows/node.js.yml/badge.svg)](https://github.com/uber/grafana-dash-gen/actions/workflows/node.js.yml)
+
 A collection of utility classes to construct and publish grafana graphs. The library is built ground up to incorporate grafana terminologies. 
 
 - **Dashboard**: Represents the final dashboard that is displayed.
