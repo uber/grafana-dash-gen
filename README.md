@@ -141,7 +141,7 @@ grafana.publish(dashboard);
 to generate the json and not publish use
 
 ```js
-console.log(dashboard.generate());
+console.log(JSON.stringify(dashboard.generate()));
 ```
 
 **A complete example of a dashboard is provided in example.js**
