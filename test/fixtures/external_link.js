@@ -18,23 +18,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
 module.exports = {
-  id: null,
-  title: 'Generated Grafana Dashboard',
-  originalTitle: 'Generated Dashboard',
+  title: 'Uber Home Page',
+  tooltip: "",
+  url: "www.uber.com",
   tags: [],
-  style: 'dark',
-  timezone: 'browser',
-  editable: true,
-  hideControls: false,
-  sharedCrosshair: false,
-  refresh: false,
-  schemaVersion: 6,
-  hideAllLegends: false,
-  rows: [],
-  annotations: {list: [], enable: true},
-  templating: {list: [], enable: true},
-  time: null,
-  links: [],
+  icon: "external link",
+  targetBlank: true,
+  type: "link",
+  includeVars: false,
+  keepTime: false,
 };

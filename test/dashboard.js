@@ -22,6 +22,7 @@
 
 var test = require('tape');
 var Dashboard = require('../grafana/dashboard');
+var ExternalLink = require('../grafana/external-link')
 require('../grafana/panels'); // for coverage
 
 var simpleDashboard = require('./fixtures/simple_dashboard');
@@ -58,6 +59,12 @@ test('Dashboard with overriden information', function t(assert) {
             panels: []
         }],
         editable: true,
+        links: [
+          new ExternalLink({
+            title: "Uber Homepage",
+            url: "www.uber.com",
+          })
+        ]
     });
     dashboard.state.id = overrideDashboard.id;
     assert.deepEqual(dashboard.state, overrideDashboard);
@@ -100,4 +107,11 @@ test('Dashboard can generate correct body', function t(assert) {
     var json = dashboard.generate();
     assert.deepEqual(json, simpleDashboard);
     assert.end();
+});
+
+test('Dashboard throws error if links are defined with wrong type', function t(assert) {
+  assert.throws(() => new Dashboard({
+    links: [{ title: "custom link", url: "www.wrong.com"}]
+  }), new TypeError('links must be defined using ExternalLink'))
+  assert.end();
 });
