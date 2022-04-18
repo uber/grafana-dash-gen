@@ -24,6 +24,7 @@ const test = require("tape");
 const config = require("../grafana/config");
 const publish = require("../grafana/publish");
 const Dashboard = require("../grafana/dashboard");
+const ExternalLink = require("../grafana/external-link")
 
 // configuration values, held constant for assertions
 const baseUrl = "http://awesome.com";
@@ -46,12 +47,20 @@ const annotation1 = {
   target: "my.annotation.target.1"
 };
 
+const externalLinks = [
+  new ExternalLink({
+    title: "Uber Home Page",
+    url: "www.uber.com",
+  })
+]
+
 const dashboard = new Dashboard({
   title: title,
   tags: tags,
   refresh: refresh,
   templating: [templateconst1, templateconst2],
-  annotations: [annotation1]
+  annotations: [annotation1],
+  links: externalLinks,
 });
 
 test("Publish dashboard - requires dashboard", function t(assert) {

@@ -99,10 +99,5 @@ module.exports = {
     }]
   },
   time: null,
-  links: [
-    new ExternalLink({
-      title: "Uber Homepage",
-      url: "www.uber.com",
-    })
-  ]
+  links: [],
 };
