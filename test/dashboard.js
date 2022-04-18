@@ -109,7 +109,17 @@ test('Dashboard can generate correct body', function t(assert) {
         new ExternalLink({
           title: "Uber Homepage",
           url: "www.uber.com",
-        })
+        }),
+        {
+          title: "Google Homepage",
+          tooltip: "",
+          url: "www.google.com",
+          icon: "external link",
+          targetBlank: true,
+          type: "link",
+          includeVars: false,
+          keepTime: false,
+        }
       ]
     });
     var row = {
@@ -134,16 +144,19 @@ test('Dashboard can generate correct body', function t(assert) {
           type: "link",
           includeVars: false,
           keepTime: false,
+        },
+        {
+          title: "Google Homepage",
+          tooltip: "",
+          url: "www.google.com",
+          icon: "external link",
+          targetBlank: true,
+          type: "link",
+          includeVars: false,
+          keepTime: false,
         }
       ]
     }
     assert.deepEqual(json, expectedJson);
     assert.end();
-});
-
-test('Dashboard throws error if links are defined with wrong type', function t(assert) {
-  assert.throws(() => new Dashboard({
-    links: [{ title: "custom link", url: "www.wrong.com"}]
-  }), new TypeError('links must be defined using ExternalLink'))
-  assert.end();
 });
