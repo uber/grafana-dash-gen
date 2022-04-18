@@ -70,12 +70,6 @@ Dashboard.prototype._initRows = function _initRows(opts) {
 Dashboard.prototype._initLinks = function _initLinks(opts) {
   this.links = opts.links || [];
   this.state.links = [];
-
-  this.links.forEach(link => {
-    if (!(link instanceof ExternalLink)) {
-      throw new TypeError('links must be defined using ExternalLink')
-    }
-  })
 };
 
 Dashboard.prototype._initTemplating = function _initRows(opts) {
@@ -125,7 +119,12 @@ Dashboard.prototype.addAnnotation = function addAnnotation(annotation) {
 Dashboard.prototype.generate = function generate() {
     // Generate jsons.
     this.state.rows = this.rows.map(row => row.generate());
-    this.state.links = this.links.map(link => link.generate());
+    this.state.links = this.links.map(link => {
+      if (link instanceof ExternalLink) {
+        return link.generate()
+      }
+      return link
+    });
 
     return this.state;
 };
