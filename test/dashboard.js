@@ -59,12 +59,6 @@ test('Dashboard with overriden information', function t(assert) {
             panels: []
         }],
         editable: true,
-        links: [
-          new ExternalLink({
-            title: "Uber Homepage",
-            url: "www.uber.com",
-          })
-        ]
     });
     dashboard.state.id = overrideDashboard.id;
     assert.deepEqual(dashboard.state, overrideDashboard);
@@ -78,6 +72,20 @@ test('Dashboard can add rows', function t(assert) {
     assert.deepEqual(dashboard.rows, [row]);
     assert.end();
 });
+
+test('Dashboard can add links', function t(assert) {
+  const externalLinks = [
+    new ExternalLink({
+      title: "Uber Homepage",
+      url: "www.uber.com",
+    })
+  ]
+  var dashboard = new Dashboard({
+    links: externalLinks
+  });
+  assert.deepEqual(dashboard.links, externalLinks);
+  assert.end();
+})
 
 test('Dashboard can set time', function t(assert) {
     var d = new Dashboard({
@@ -96,7 +104,14 @@ test('Dashboard can set time', function t(assert) {
 
 test('Dashboard can generate correct body', function t(assert) {
     var rowData = {foo: 'foo'};
-    var dashboard = new Dashboard();
+    var dashboard = new Dashboard({
+      links: [
+        new ExternalLink({
+          title: "Uber Homepage",
+          url: "www.uber.com",
+        })
+      ]
+    });
     var row = {
         generate: function generate() {
             return rowData;
@@ -105,7 +120,24 @@ test('Dashboard can generate correct body', function t(assert) {
     dashboard.addRow(row);
     simpleDashboard.rows = [rowData];
     var json = dashboard.generate();
-    assert.deepEqual(json, simpleDashboard);
+
+    var expectedJson = {
+      ...simpleDashboard,
+      links: [
+        {
+          title: "Uber Homepage",
+          tooltip: "",
+          url: "www.uber.com",
+          tags: [],
+          icon: "external link",
+          targetBlank: true,
+          type: "link",
+          includeVars: false,
+          keepTime: false,
+        }
+      ]
+    }
+    assert.deepEqual(json, expectedJson);
     assert.end();
 });
 

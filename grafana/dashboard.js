@@ -29,6 +29,7 @@ function Dashboard(opts) {
     this.state = {};
     this._init(opts);
     this._initRows(opts);
+    this._initLinks(opts);
     this._initTemplating(opts);
     this._initAnnotations(opts);
 }
@@ -51,12 +52,6 @@ Dashboard.prototype._init = function _init(opts) {
     if("editable" in opts) {
         this.state.editable = opts.editable;
     }
-    this.state.links = opts.links || [];
-    this.state.links.forEach(link => {
-      if (!(link instanceof ExternalLink)) {
-        throw new TypeError('links must be defined using ExternalLink')
-      }
-    })
 };
 
 Dashboard.prototype._initRows = function _initRows(opts) {
@@ -70,6 +65,17 @@ Dashboard.prototype._initRows = function _initRows(opts) {
             self.addRow(row);
         });
     }
+};
+
+Dashboard.prototype._initLinks = function _initLinks(opts) {
+  this.links = opts.links || [];
+  this.state.links = [];
+
+  this.links.forEach(link => {
+    if (!(link instanceof ExternalLink)) {
+      throw new TypeError('links must be defined using ExternalLink')
+    }
+  })
 };
 
 Dashboard.prototype._initTemplating = function _initRows(opts) {
@@ -117,13 +123,10 @@ Dashboard.prototype.addAnnotation = function addAnnotation(annotation) {
 };
 
 Dashboard.prototype.generate = function generate() {
-    // Generate json for the rows
-    var generatedRows = [];
-    this.rows.forEach(function generateRow(row) {
-        generatedRows.push(row.generate());
-    });
+    // Generate jsons.
+    this.state.rows = this.rows.map(row => row.generate());
+    this.state.links = this.links.map(link => link.generate());
 
-    this.state.rows = generatedRows;
     return this.state;
 };
 
