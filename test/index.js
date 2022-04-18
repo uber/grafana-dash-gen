@@ -23,6 +23,7 @@
 require('./annotations');
 require('./config');
 require('./dashboard');
+require('./external-link')
 require('./panels');
 require('./publish');
 require('./row');

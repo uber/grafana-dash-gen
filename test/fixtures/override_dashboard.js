@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+var ExternalLink = require('../../grafana/external-link')
+
 'use strict';
 module.exports = {
   id: null,
@@ -96,5 +98,11 @@ module.exports = {
         target: 'path.to.metric.with.annotation'
     }]
   },
-  time: null
+  time: null,
+  links: [
+    new ExternalLink({
+      title: "Uber Homepage",
+      url: "www.uber.com",
+    })
+  ]
 };

@@ -22,6 +22,7 @@
 
 var Templates = require('./templates');
 var Annotations = require('./annotations');
+var ExternalLink = require('./external-link')
 
 function Dashboard(opts) {
     opts = opts || {};
@@ -50,6 +51,12 @@ Dashboard.prototype._init = function _init(opts) {
     if("editable" in opts) {
         this.state.editable = opts.editable;
     }
+    this.state.links = opts.links || [];
+    this.state.links.forEach(link => {
+      if (!(link instanceof ExternalLink)) {
+        throw new TypeError('links must be defined using ExternalLink')
+      }
+    })
 };
 
 Dashboard.prototype._initRows = function _initRows(opts) {

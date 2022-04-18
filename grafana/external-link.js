@@ -19,22 +19,45 @@
 // THE SOFTWARE.
 
 'use strict';
-module.exports = {
-  id: null,
-  title: 'Generated Grafana Dashboard',
-  originalTitle: 'Generated Dashboard',
-  tags: [],
-  style: 'dark',
-  timezone: 'browser',
-  editable: true,
-  hideControls: false,
-  sharedCrosshair: false,
-  refresh: false,
-  schemaVersion: 6,
-  hideAllLegends: false,
-  rows: [],
-  annotations: {list: [], enable: true},
-  templating: {list: [], enable: true},
-  time: null,
-  links: [],
+
+function ExternalLink(opts) {
+  opts = opts || {};
+
+  const defaults = {
+    title: "",
+    tooltip: "",
+    url: "",
+    ...opts,
+    tags: [],
+    icon: "external link",
+    targetBlank: true,
+    type: "link",
+    includeVars: false,
+    keepTime: false,
+  };
+  this.state = defaults;
+}
+
+ExternalLink.prototype.generate = function generate() {
+  if (this.state.title === "") {
+    throw new SyntaxError("a title for the link must be provided")
+  }
+  if (this.state.url === "") {
+    throw new SyntaxError("a url for the link must be provided")
+  }
+  return this.state;
 };
+
+ExternalLink.prototype.includeVariableValues = function includeVariableValues() {
+  this.state.includeVars = true;
+};
+
+ExternalLink.prototype.includeTimeFilter = function includeTimeFilter() {
+  this.state.keepTime = true;
+};
+
+ExternalLink.prototype.withIcon = function withIcon(iconName) {
+  this.state.icon = iconName;
+};
+
+module.exports = ExternalLink;
