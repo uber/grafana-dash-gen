@@ -38,10 +38,10 @@ test('external link with custom settings', function t(assert) {
     title: "Uber Home Page",
     tooltip: "click to view",
     url: "www.uber.com",
-  });
-  externalLink.includeTimeFilter()
-  externalLink.includeVariableValues()
-  externalLink.withIcon("custom icon")
+  })
+    .includeTimeFilter()
+    .includeVariableValues()
+    .withIcon("custom icon");
 
   assert.deepEqual(externalLink.generate(), {
     title: 'Uber Home Page',

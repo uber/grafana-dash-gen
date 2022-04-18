@@ -50,14 +50,17 @@ ExternalLink.prototype.generate = function generate() {
 
 ExternalLink.prototype.includeVariableValues = function includeVariableValues() {
   this.state.includeVars = true;
+  return this
 };
 
 ExternalLink.prototype.includeTimeFilter = function includeTimeFilter() {
   this.state.keepTime = true;
+  return this
 };
 
 ExternalLink.prototype.withIcon = function withIcon(iconName) {
   this.state.icon = iconName;
+  return this
 };
 
 module.exports = ExternalLink;

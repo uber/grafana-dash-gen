@@ -22,6 +22,7 @@
 
 var Dashboard = require('./grafana/dashboard');
 var Row = require('./grafana/row');
+var ExternalLink = require('./grafana/external-link')
 var Target = require('./grafana/target');
 var Panels = require('./grafana/panels');
 var Alert = require('./grafana/alert/alert');
@@ -35,6 +36,7 @@ var Annotations = require('./grafana/annotations');
 module.exports = {
     Dashboard: Dashboard,
     Row: Row,
+    ExternalLink: ExternalLink,
     Panels: Panels,
     Templates: Templates,
     Alert,
