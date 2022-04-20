@@ -94,5 +94,57 @@ test('Custom template overwrites default state', function t(assert) {
         arbitraryProperty: 'foo'
     });
     assert.equal(customTemplate.state.includeAll, true);
+    assert.equal(customTemplate.state.allValue, '')
+
+    var customWithAllValue = new Custom({
+      includeAll: true,
+      arbitraryProperty: 'foo',
+      allValue: 'grafana',
+    });
+    assert.equal(customWithAllValue.state.includeAll, true);
+    assert.equal(customWithAllValue.state.allValue, 'grafana')
+
+    var allIsDefault = new Custom({
+      includeAll: true,
+      arbitraryProperty: 'foo',
+      options: [{ text: 'grafana', value: 'grafana' }]
+    });
+    assert.equal(allIsDefault.state.includeAll, true);
+    assert.equal(allIsDefault.state.allValue, '')
+    assert.equal(allIsDefault.state.current.text, "All");
+    assert.equal(allIsDefault.state.current.value, '');
+
     assert.end();
 });
+
+test('Custom template supports custom default', function t(assert) {
+  const defaultOption = { text: 'dash-gen', value: 'dash-gen' }
+  var definedDefault = new Custom({
+    includeAll: true,
+    defaultValue: defaultOption.value,
+    options: [{ text: 'grafana', value: 'grafana' }, defaultOption]
+  });
+  assert.equal(definedDefault.state.includeAll, true);
+  assert.equal(definedDefault.state.allValue, '')
+  assert.equal(definedDefault.state.current, defaultOption);
+
+  assert.throws(
+    () => new Custom({
+      includeAll: true,
+      defaultValue: defaultOption.value,
+      options: [{ text: 'grafana', value: 'grafana' }]
+    }),
+    new SyntaxError("default value not found in options list"),
+  );
+
+  assert.throws(
+    () => new Custom({
+      includeAll: true,
+      defaultValue: defaultOption.value,
+    }),
+    new SyntaxError("cannot define default value without any options"),
+  );
+
+  assert.end();
+});
+

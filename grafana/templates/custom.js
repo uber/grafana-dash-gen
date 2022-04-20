@@ -22,24 +22,34 @@
 
 function Custom(opts) {
     opts = opts || {};
-    var self = this;
-    var defaultState = {
+    this.state = {
         allFormat: 'glob',
         current: null,
         datasource: null,
         includeAll: false,
+        allValue: '',
         name: 'template',
         options: [],
         query: null,
         'refresh_on_load': false,
         type: 'custom'
     };
-    this.state = defaultState;
+    this.defaultValue = '';
 
     // Overwrite defaults with custom values
-    Object.keys(opts).forEach(function eachOpt(opt) {
-        self.state[opt] = opts[opt];
+    Object.keys(opts).forEach(key => {
+      switch (key) {
+        case 'defaultValue':
+          this.defaultValue = opts[key];
+          break;
+        default:
+          this.state[key] = opts[key];
+      }
     });
+
+    if (this.defaultValue && !this.state.options.length) {
+      throw new SyntaxError("cannot define default value without any options")
+    }
 
     if (this.state.options.length) {
         this._processOptions();
@@ -56,21 +66,25 @@ Custom.prototype._processOptions = function _processOptions() {
     var newOptions = [];
     var newQuery = [];
 
-    this.state.options.forEach(function processOption(option) {
-        var opt = {};
-        if (typeof option === 'object') {
-            opt = option;
-        } else {
-            opt = {
-                text: option,
-                value: option
-            };
-        }
-        newOptions.push(opt);
-        newQuery.push(opt.value);
+    this.state.options.forEach(option => {
+      const isObject = typeof option === 'object' && option.constructor === Object;
+      const opt = isObject ? option : {
+        text: option,
+        value: option
+      };
+      newOptions.push(opt);
+      newQuery.push(opt.value);
     });
 
-    self.state.current = newOptions[0];
+    if (this.defaultValue !== '') {
+      const defaultOption = newOptions.find(option => option.value === this.defaultValue);
+      if (!defaultOption) {
+        throw new SyntaxError("default value not found in options list")
+      }
+      self.state.current = defaultOption
+    } else {
+      self.state.current = this.state.includeAll ? { text: "All", value: this.state.allValue} : newOptions[0];
+    }
 
     this.state.options = newOptions;
     this.state.query = newQuery.join(',');

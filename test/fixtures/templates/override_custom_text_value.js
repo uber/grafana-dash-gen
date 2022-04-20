@@ -30,6 +30,7 @@ module.exports = {
     datasource: null,
     'refresh_on_load': false,
     includeAll: false,
+    allValue: '',
     allFormat: 'glob',
     query: 'myValue',
     current: {
