@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-var ExternalLink = require('../../grafana/external-link')
-
 'use strict';
 module.exports = {
   id: null,
@@ -45,6 +43,7 @@ module.exports = {
         },
         datasource: null,
         includeAll: false,
+        allValue: '',
         name: 'myvar',
         options: [{
             text: 'a',
@@ -64,6 +63,7 @@ module.exports = {
         },
         datasource: null,
         includeAll: false,
+        allValue: '',
         name: 'smoothing',
         options: [{
             text: '30min',
