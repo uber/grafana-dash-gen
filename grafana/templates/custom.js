@@ -20,6 +20,13 @@
 
 'use strict';
 
+// For some reason Grafana will interpret this as a specific string if provided
+// as the allValue of the Custom object. In order to correctly support Grafanas
+// fallback $__all variable, allValue must be null or empty string, and the
+// $__all variable must be provided as the value in the "All" entry in the
+// options list.
+const DEFAULT_VARIABLE_ALL = '$__all';
+
 function Custom(opts) {
     opts = opts || {};
     this.state = {
@@ -46,14 +53,16 @@ function Custom(opts) {
           this.state[key] = opts[key];
       }
     });
+    this._processAll();
+    this._processOptions();
+}
 
-    if (this.defaultValue && !this.state.options.length) {
-      throw new SyntaxError("cannot define default value without any options")
-    }
-
-    if (this.state.options.length) {
-        this._processOptions();
-    }
+Custom.prototype._processAll = function _processAll() {
+  if (!this.state.includeAll) {
+    return;
+  }
+  const allValue = !this.state.allValue ? DEFAULT_VARIABLE_ALL : this.state.allValue;
+  this.state.options = [{ text: "All", value: allValue }, ...this.state.options];
 }
 
 /*
@@ -61,29 +70,45 @@ function Custom(opts) {
  * values.
  */
 Custom.prototype._processOptions = function _processOptions() {
-    var self = this;
+    if (!this.state.options.length) {
+      if (this.defaultValue !== '') {
+        throw new SyntaxError("cannot define default value without any options")
+      }
+      return;
+    }
 
-    var newOptions = [];
-    var newQuery = [];
+    let self = this;
+    let newOptions = [];
+    let newQuery = [];
 
-    this.state.options.forEach(option => {
+    let hasAll = false;
+    for (let i = 0; i < this.state.options.length; i++) {
+      const option = this.state.options[i];
       const isObject = typeof option === 'object' && option.constructor === Object;
       const opt = isObject ? option : {
         text: option,
         value: option
       };
+      if (opt.value === DEFAULT_VARIABLE_ALL) {
+        if (hasAll) {
+          continue;
+        }
+        hasAll = true;
+      }
+
       newOptions.push(opt);
       newQuery.push(opt.value);
-    });
+    }
 
     if (this.defaultValue !== '') {
       const defaultOption = newOptions.find(option => option.value === this.defaultValue);
+      console.log(defaultOption);
       if (!defaultOption) {
         throw new SyntaxError("default value not found in options list")
       }
       self.state.current = defaultOption
     } else {
-      self.state.current = this.state.includeAll ? { text: "All", value: this.state.allValue} : newOptions[0];
+      self.state.current = newOptions[0];
     }
 
     this.state.options = newOptions;
