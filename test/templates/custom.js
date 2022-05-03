@@ -94,7 +94,9 @@ test('Custom template overwrites default state', function t(assert) {
         arbitraryProperty: 'foo'
     });
     assert.equal(customTemplate.state.includeAll, true);
-    assert.equal(customTemplate.state.allValue, '')
+    assert.equal(customTemplate.state.allValue, '');
+    assert.equal(customTemplate.state.current.text, "All");
+    assert.equal(customTemplate.state.current.value, '$__all');
 
     var customWithAllValue = new Custom({
       includeAll: true,
@@ -112,7 +114,7 @@ test('Custom template overwrites default state', function t(assert) {
     assert.equal(allIsDefault.state.includeAll, true);
     assert.equal(allIsDefault.state.allValue, '')
     assert.equal(allIsDefault.state.current.text, "All");
-    assert.equal(allIsDefault.state.current.value, '');
+    assert.equal(allIsDefault.state.current.value, '$__all');
 
     assert.end();
 });
@@ -140,6 +142,13 @@ test('Custom template supports custom default', function t(assert) {
   assert.throws(
     () => new Custom({
       includeAll: true,
+      defaultValue: defaultOption.value,
+    }),
+    new SyntaxError("default value not found in options list"),
+  );
+
+  assert.throws(
+    () => new Custom({
       defaultValue: defaultOption.value,
     }),
     new SyntaxError("cannot define default value without any options"),
