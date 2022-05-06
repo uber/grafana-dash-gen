@@ -31,6 +31,7 @@ module.exports = {
         value: 'b'
     }],
     datasource: null,
+    refresh: 1,
     'refresh_on_load': false,
     includeAll: false,
     allValue: '',

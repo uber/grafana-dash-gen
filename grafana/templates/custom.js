@@ -20,11 +20,6 @@
 
 'use strict';
 
-// For some reason Grafana will interpret this as a specific string if provided
-// as the allValue of the Custom object. In order to correctly support Grafanas
-// fallback $__all variable, allValue must be null or empty string, and the
-// $__all variable must be provided as the value in the "All" entry in the
-// options list.
 const DEFAULT_VARIABLE_ALL = '$__all';
 
 function Custom(opts) {
@@ -38,6 +33,7 @@ function Custom(opts) {
         name: 'template',
         options: [],
         query: null,
+        refresh: 1,
         'refresh_on_load': false,
         type: 'custom'
     };
@@ -53,16 +49,7 @@ function Custom(opts) {
           this.state[key] = opts[key];
       }
     });
-    this._processAll();
     this._processOptions();
-}
-
-Custom.prototype._processAll = function _processAll() {
-  if (!this.state.includeAll) {
-    return;
-  }
-  const allValue = !this.state.allValue ? DEFAULT_VARIABLE_ALL : this.state.allValue;
-  this.state.options = [{ text: "All", value: allValue }, ...this.state.options];
 }
 
 /*
@@ -77,7 +64,6 @@ Custom.prototype._processOptions = function _processOptions() {
       return;
     }
 
-    let self = this;
     let newOptions = [];
     let newQuery = [];
 
@@ -102,13 +88,12 @@ Custom.prototype._processOptions = function _processOptions() {
 
     if (this.defaultValue !== '') {
       const defaultOption = newOptions.find(option => option.value === this.defaultValue);
-      console.log(defaultOption);
       if (!defaultOption) {
         throw new SyntaxError("default value not found in options list")
       }
-      self.state.current = defaultOption
-    } else {
-      self.state.current = newOptions[0];
+      this.state.current = defaultOption
+    } else if (!this.state.current && !this.state.includeAll) {
+      this.state.current = newOptions[0];
     }
 
     this.state.options = newOptions;

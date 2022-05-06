@@ -28,6 +28,7 @@ module.exports = {
         value: 'myValue'
     }],
     datasource: null,
+    refresh: 1,
     'refresh_on_load': false,
     includeAll: false,
     allValue: '',
