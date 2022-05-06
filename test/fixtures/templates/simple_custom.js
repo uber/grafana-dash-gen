@@ -23,6 +23,7 @@ module.exports = {
     type: 'custom',
     options: [],
     datasource: null,
+    refresh: 1,
     refresh_on_load: false,
     includeAll: false,
     allValue: '',

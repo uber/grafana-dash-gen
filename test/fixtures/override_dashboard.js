@@ -53,6 +53,7 @@ module.exports = {
             value: 'b'
         }],
         query: 'a,b',
+        refresh: 1,
         'refresh_on_load': false,
         type: 'custom'
     }, {
@@ -81,6 +82,7 @@ module.exports = {
             value: '1min'
         }],
         query: '30min,10min,5min,2min,1min',
+        refresh: 1,
         'refresh_on_load': false,
         type: 'custom'
     }]
