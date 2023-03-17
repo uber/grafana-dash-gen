@@ -4,7 +4,7 @@
   "description": "A grafana dashboard generator",
   "main": "index.js",
   "scripts": {
-    "fast-test": "node ./test/index.js | tap-spec",
+    "fast-test": "node ./test/index.js | tap-arc",
     "test-cover": "nyc --reporter html --reporter cobertura --reporter text tape ./test/index.js",
     "view-cover": "rm -rf ./coverage && npm run test-cover && open ./coverage/index.html",
     "test": "npm run fast-test && npm run test-cover"
@@ -32,7 +32,7 @@
     "nock": "^13.0.2",
     "nyc": "^15.1.0",
     "pre-commit": "^1.0.6",
-    "tap-spec": "^5.0.0",
+    "tap-arc": "^0.3.5",
     "tape": "^5.0.0"
   }
 }
