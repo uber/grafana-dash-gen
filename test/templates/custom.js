@@ -106,14 +106,14 @@ test('Custom template overwrites default state', function t(assert) {
     assert.equal(customWithAllValue.state.current, null);
     assert.equal(customWithAllValue.state.allValue, 'grafana')
 
-    var allIsDefault = new Custom({
+    var firstIsDefaultWithAll = new Custom({
       includeAll: true,
       arbitraryProperty: 'foo',
       options: [{ text: 'grafana', value: 'grafana' }]
     });
-    assert.equal(allIsDefault.state.includeAll, true);
-    assert.equal(allIsDefault.state.allValue, '')
-    assert.equal(allIsDefault.state.current, null);
+    assert.equal(firstIsDefaultWithAll.state.includeAll, true);
+    assert.equal(firstIsDefaultWithAll.state.allValue, '')
+    assert.equal(firstIsDefaultWithAll.state.current, firstIsDefaultWithAll.state.options[0]);
 
     var firstIsDefault = new Custom({
       arbitraryProperty: 'foo',
