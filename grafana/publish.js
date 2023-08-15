@@ -28,36 +28,48 @@ function publish(dashboard, opts) {
   opts = opts || {};
 
   if (!dashboard) {
-    throw errors.UnfulfilledRequirement({
-      component: "grafana.publish",
-      unfulfilledArg: "dashboard"
-    });
+    throw errors.UnfulfilledRequirement(
+      "{component} missing requirement: {unfulfilledArg}",
+      {
+        component: "grafana.publish",
+        unfulfilledArg: "dashboard"
+      }
+    );
   }
 
   const state = dashboard.state;
   const cfg = config.getConfig();
 
   if (!state || !state.title) {
-    throw errors.InvalidState({
-      component: "grafana.Dashboard",
-      invalidArg: "title",
-      reason: "undefined"
-    });
+    throw errors.InvalidState(
+      "{component} state is invalid: state.{invalidArg} {reason}",
+      {
+        component: "grafana.Dashboard",
+        invalidArg: "title",
+        reason: "undefined"
+      }
+    );
   }
 
   if (!cfg.url) {
-    throw errors.Misconfigured({
-      invalidArg: "url",
-      reason: "undefined",
-      resolution: "Must call grafana.configure before publishing"
-    });
+    throw errors.Misconfigured(
+      "Incorrect configuration: config.{invalidArg} {reason} - {resolution}",
+      {
+        invalidArg: "url",
+        reason: "undefined",
+        resolution: "Must call grafana.configure before publishing"
+      }
+    );
   }
 
   if (!cfg.cookie) {
-    throw errors.Misconfigured({
-      invalidArg: "cookie",
-      reason: "undefined"
-    });
+    throw errors.Misconfigured(
+      "Incorrect configuration: config.{invalidArg} {reason} - {resolution}",
+        {
+        invalidArg: "cookie",
+        reason: "undefined"
+      }
+    );
   }
 
   const headers = new fetch.Headers(cfg.headers || {});
@@ -80,10 +92,13 @@ function publish(dashboard, opts) {
         console.log("Published the dashboard", state.title);
         return resp.text();
       } else {
-        throw errors.ResponseError({
-          name: resp.statusText,
-          response: resp
-        });
+        throw new errors.ResponseError(
+          "request failed: {name}",
+          {
+            name: resp.statusText,
+            response: resp
+          }
+        );
       }
     })
     .catch(e => {

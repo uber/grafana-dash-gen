@@ -148,7 +148,7 @@ test("Publish dashboard - client error", function(assert) {
       message: "Version mismatch"
     });
   publish(dashboard).catch(e => {
-    assert.equal(e.response.status, 412);
+    assert.equal(e.info().response.status, 412);
   });
 });
 
@@ -162,7 +162,7 @@ test("Publish dashboard - client error (invalid)", function(assert) {
     .post("/dashboard")
     .reply(400, { status: "error" });
   publish(dashboard).catch(e => {
-    assert.equal(e.response.status, 400);
+    assert.equal(e.info().response.status, 400);
   });
 });
 
@@ -176,7 +176,7 @@ test("Publish dashboard - client error (n/a)", function t(assert) {
     .post("/dashboard")
     .reply(412, { status: "error" });
   publish(dashboard).catch(e => {
-    assert.equal(e.response.status, 412);
+    assert.equal(e.info().response.status, 412);
   });
 });
 
@@ -215,7 +215,7 @@ test("Publish dashboard - server error", function(assert) {
     .post("/dashboard")
     .reply(500);
   publish(dashboard).catch(e => {
-    assert.equal(e.response.status, 500);
+    assert.equal(e.info().response.status, 500);
   });
 });
 
