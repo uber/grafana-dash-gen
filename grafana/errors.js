@@ -44,8 +44,16 @@ var Misconfigured = TypedError({
     resolution: 'Must call grafana.configure before publishing'
 });
 
+var ResponseError = TypedError({
+    type: 'grafana.errors.RequestFailed',
+    message: 'request failed: {name}',
+    name: null,
+    response: null
+});
+
 module.exports = {
     UnfulfilledRequirement: UnfulfilledRequirement,
     InvalidState: InvalidState,
-    Misconfigured: Misconfigured
+    Misconfigured: Misconfigured,
+    ResponseError: ResponseError
 };

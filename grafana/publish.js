@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 "use strict";
-const request = require("request-promise-native");
+const fetch = require("node-fetch");
 const config = require("./config");
 const errors = require("./errors");
 
@@ -60,28 +60,31 @@ function publish(dashboard, opts) {
     });
   }
 
-  const headers = cfg.headers || {};
+  const headers = new fetch.Headers(cfg.headers || {});
+  headers.set("Cookie", cfg.cookie);
+  headers.set("Content-Type", "application/json");
 
   const createData = {
     dashboard: dashboard.generate(),
     overwrite: true
   };
 
-  const j = request.jar();
-  const cookie = request.cookie(cfg.cookie);
-  j.setCookie(cookie, cfg.url);
-  return request({
-    url: cfg.url,
+  return fetch(cfg.url, {
     method: "POST",
     headers: headers,
-    json: createData,
-    jar: j,
-    timeout: opts.timeout || 1000,
-    followAllRedirects: true
+    body: JSON.stringify(createData),
+    timeout: opts.timeout || 1000
   })
     .then(resp => {
-      console.log("Published the dashboard", state.title);
-      return resp;
+      if (resp.ok) {
+        console.log("Published the dashboard", state.title);
+        return resp.text();
+      } else {
+        throw errors.ResponseError({
+          name: resp.statusText,
+          response: resp
+        });
+      }
     })
     .catch(e => {
       console.log(
@@ -90,9 +93,11 @@ function publish(dashboard, opts) {
         e.message
       );
       console.log("Unable to publish dashboard ", state.title);
-      console.log("response headers: ", e.response && e.response.headers);
-      console.log("response body: ", e.response && e.response.body);
-      console.log("response statusCode:", e.response && e.response.statusCode);
+      if (e.response) {
+        console.log("response headers: ", e.response && e.response.headers.raw());
+        console.log("response body: ", e.response && e.response.text());
+        console.log("response statusCode:", e.response && e.response.status);
+      }
       throw e; // rethrow for downstream consumers
     });
 }
