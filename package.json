@@ -21,7 +21,7 @@
   "author": "Madan Thangavelu",
   "license": "MIT",
   "dependencies": {
-    "error": "^7.2.1",
+    "error": "^10.4.0",
     "node-fetch": "^2.6.12",
     "underscore": "^1.10.2",
     "xtend": "^4.0.2"
