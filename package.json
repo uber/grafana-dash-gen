@@ -22,6 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "error": "^7.2.1",
+    "node-fetch": "^2.6.12",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
     "underscore": "^1.10.2",
