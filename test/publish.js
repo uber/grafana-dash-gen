@@ -30,7 +30,7 @@ const ExternalLink = require("../grafana/external-link")
 const baseUrl = "http://awesome.com";
 const url = [baseUrl, "dashboard"].join("/");
 const cookie = "auth=foo";
-const headers = { asdf: "qwer" };
+const headers = { asdf: ["qwer"] };
 const title = "Test Dashboard";
 const tags = ["tag1", "tag2"];
 const refresh = "1m";
@@ -148,7 +148,7 @@ test("Publish dashboard - client error", function(assert) {
       message: "Version mismatch"
     });
   publish(dashboard).catch(e => {
-    assert.equal(e.response.statusCode, 412);
+    assert.equal(e.response.status, 412);
   });
 });
 
@@ -162,7 +162,7 @@ test("Publish dashboard - client error (invalid)", function(assert) {
     .post("/dashboard")
     .reply(400, { status: "error" });
   publish(dashboard).catch(e => {
-    assert.equal(e.response.statusCode, 400);
+    assert.equal(e.response.status, 400);
   });
 });
 
@@ -176,7 +176,7 @@ test("Publish dashboard - client error (n/a)", function t(assert) {
     .post("/dashboard")
     .reply(412, { status: "error" });
   publish(dashboard).catch(e => {
-    assert.equal(e.response.statusCode, 412);
+    assert.equal(e.response.status, 412);
   });
 });
 
@@ -201,7 +201,7 @@ test("Publish dashboard - server unavailable", function(assert) {
     url: "http://111.111.111.111"
   });
   publish(dashboard).catch(e => {
-    assert.equal(e.message, "Error: ETIMEDOUT");
+    assert.equal(e.message, "network timeout at: http://111.111.111.111/");
   });
 });
 
@@ -215,7 +215,7 @@ test("Publish dashboard - server error", function(assert) {
     .post("/dashboard")
     .reply(500);
   publish(dashboard).catch(e => {
-    assert.equal(e.response.statusCode, 500);
+    assert.equal(e.response.status, 500);
   });
 });
 
@@ -291,14 +291,14 @@ test("Publish dashboard - passes headers", function(assert) {
     .reply(201, function createdHandler() {
       const reqHeaders = this.req.headers;
       Object.keys(headers).forEach(function(key) {
-        assert.equal(reqHeaders[key], headers[key]);
+        assert.deepEqual(reqHeaders[key], headers[key]);
       });
     })
     .post("/dashboard")
     .reply(200, function okHandler() {
       const reqHeaders = this.req.headers;
       Object.keys(headers).forEach(function(key) {
-        assert.equal(reqHeaders[key], headers[key]);
+        assert.deepEqual(reqHeaders[key], headers[key]);
       });
       assert.end();
     });
