@@ -34,6 +34,16 @@
     "tap-arc": "^0.3.5",
     "tape": "^5.6.6"
   },
+  "files": [
+    "CHANGELOG.md",
+    "CONTRIBUTION.md",
+    "LICENSE",
+    "README.md",
+    "example.js",
+    "grafana",
+    "index.js",
+    "package.json"
+  ],
   "engines": {
     "node": ">=10"
   }
