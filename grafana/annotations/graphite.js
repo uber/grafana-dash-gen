@@ -27,17 +27,23 @@ function Graphite(opts) {
     var self = this;
 
     if (!opts.name) {
-        throw errors.UnfulfilledRequirement({
-            component: 'grafana.annotations.Graphite',
-            unfulfilledArg: 'name'
-        });
+        throw errors.UnfulfilledRequirement(
+            "{component} missing requirement: {unfulfilledArg}",
+            {
+                component: 'grafana.annotations.Graphite',
+                unfulfilledArg: 'name'
+            }
+        );
     }
 
     if (!opts.target) {
-        throw errors.UnfulfilledRequirement({
-            component: 'grafana.annotations.Graphite',
-            unfulfilledArg: 'target'
-        });
+        throw errors.UnfulfilledRequirement(
+            "{component} missing requirement: {unfulfilledArg}",
+            {
+                component: 'grafana.annotations.Graphite',
+                unfulfilledArg: 'target'
+            }
+        );
     }
 
     var defaults = {

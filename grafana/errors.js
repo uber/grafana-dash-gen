@@ -19,37 +19,12 @@
 // THE SOFTWARE.
 
 'use strict';
-var TypedError = require('error/typed');
+var SError = require('error').SError;
 
-var UnfulfilledRequirement = TypedError({
-    type: 'grafana.errors.UnfulfilledRequirement',
-    message: '{component} missing requirement: {unfulfilledArg}',
-    component: null,
-    unfulfilledArg: null
-});
-
-var InvalidState = TypedError({
-    type: 'grafana.errors.InvalidState',
-    message: '{component} state is invalid: state.{invalidArg} {reason}',
-    component: null,
-    invalidArg: null,
-    reason: null
-});
-
-var Misconfigured = TypedError({
-    type: 'grafana.errors.Misconfigured',
-    message: 'Incorrect configuration: config.{invalidArg} {reason} - {resolution}',
-    invalidArg: null,
-    reason: null,
-    resolution: 'Must call grafana.configure before publishing'
-});
-
-var ResponseError = TypedError({
-    type: 'grafana.errors.RequestFailed',
-    message: 'request failed: {name}',
-    name: null,
-    response: null
-});
+class UnfulfilledRequirement extends SError {};
+class InvalidState extends SError {};
+class Misconfigured extends SError {};
+class ResponseError extends SError {};
 
 module.exports = {
     UnfulfilledRequirement: UnfulfilledRequirement,
