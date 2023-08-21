@@ -92,7 +92,7 @@ Custom.prototype._processOptions = function _processOptions() {
         throw new SyntaxError("default value not found in options list")
       }
       this.state.current = defaultOption
-    } else if (!this.state.current && !this.state.includeAll) {
+    } else if (!this.state.current) {
       this.state.current = newOptions[0];
     }
 
