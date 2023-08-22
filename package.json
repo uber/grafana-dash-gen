@@ -1,6 +1,6 @@
 {
   "name": "grafana-dash-gen",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A grafana dashboard generator",
   "main": "index.js",
   "scripts": {
