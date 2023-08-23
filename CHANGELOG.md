@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v4.0.1 (2023-08-22)
+-------------------
+
+ - Fix `current` type bug in custom templates against newer versions of grafana
+ - Slim down published NPM package
+
+
 v4.0.0 (2023-08-20)
 -------------------
 
