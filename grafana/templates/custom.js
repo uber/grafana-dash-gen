@@ -26,7 +26,7 @@ function Custom(opts) {
     opts = opts || {};
     this.state = {
         allFormat: 'glob',
-        current: null,
+        current: {},
         datasource: null,
         includeAll: false,
         allValue: '',
@@ -92,7 +92,7 @@ Custom.prototype._processOptions = function _processOptions() {
         throw new SyntaxError("default value not found in options list")
       }
       this.state.current = defaultOption
-    } else if (!this.state.current && !this.state.includeAll) {
+    } else if ((!this.state.current || Object.keys(this.state.current).length === 0) && !this.state.includeAll) {
       this.state.current = newOptions[0];
     }
 
