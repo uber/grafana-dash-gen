@@ -103,7 +103,7 @@ test('Custom template overwrites default state', function t(assert) {
       allValue: 'grafana',
     });
     assert.equal(customWithAllValue.state.includeAll, true);
-    assert.deepEqual(customTemplate.state.current, {});
+    assert.deepEqual(customWithAllValue.state.current, {});
     assert.equal(customWithAllValue.state.allValue, 'grafana')
 
     var allIsDefault = new Custom({
@@ -113,7 +113,7 @@ test('Custom template overwrites default state', function t(assert) {
     });
     assert.equal(allIsDefault.state.includeAll, true);
     assert.equal(allIsDefault.state.allValue, '')
-    assert.deepEqual(customTemplate.state.current, {});
+    assert.deepEqual(allIsDefault.state.current, {});
 
     var firstIsDefault = new Custom({
       arbitraryProperty: 'foo',

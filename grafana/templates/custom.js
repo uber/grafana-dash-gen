@@ -33,7 +33,7 @@ function Custom(opts) {
         name: 'template',
         options: [],
         query: null,
-        refresh: 1,
+        refresh: 0,
         'refresh_on_load': false,
         type: 'custom'
     };
