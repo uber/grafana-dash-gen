@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v4.0.2 (2025-08-27)
+-------------------
+
+ - Remove grafana refresh (#113)
+ - Fix build
+ - Update dependencies
+
+
 v4.0.1 (2023-08-22)
 -------------------
 
