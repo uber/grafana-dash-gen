@@ -24,16 +24,16 @@ var test = require('tape');
 var ExternalLink = require('../grafana/external-link');
 var defaultExternalLink = require('./fixtures/external_link');
 
-test('default external link', function t(assert) {
+test('default external link', function (t) {
     var externalLink = new ExternalLink({
         title: 'Uber Home Page',
         url: 'www.uber.com',
     });
-    assert.deepEqual(externalLink.generate(), defaultExternalLink);
-    assert.end();
+    t.deepEqual(externalLink.generate(), defaultExternalLink);
+    t.end();
 });
 
-test('external link with custom settings', function t(assert) {
+test('external link with custom settings', function (t) {
     var externalLink = new ExternalLink({
         title: 'Uber Home Page',
         tooltip: 'click to view',
@@ -43,7 +43,7 @@ test('external link with custom settings', function t(assert) {
         .includeVariableValues()
         .withIcon('custom icon');
 
-    assert.deepEqual(externalLink.generate(), {
+    t.deepEqual(externalLink.generate(), {
         title: 'Uber Home Page',
         tooltip: 'click to view',
         url: 'www.uber.com',
@@ -54,17 +54,17 @@ test('external link with custom settings', function t(assert) {
         includeVars: true,
         keepTime: true,
     });
-    assert.end();
+    t.end();
 });
 
-test('external link validates required fields', function t(assert) {
-    assert.throws(
+test('external link validates required fields', function (t) {
+    t.throws(
         () => new ExternalLink().generate(),
         new SyntaxError('a title for the link must be provided')
     );
-    assert.throws(
+    t.throws(
         () => new ExternalLink({ title: 'Uber Home Page' }).generate(),
         new SyntaxError('a url for the link must be provided')
     );
-    assert.end();
+    t.end();
 });

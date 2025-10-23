@@ -27,13 +27,13 @@ var simpleCustom = require('../fixtures/templates/simple_custom');
 var overrideCustom = require('../fixtures/templates/override_custom');
 var overrideCustomTextValue = require('../fixtures/templates/override_custom_text_value');
 
-test('Custom template has defaults', function t(assert) {
+test('Custom template has defaults', function (t) {
     var template = new Custom();
-    assert.deepEqual(template.state, simpleCustom);
-    assert.end();
+    t.deepEqual(template.state, simpleCustom);
+    t.end();
 });
 
-test('Custom template creates state', function t(assert) {
+test('Custom template creates state', function (t) {
     var name = 'custom';
     var options = ['a', 'b'];
     var template = new Custom({
@@ -41,11 +41,11 @@ test('Custom template creates state', function t(assert) {
         options: options,
         arbitraryProperty: 'foo',
     });
-    assert.deepEqual(template.state, overrideCustom);
-    assert.end();
+    t.deepEqual(template.state, overrideCustom);
+    t.end();
 });
 
-test('Custom template generates state', function t(assert) {
+test('Custom template generates state', function (t) {
     var name = 'custom';
     var options = ['a', 'b'];
     var template = new Custom({
@@ -53,11 +53,11 @@ test('Custom template generates state', function t(assert) {
         options: options,
         arbitraryProperty: 'foo',
     });
-    assert.deepEqual(template.generate(), overrideCustom);
-    assert.end();
+    t.deepEqual(template.generate(), overrideCustom);
+    t.end();
 });
 
-test('Custom template can add options', function t(assert) {
+test('Custom template can add options', function (t) {
     var name = 'custom';
     var options = ['a', 'b'];
     var template = new Custom({
@@ -65,11 +65,11 @@ test('Custom template can add options', function t(assert) {
         options: options,
         arbitraryProperty: 'foo',
     });
-    assert.deepEqual(template.state, overrideCustom);
-    assert.end();
+    t.deepEqual(template.state, overrideCustom);
+    t.end();
 });
 
-test('Custom template can specify text and value', function t(assert) {
+test('Custom template can specify text and value', function (t) {
     var name = 'custom';
     var opt = {
         text: 'myText',
@@ -80,63 +80,63 @@ test('Custom template can specify text and value', function t(assert) {
         options: [opt],
         arbitraryProperty: 'foo',
     });
-    assert.deepEqual(template.generate(), overrideCustomTextValue);
-    assert.end();
+    t.deepEqual(template.generate(), overrideCustomTextValue);
+    t.end();
 });
 
-test('Custom template overwrites default state', function t(assert) {
+test('Custom template overwrites default state', function (t) {
     var defaultTemplate = new Custom();
-    assert.equal(defaultTemplate.state.includeAll, false);
+    t.equal(defaultTemplate.state.includeAll, false);
 
     var customTemplate = new Custom({
         includeAll: true,
         arbitraryProperty: 'foo',
     });
-    assert.equal(customTemplate.state.includeAll, true);
-    assert.equal(customTemplate.state.allValue, '');
-    assert.deepEqual(customTemplate.state.current, {});
+    t.equal(customTemplate.state.includeAll, true);
+    t.equal(customTemplate.state.allValue, '');
+    t.deepEqual(customTemplate.state.current, {});
 
     var customWithAllValue = new Custom({
         includeAll: true,
         arbitraryProperty: 'foo',
         allValue: 'grafana',
     });
-    assert.equal(customWithAllValue.state.includeAll, true);
-    assert.deepEqual(customWithAllValue.state.current, {});
-    assert.equal(customWithAllValue.state.allValue, 'grafana');
+    t.equal(customWithAllValue.state.includeAll, true);
+    t.deepEqual(customWithAllValue.state.current, {});
+    t.equal(customWithAllValue.state.allValue, 'grafana');
 
     var allIsDefault = new Custom({
         includeAll: true,
         arbitraryProperty: 'foo',
         options: [{ text: 'grafana', value: 'grafana' }],
     });
-    assert.equal(allIsDefault.state.includeAll, true);
-    assert.equal(allIsDefault.state.allValue, '');
-    assert.deepEqual(allIsDefault.state.current, {});
+    t.equal(allIsDefault.state.includeAll, true);
+    t.equal(allIsDefault.state.allValue, '');
+    t.deepEqual(allIsDefault.state.current, {});
 
     var firstIsDefault = new Custom({
         arbitraryProperty: 'foo',
         options: [{ text: 'grafana', value: 'grafana' }],
     });
-    assert.equal(firstIsDefault.state.includeAll, false);
-    assert.equal(firstIsDefault.state.allValue, '');
-    assert.equal(firstIsDefault.state.current, firstIsDefault.state.options[0]);
+    t.equal(firstIsDefault.state.includeAll, false);
+    t.equal(firstIsDefault.state.allValue, '');
+    t.equal(firstIsDefault.state.current, firstIsDefault.state.options[0]);
 
-    assert.end();
+    t.end();
 });
 
-test('Custom template supports custom default', function t(assert) {
+test('Custom template supports custom default', function (t) {
     const defaultOption = { text: 'dash-gen', value: 'dash-gen' };
     var definedDefault = new Custom({
         includeAll: true,
         defaultValue: defaultOption.value,
         options: [{ text: 'grafana', value: 'grafana' }, defaultOption],
     });
-    assert.equal(definedDefault.state.includeAll, true);
-    assert.equal(definedDefault.state.allValue, '');
-    assert.equal(definedDefault.state.current, defaultOption);
+    t.equal(definedDefault.state.includeAll, true);
+    t.equal(definedDefault.state.allValue, '');
+    t.equal(definedDefault.state.current, defaultOption);
 
-    assert.throws(
+    t.throws(
         () =>
             new Custom({
                 includeAll: true,
@@ -146,7 +146,7 @@ test('Custom template supports custom default', function t(assert) {
         new SyntaxError('default value not found in options list')
     );
 
-    assert.throws(
+    t.throws(
         () =>
             new Custom({
                 includeAll: true,
@@ -155,7 +155,7 @@ test('Custom template supports custom default', function t(assert) {
         new SyntaxError('cannot define default value without any options')
     );
 
-    assert.throws(
+    t.throws(
         () =>
             new Custom({
                 defaultValue: defaultOption.value,
@@ -163,5 +163,5 @@ test('Custom template supports custom default', function t(assert) {
         new SyntaxError('cannot define default value without any options')
     );
 
-    assert.end();
+    t.end();
 });

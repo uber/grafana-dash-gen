@@ -4,14 +4,14 @@ const Condition = require('../../grafana/alert/condition');
 const simpleAlert = require('../fixtures/alert/simple_alert');
 const alertWithCondition = require('../fixtures/alert/alert_with_condition');
 
-test('simple alert', function t(assert) {
+test('simple alert', function (t) {
     const alert = new Alert();
 
-    assert.deepEqual(alert.generate(), simpleAlert);
-    assert.end();
+    t.deepEqual(alert.generate(), simpleAlert);
+    t.end();
 });
 
-test('alert should be able to add condition', (assert) => {
+test('alert should be able to add condition', (t) => {
     const alert = new Alert();
     const condition = new Condition()
         .onQuery('B', '5m', 'now')
@@ -20,11 +20,11 @@ test('alert should be able to add condition', (assert) => {
 
     alert.addCondition(condition);
 
-    assert.deepEqual(alert.generate(), alertWithCondition);
-    assert.end();
+    t.deepEqual(alert.generate(), alertWithCondition);
+    t.end();
 });
 
-test('alert should be able to override defaults from the constructor', (assert) => {
+test('alert should be able to override defaults from the constructor', (t) => {
     const overrideOptions = {
         name: 'override name',
         for: '30min',
@@ -33,12 +33,12 @@ test('alert should be able to override defaults from the constructor', (assert) 
     const alert = new Alert(overrideOptions);
     const actualAlert = alert.generate();
 
-    assert.deepEqual(actualAlert.name, overrideOptions.name);
-    assert.deepEqual(actualAlert.for, overrideOptions.for);
-    assert.end();
+    t.deepEqual(actualAlert.name, overrideOptions.name);
+    t.deepEqual(actualAlert.for, overrideOptions.for);
+    t.end();
 });
 
-test('alert should be able to receive conditions in the constructor', (assert) => {
+test('alert should be able to receive conditions in the constructor', (t) => {
     const condition = new Condition({
         type: 'query',
         query: {
@@ -60,6 +60,6 @@ test('alert should be able to receive conditions in the constructor', (assert) =
     const overrideConditions = { conditions: [condition] };
     const alert = new Alert(overrideConditions);
 
-    assert.deepEqual(alert.generate(), alertWithCondition);
-    assert.end();
+    t.deepEqual(alert.generate(), alertWithCondition);
+    t.end();
 });

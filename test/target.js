@@ -24,39 +24,39 @@ var util = require('util');
 var test = require('tape');
 var Target = require('../grafana/target');
 
-test('Target throws exception on invalid invocation', function t(assert) {
-    assert.throws(function shouldThrow() {
+test('Target throws exception on invalid invocation', function (t) {
+    t.throws(function shouldThrow() {
         new Target();
     }, /Error/);
-    assert.end();
+    t.end();
 });
 
-test('Target can initialize as a single string source', function t(assert) {
+test('Target can initialize as a single string source', function (t) {
     var arg = 'path.to.metric';
     var target = new Target(arg);
-    assert.equal(target.source, arg);
-    assert.end();
+    t.equal(target.source, arg);
+    t.end();
 });
 
-test('Target can initialize as a single interpolated string source', function t(assert) {
+test('Target can initialize as a single interpolated string source', function (t) {
     var arg = 'path.to.%s.metric';
     var sub = 'foo';
     var argFinal = 'path.to.foo.metric';
     var target = new Target(arg, sub);
-    assert.equal(target.source, argFinal);
-    assert.end();
+    t.equal(target.source, argFinal);
+    t.end();
 });
 
-test('Target can initialize as a source and function', function t(assert) {
+test('Target can initialize as a source and function', function (t) {
     var arg = 'path.to.metric';
     new Target(arg)
         .averageSeries()
         .movingAverage('$smoothing')
         .alias('Total P95');
-    assert.end();
+    t.end();
 });
 
-test('Target can initialize and chain methods', function t(assert) {
+test('Target can initialize and chain methods', function (t) {
     var arg = 'path.to.metric';
     var target = new Target(arg)
         .averageSeries()
@@ -64,46 +64,46 @@ test('Target can initialize and chain methods', function t(assert) {
         .alias('Total P95');
 
     Object.keys(Target.PRIMITIVES).forEach(function eachPrimitive(primitive) {
-        assert.ok(typeof target[primitive] === 'function');
+        t.ok(typeof target[primitive] === 'function');
     });
-    assert.end();
+    t.end();
 });
 
-test('Target warns on incorrect primitive invocation', function t(assert) {
-    assert.plan(2);
+test('Target warns on incorrect primitive invocation', function (t) {
+    t.plan(2);
     console.warn = function warn(str) {
-        assert.ok(str);
+        t.ok(str);
     };
     console.trace = function trace(str) {
-        assert.notOk(str);
+        t.notOk(str);
     };
     new Target('foo').alpha();
 
-    assert.end();
+    t.end();
 });
 
-test('Target color methods are generated correctly', function t(assert) {
+test('Target color methods are generated correctly', function (t) {
     var arg = 'path.to.metric';
     var target = new Target(arg);
 
     Target.COLORS.forEach(function eachColor(color) {
-        assert.ok(typeof target[color] === 'function');
+        t.ok(typeof target[color] === 'function');
         var str = target[color]().toString();
         var expected = util.format('color(path.to.metric, "%s")', color);
-        assert.equal(str, expected);
+        t.equal(str, expected);
     });
-    assert.end();
+    t.end();
 });
 
-test('Target helper-method - color', function t(assert) {
+test('Target helper-method - color', function (t) {
     var arg = 'path.to.metric';
     var expected = 'color(path.to.metric, "COLOR")';
     var target = new Target(arg).color('COLOR').toString();
-    assert.equal(target, expected);
-    assert.end();
+    t.equal(target, expected);
+    t.end();
 });
 
-test('Target helper-method - cpu', function t(assert) {
+test('Target helper-method - cpu', function (t) {
     var arg = 'path.to.metric';
     var expected = [
         'removeBelowValue(',
@@ -113,47 +113,47 @@ test('Target helper-method - cpu', function t(assert) {
         '0.016666666667), 0)',
     ].join('');
     var target = new Target(arg).cpu().toString();
-    assert.equal(target, expected);
-    assert.end();
+    t.equal(target, expected);
+    t.end();
 });
 
-test('Target helper-method - reallyFaded', function t(assert) {
+test('Target helper-method - reallyFaded', function (t) {
     var arg = 'path.to.metric';
     var expected = 'alpha(lineWidth(path.to.metric, 5), 0.5)';
     var target = new Target(arg).reallyFaded().toString();
-    assert.equal(target, expected);
-    assert.end();
+    t.equal(target, expected);
+    t.end();
 });
 
-test('Target helper-method - faded', function t(assert) {
+test('Target helper-method - faded', function (t) {
     var arg = 'path.to.metric';
     var expected = 'lineWidth(alpha(path.to.metric, 0.5), 5)';
     var target = new Target(arg).faded().toString();
-    assert.equal(target, expected);
-    assert.end();
+    t.equal(target, expected);
+    t.end();
 });
 
-test('Target helper-method - lastWeek', function t(assert) {
+test('Target helper-method - lastWeek', function (t) {
     var arg = 'path.to.metric';
     var expected = 'timeShift(path.to.metric, "7d")';
     var target = new Target(arg).lastWeek().toString();
-    assert.equal(target, expected);
-    assert.end();
+    t.equal(target, expected);
+    t.end();
 });
 
-test('Target helper-method - summarize15min', function t(assert) {
+test('Target helper-method - summarize15min', function (t) {
     var arg = 'path.to.metric';
     var expected = 'summarize(path.to.metric, "15min")';
     var target = new Target(arg).summarize15min().toString();
-    assert.equal(target, expected);
-    assert.equal(target.hide, undefined);
-    assert.end();
+    t.equal(target, expected);
+    t.equal(target.hide, undefined);
+    t.end();
 });
 
-test('Target can call hide()', function t(assert) {
+test('Target can call hide()', function (t) {
     var target = new Target('path.to.metric').hide();
 
-    assert.equal(target.toString(), 'path.to.metric');
-    assert.equal(target.hide, true);
-    assert.end();
+    t.equal(target.toString(), 'path.to.metric');
+    t.equal(target.hide, true);
+    t.end();
 });

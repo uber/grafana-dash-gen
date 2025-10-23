@@ -31,13 +31,13 @@ var panelData = {
     baz: 1,
 };
 
-test('Simple row', function t(assert) {
+test('Simple row', function (t) {
     var row = new Row();
-    assert.deepEqual(row.generate(), simpleRow);
-    assert.end();
+    t.deepEqual(row.generate(), simpleRow);
+    t.end();
 });
 
-test('Row with overriden information', function t(assert) {
+test('Row with overriden information', function (t) {
     var panel1 = {
         generate: function generate() {
             return panelData;
@@ -50,11 +50,11 @@ test('Row with overriden information', function t(assert) {
         collapse: true,
         panels: [panel1],
     });
-    assert.deepEqual(row.generate(), overrideRow);
-    assert.end();
+    t.deepEqual(row.generate(), overrideRow);
+    t.end();
 });
 
-test('Add panels to row when passed', function t(assert) {
+test('Add panels to row when passed', function (t) {
     var panel1 = {
         foo: 'foo',
         bar: 'bar',
@@ -69,11 +69,11 @@ test('Add panels to row when passed', function t(assert) {
         panels: [panel1, panel2],
     });
 
-    assert.deepEqual(row.state.panels, [panel1, panel2]);
-    assert.end();
+    t.deepEqual(row.state.panels, [panel1, panel2]);
+    t.end();
 });
 
-test('Row can add panels', function t(assert) {
+test('Row can add panels', function (t) {
     var row = new Row({
         title: 'My Row',
         height: '1000px',
@@ -93,11 +93,11 @@ test('Row can add panels', function t(assert) {
 
     row.addPanel(panel1);
     row.addPanel(panel2);
-    assert.deepEqual(row.panels, [panel1, panel2]);
-    assert.end();
+    t.deepEqual(row.panels, [panel1, panel2]);
+    t.end();
 });
 
-test('Row generates state', function t(assert) {
+test('Row generates state', function (t) {
     var panel = {
         generate: function generate() {
             return panelData;
@@ -111,6 +111,6 @@ test('Row generates state', function t(assert) {
         panels: [panel],
     });
 
-    assert.deepEqual(row.generate(), overrideRow);
-    assert.end();
+    t.deepEqual(row.generate(), overrideRow);
+    t.end();
 });

@@ -63,34 +63,34 @@ const dashboard = new Dashboard({
     links: externalLinks,
 });
 
-test('Publish dashboard - requires dashboard', function t(assert) {
-    assert.throws(function assertThrows() {
+test('Publish dashboard - requires dashboard', function (t) {
+    t.throws(function assertThrows() {
         config.configure();
         publish();
     }, /UnfulfilledRequirement/);
-    assert.end();
+    t.end();
 });
 
-test('Publish dashboard - invalid state', function t(assert) {
-    assert.throws(function assertThrows() {
+test('Publish dashboard - invalid state', function (t) {
+    t.throws(function assertThrows() {
         config.configure();
         publish({});
     }, /InvalidState/);
-    assert.end();
+    t.end();
 });
 
-test('Publish dashboard - invalid title', function t(assert) {
-    assert.throws(function assertThrows() {
+test('Publish dashboard - invalid title', function (t) {
+    t.throws(function assertThrows() {
         config.configure();
         publish({
             state: {},
         });
     }, /InvalidState/);
-    assert.end();
+    t.end();
 });
 
-test('Publish dashboard - misconfigured url', function t(assert) {
-    assert.throws(function assertThrows() {
+test('Publish dashboard - misconfigured url', function (t) {
+    t.throws(function assertThrows() {
         config.configure({
             cookie: cookie,
             url: null,
@@ -101,11 +101,11 @@ test('Publish dashboard - misconfigured url', function t(assert) {
             },
         });
     }, /Misconfigured/);
-    assert.end();
+    t.end();
 });
 
-test('Publish dashboard - misconfigured cookie', function t(assert) {
-    assert.throws(function assertThrows() {
+test('Publish dashboard - misconfigured cookie', function (t) {
+    t.throws(function assertThrows() {
         config.configure({
             cookie: null,
             url: url,
@@ -116,11 +116,11 @@ test('Publish dashboard - misconfigured cookie', function t(assert) {
             },
         });
     }, /Misconfigured/);
-    assert.end();
+    t.end();
 });
 
-test('Publish dashboard - default empty headers', function (assert) {
-    assert.plan(1);
+test('Publish dashboard - default empty headers', function (t) {
+    t.plan(1);
     config.configure({
         cookie: cookie,
         headers: null,
@@ -130,13 +130,13 @@ test('Publish dashboard - default empty headers', function (assert) {
         .post('/dashboard')
         .reply(200, function createdHandler() {
             const headerType = typeof this.req.headers;
-            assert.equal(headerType, 'object');
+            t.equal(headerType, 'object');
         });
     publish(dashboard); // 200
 });
 
-test('Publish dashboard - client error', function (assert) {
-    assert.plan(1);
+test('Publish dashboard - client error', function (t) {
+    t.plan(1);
     config.configure({
         cookie: cookie,
         url: url,
@@ -146,71 +146,71 @@ test('Publish dashboard - client error', function (assert) {
         message: 'Version mismatch',
     });
     publish(dashboard).catch((e) => {
-        assert.equal(e.info().response.status, 412);
+        t.equal(e.info().response.status, 412);
     });
 });
 
-test('Publish dashboard - client error (invalid)', function (assert) {
-    assert.plan(1);
+test('Publish dashboard - client error (invalid)', function (t) {
+    t.plan(1);
     config.configure({
         cookie: cookie,
         url: url,
     });
     nock(baseUrl).post('/dashboard').reply(400, { status: 'error' });
     publish(dashboard).catch((e) => {
-        assert.equal(e.info().response.status, 400);
+        t.equal(e.info().response.status, 400);
     });
 });
 
-test('Publish dashboard - client error (n/a)', function t(assert) {
-    assert.plan(1);
+test('Publish dashboard - client error (n/a)', function (t) {
+    t.plan(1);
     config.configure({
         cookie: cookie,
         url: url,
     });
     nock(baseUrl).post('/dashboard').reply(412, { status: 'error' });
     publish(dashboard).catch((e) => {
-        assert.equal(e.info().response.status, 412);
+        t.equal(e.info().response.status, 412);
     });
 });
 
-test('Publish dashboard - bad response', function (assert) {
-    assert.plan(1);
+test('Publish dashboard - bad response', function (t) {
+    t.plan(1);
     config.configure({
         cookie: cookie,
         url: url,
     });
     nock(baseUrl).post('/dashboard').reply(200, 'foo');
     publish(dashboard).then((response) => {
-        assert.equal(response, 'foo');
+        t.equal(response, 'foo');
     });
 });
 
-test('Publish dashboard - server unavailable', function (assert) {
-    assert.plan(1);
+test('Publish dashboard - server unavailable', function (t) {
+    t.plan(1);
     config.configure({
         cookie: cookie,
         url: 'http://111.111.111.111',
     });
     publish(dashboard).catch((e) => {
-        assert.equal(e.message, 'network timeout at: http://111.111.111.111/');
+        t.equal(e.message, 'network timeout at: http://111.111.111.111/');
     });
 });
 
-test('Publish dashboard - server error', function (assert) {
-    assert.plan(1);
+test('Publish dashboard - server error', function (t) {
+    t.plan(1);
     config.configure({
         cookie: cookie,
         url: url,
     });
     nock(baseUrl).post('/dashboard').reply(500);
     publish(dashboard).catch((e) => {
-        assert.equal(e.info().response.status, 500);
+        t.equal(e.info().response.status, 500);
     });
 });
 
-test('Publish dashboard - success', function (assert) {
-    assert.plan(2);
+test('Publish dashboard - success', function (t) {
+    t.plan(2);
     config.configure({
         cookie: cookie,
         url: url,
@@ -225,17 +225,17 @@ test('Publish dashboard - success', function (assert) {
     nock(baseUrl)
         .post('/dashboard')
         .reply(201, function createdHandler(uri, requestBody) {
-            assert.deepEqual(requestBody, expectedBody);
+            t.deepEqual(requestBody, expectedBody);
         })
         .post('/dashboard')
         .reply(200, function okHandler(uri, requestBody) {
-            assert.deepEqual(requestBody, expectedBody);
+            t.deepEqual(requestBody, expectedBody);
         });
     publish(dashboard) // 201
         .then(() => publish(dashboard)); // 200
 });
 
-test('Publish dashboard - success w/ custom timeout', function (assert) {
+test('Publish dashboard - success w/ custom timeout', function (t) {
     config.configure({
         cookie: cookie,
         url: url,
@@ -250,12 +250,12 @@ test('Publish dashboard - success w/ custom timeout', function (assert) {
     nock(baseUrl)
         .post('/dashboard')
         .reply(201, function createdHandler(uri, requestBody) {
-            assert.deepEqual(requestBody, expectedBody);
+            t.deepEqual(requestBody, expectedBody);
         })
         .post('/dashboard')
         .reply(200, function okHandler(uri, requestBody) {
-            assert.deepEqual(requestBody, expectedBody);
-            assert.end();
+            t.deepEqual(requestBody, expectedBody);
+            t.end();
         });
     publish(dashboard, {
         timeout: 2000,
@@ -267,7 +267,7 @@ test('Publish dashboard - success w/ custom timeout', function (assert) {
         ); // 200
 });
 
-test('Publish dashboard - passes headers', function (assert) {
+test('Publish dashboard - passes headers', function (t) {
     config.configure({
         cookie: cookie,
         headers: headers,
@@ -281,23 +281,23 @@ test('Publish dashboard - passes headers', function (assert) {
         .reply(201, function createdHandler() {
             const reqHeaders = this.req.headers;
             Object.keys(headers).forEach(function (key) {
-                assert.deepEqual(reqHeaders[key], headers[key]);
+                t.deepEqual(reqHeaders[key], headers[key]);
             });
         })
         .post('/dashboard')
         .reply(200, function okHandler() {
             const reqHeaders = this.req.headers;
             Object.keys(headers).forEach(function (key) {
-                assert.deepEqual(reqHeaders[key], headers[key]);
+                t.deepEqual(reqHeaders[key], headers[key]);
             });
-            assert.end();
+            t.end();
         });
     publish(dashboard) // 201
         .then(() => publish(dashboard)); // 200
 });
 
-test('Publish dashboard - follows redirect', (assert) => {
-    assert.plan(1);
+test('Publish dashboard - follows redirect', (t) => {
+    t.plan(1);
     const redirectBase = 'http://willredirect.com';
     config.configure({
         cookie: cookie,
@@ -318,7 +318,7 @@ test('Publish dashboard - follows redirect', (assert) => {
     nock(baseUrl)
         .post('/dashboard')
         .reply(200, function okHandler(uri, requestBody) {
-            assert.deepEqual(requestBody, expectedBody);
+            t.deepEqual(requestBody, expectedBody);
         });
     publish(dashboard);
 });
