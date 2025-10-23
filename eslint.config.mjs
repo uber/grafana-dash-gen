@@ -6,6 +6,9 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 export default defineConfig([
     {
+        ignores: ['coverage'],
+    },
+    {
         files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
         plugins: { js },
         extends: ['js/recommended'],
