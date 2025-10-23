@@ -30,9 +30,12 @@
   "devDependencies": {
     "@eslint/js": "^9.38.0",
     "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.4.0",
     "nock": "^13.5.6",
     "nyc": "^15.1.0",
+    "prettier": "3.6.2",
     "tap-arc": "^0.3.5",
     "tape": "^5.9.0",
     "typescript-eslint": "^8.46.2"
