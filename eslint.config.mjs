@@ -14,6 +14,12 @@ export default defineConfig([
         extends: ['js/recommended'],
         languageOptions: { globals: globals.node },
     },
+    {
+        files: ['test/**/*.{js,mjs,cjs,ts,mts,cts}'],
+        plugins: { js },
+        extends: ['js/recommended'],
+        languageOptions: { globals: { ...globals.node, ...globals.vitest } },
+    },
     tseslint.configs.recommended,
     eslintPluginPrettierRecommended,
     {
