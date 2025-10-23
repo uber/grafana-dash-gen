@@ -20,18 +20,18 @@
 
 'use strict';
 
-var Dashboard = require('./grafana/dashboard');
-var Row = require('./grafana/row');
-var ExternalLink = require('./grafana/external-link');
-var Target = require('./grafana/target');
-var Panels = require('./grafana/panels');
-var Alert = require('./grafana/alert/alert');
-var Condition = require('./grafana/alert/condition');
-var Templates = require('./grafana/templates');
-var publish = require('./grafana/publish');
-var generateGraphId = require('./grafana/id');
-var config = require('./grafana/config');
-var Annotations = require('./grafana/annotations');
+var Dashboard = require('./src/dashboard');
+var Row = require('./src/row');
+var ExternalLink = require('./src/external-link');
+var Target = require('./src/target');
+var Panels = require('./src/panels');
+var Alert = require('./src/alert/alert');
+var Condition = require('./src/alert/condition');
+var Templates = require('./src/templates');
+var publish = require('./src/publish');
+var generateGraphId = require('./src/id');
+var config = require('./src/config');
+var Annotations = require('./src/annotations');
 
 module.exports = {
     Dashboard: Dashboard,

@@ -20,7 +20,7 @@
 
 'use strict';
 
-var Query = require('../../grafana/templates/query');
+var Query = require('../../src/templates/query');
 
 var simpleQuery = require('../fixtures/templates/simple_query');
 var overrideQuery = require('../fixtures/templates/override_query');

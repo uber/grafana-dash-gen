@@ -48,7 +48,7 @@
     "LICENSE",
     "README.md",
     "example.js",
-    "grafana",
+    "src",
     "index.js",
     "package.json"
   ],

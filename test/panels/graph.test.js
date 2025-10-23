@@ -20,7 +20,7 @@
 
 'use strict';
 
-const Graph = require('../../grafana/panels/graph');
+const Graph = require('../../src/panels/graph');
 
 const getAlert = require('../fixtures/alert/alert.mock').getAlert;
 const simpleGraph = require('../fixtures/panels/simple_graph.js');

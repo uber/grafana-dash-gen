@@ -20,10 +20,10 @@
 
 'use strict';
 const nock = require('nock');
-const config = require('../grafana/config');
-const publish = require('../grafana/publish');
-const Dashboard = require('../grafana/dashboard');
-const ExternalLink = require('../grafana/external-link');
+const config = require('../src/config');
+const publish = require('../src/publish');
+const Dashboard = require('../src/dashboard');
+const ExternalLink = require('../src/external-link');
 
 // configuration values, held constant for assertions
 const baseUrl = 'http://awesome.com';

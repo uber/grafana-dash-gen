@@ -20,7 +20,7 @@
 
 'use strict';
 
-var ExternalLink = require('../grafana/external-link');
+var ExternalLink = require('../src/external-link');
 var defaultExternalLink = require('./fixtures/external_link');
 
 test('default external link', function () {

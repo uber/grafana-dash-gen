@@ -20,7 +20,7 @@
 
 'use strict';
 
-var Row = require('../grafana/row');
+var Row = require('../src/row');
 
 var simpleRow = require('./fixtures/simple_row.js');
 var overrideRow = require('./fixtures/override_row.js');
