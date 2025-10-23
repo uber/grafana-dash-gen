@@ -20,7 +20,6 @@
 
 'use strict';
 
-/* eslint-disable no-new */
 const test = require('tape');
 const Graph = require('../../grafana/panels/graph');
 

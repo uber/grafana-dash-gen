@@ -20,7 +20,6 @@
 
 'use strict';
 
-/* eslint-disable no-new */
 var test = require('tape');
 var Graphite = require('../../grafana/annotations/graphite');
 

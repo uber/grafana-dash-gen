@@ -153,10 +153,8 @@ Target.PRIMITIVES = {
 _.each(Target.PRIMITIVES, function each(n, method) {
     Target.prototype[method] = function t() {
         if (arguments.length < n) {
-            /*eslint-disable*/
             console.warn("Incorrect number of arguments passed to %s", method);
             console.trace();
-            /*eslint-enable*/
         }
         return new Target(this,
             [method].concat(Array.prototype.slice.call(arguments, 0)));

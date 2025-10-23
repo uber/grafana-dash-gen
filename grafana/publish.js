@@ -23,7 +23,6 @@ const fetch = require("node-fetch");
 const config = require("./config");
 const errors = require("./errors");
 
-/* eslint-disable max-statements, max-len, no-console, no-undef */
 function publish(dashboard, opts) {
   opts = opts || {};
 
@@ -116,6 +115,6 @@ function publish(dashboard, opts) {
       throw e; // rethrow for downstream consumers
     });
 }
-/* eslint-enable */
+
 
 module.exports = publish;

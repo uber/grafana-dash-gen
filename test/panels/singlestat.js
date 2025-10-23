@@ -20,7 +20,6 @@
 
 'use strict';
 
-/* eslint-disable no-new */
 var test = require('tape');
 var SingleStat = require('../../grafana/panels/singlestat');
 

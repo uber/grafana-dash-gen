@@ -38,9 +38,7 @@ test('Target can initialize as a single string source', function t(assert) {
     assert.end();
 });
 
-/*eslint-disable*/
 test('Target can initialize as a single interpolated string source', function t(assert) {
-/*eslint-enable*/
     var arg = 'path.to.%s.metric';
     var sub = 'foo';
     var argFinal = 'path.to.foo.metric';
@@ -73,7 +71,6 @@ test('Target can initialize and chain methods', function t(assert) {
 
 test('Target warns on incorrect primitive invocation', function t(assert) {
     assert.plan(2);
-    /*eslint-disable*/
     console.warn = function warn(str) {
         assert.ok(str);
     };
@@ -81,7 +78,6 @@ test('Target warns on incorrect primitive invocation', function t(assert) {
         assert.notOk(str);
     };
     new Target('foo').alpha();
-    /*eslint-enable*/
 
     assert.end();
 });
