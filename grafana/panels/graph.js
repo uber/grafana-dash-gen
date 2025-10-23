@@ -131,6 +131,7 @@ function getRefsFromTarget(target) {
     const refs = [];
     let matches;
 
+    // eslint-disable-next-line no-cond-assign
     while (matches = refMatchRegex.exec(target)) {
         refs.push(matches[1]);
     }

@@ -35,7 +35,6 @@ function Dashboard(opts) {
 }
 
 Dashboard.prototype._init = function _init(opts) {
-    this.state = this.state;
     this.state.id = opts.id || null;
     this.state.title = opts.title || 'Generated Grafana Dashboard';
     this.state.originalTitle = opts.originalTitle || 'Generated Dashboard';
