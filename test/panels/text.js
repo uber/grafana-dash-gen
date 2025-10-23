@@ -20,21 +20,19 @@
 
 'use strict';
 
-var test = require('tape');
 var Text = require('../../grafana/panels/text');
 
 var simpleText = require('../fixtures/panels/simple_text.js');
 var overrideText = require('../fixtures/panels/override_text.js');
 
-test('simple Text panel', function (t) {
+test('simple Text panel', function () {
     var graph = new Text();
     graph.state.id = overrideText.id;
 
-    t.deepEqual(graph.generate(), simpleText);
-    t.end();
+    expect(graph.generate()).toEqual(simpleText);
 });
 
-test('Text panel with overriden information', function (t) {
+test('Text panel with overriden information', function () {
     var graph = new Text({
         span: 4,
         content: 'TEST',
@@ -43,19 +41,17 @@ test('Text panel with overriden information', function (t) {
     });
     graph.state.id = overrideText.id;
 
-    t.deepEqual(graph.generate(), overrideText);
-    t.end();
+    expect(graph.generate()).toEqual(overrideText);
 });
 
-test('Text can set title', function (t) {
+test('Text can set title', function () {
     var title = 'title';
     var graph = new Text();
     graph.setTitle(title);
-    t.deepEqual(graph.state.title, title);
-    t.end();
+    expect(graph.state.title).toEqual(title);
 });
 
-test('add graph to row and dashboard when passed', function (t) {
+test('add graph to row and dashboard when passed', function () {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 
@@ -72,7 +68,6 @@ test('add graph to row and dashboard when passed', function (t) {
         },
     });
 
-    t.deepEqual(calledAddRow, 1);
-    t.deepEqual(calledAddPanel, 1);
-    t.end();
+    expect(calledAddRow).toEqual(1);
+    expect(calledAddPanel).toEqual(1);
 });

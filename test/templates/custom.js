@@ -20,20 +20,18 @@
 
 'use strict';
 
-var test = require('tape');
 var Custom = require('../../grafana/templates/custom');
 
 var simpleCustom = require('../fixtures/templates/simple_custom');
 var overrideCustom = require('../fixtures/templates/override_custom');
 var overrideCustomTextValue = require('../fixtures/templates/override_custom_text_value');
 
-test('Custom template has defaults', function (t) {
+test('Custom template has defaults', function () {
     var template = new Custom();
-    t.deepEqual(template.state, simpleCustom);
-    t.end();
+    expect(template.state).toEqual(simpleCustom);
 });
 
-test('Custom template creates state', function (t) {
+test('Custom template creates state', function () {
     var name = 'custom';
     var options = ['a', 'b'];
     var template = new Custom({
@@ -41,11 +39,10 @@ test('Custom template creates state', function (t) {
         options: options,
         arbitraryProperty: 'foo',
     });
-    t.deepEqual(template.state, overrideCustom);
-    t.end();
+    expect(template.state).toEqual(overrideCustom);
 });
 
-test('Custom template generates state', function (t) {
+test('Custom template generates state', function () {
     var name = 'custom';
     var options = ['a', 'b'];
     var template = new Custom({
@@ -53,11 +50,10 @@ test('Custom template generates state', function (t) {
         options: options,
         arbitraryProperty: 'foo',
     });
-    t.deepEqual(template.generate(), overrideCustom);
-    t.end();
+    expect(template.generate()).toEqual(overrideCustom);
 });
 
-test('Custom template can add options', function (t) {
+test('Custom template can add options', function () {
     var name = 'custom';
     var options = ['a', 'b'];
     var template = new Custom({
@@ -65,11 +61,10 @@ test('Custom template can add options', function (t) {
         options: options,
         arbitraryProperty: 'foo',
     });
-    t.deepEqual(template.state, overrideCustom);
-    t.end();
+    expect(template.state).toEqual(overrideCustom);
 });
 
-test('Custom template can specify text and value', function (t) {
+test('Custom template can specify text and value', function () {
     var name = 'custom';
     var opt = {
         text: 'myText',
@@ -80,88 +75,74 @@ test('Custom template can specify text and value', function (t) {
         options: [opt],
         arbitraryProperty: 'foo',
     });
-    t.deepEqual(template.generate(), overrideCustomTextValue);
-    t.end();
+    expect(template.generate()).toEqual(overrideCustomTextValue);
 });
 
-test('Custom template overwrites default state', function (t) {
+test('Custom template overwrites default state', function () {
     var defaultTemplate = new Custom();
-    t.equal(defaultTemplate.state.includeAll, false);
+    expect(defaultTemplate.state.includeAll).toBe(false);
 
     var customTemplate = new Custom({
         includeAll: true,
         arbitraryProperty: 'foo',
     });
-    t.equal(customTemplate.state.includeAll, true);
-    t.equal(customTemplate.state.allValue, '');
-    t.deepEqual(customTemplate.state.current, {});
+    expect(customTemplate.state.includeAll).toBe(true);
+    expect(customTemplate.state.allValue).toBe('');
+    expect(customTemplate.state.current).toEqual({});
 
     var customWithAllValue = new Custom({
         includeAll: true,
         arbitraryProperty: 'foo',
         allValue: 'grafana',
     });
-    t.equal(customWithAllValue.state.includeAll, true);
-    t.deepEqual(customWithAllValue.state.current, {});
-    t.equal(customWithAllValue.state.allValue, 'grafana');
+    expect(customWithAllValue.state.includeAll).toBe(true);
+    expect(customWithAllValue.state.current).toEqual({});
+    expect(customWithAllValue.state.allValue).toBe('grafana');
 
     var allIsDefault = new Custom({
         includeAll: true,
         arbitraryProperty: 'foo',
         options: [{ text: 'grafana', value: 'grafana' }],
     });
-    t.equal(allIsDefault.state.includeAll, true);
-    t.equal(allIsDefault.state.allValue, '');
-    t.deepEqual(allIsDefault.state.current, {});
+    expect(allIsDefault.state.includeAll).toBe(true);
+    expect(allIsDefault.state.allValue).toBe('');
+    expect(allIsDefault.state.current).toEqual({});
 
     var firstIsDefault = new Custom({
         arbitraryProperty: 'foo',
         options: [{ text: 'grafana', value: 'grafana' }],
     });
-    t.equal(firstIsDefault.state.includeAll, false);
-    t.equal(firstIsDefault.state.allValue, '');
-    t.equal(firstIsDefault.state.current, firstIsDefault.state.options[0]);
-
-    t.end();
+    expect(firstIsDefault.state.includeAll).toBe(false);
+    expect(firstIsDefault.state.allValue).toBe('');
+    expect(firstIsDefault.state.current).toBe(firstIsDefault.state.options[0]);
 });
 
-test('Custom template supports custom default', function (t) {
+test('Custom template supports custom default', function () {
     const defaultOption = { text: 'dash-gen', value: 'dash-gen' };
     var definedDefault = new Custom({
         includeAll: true,
         defaultValue: defaultOption.value,
         options: [{ text: 'grafana', value: 'grafana' }, defaultOption],
     });
-    t.equal(definedDefault.state.includeAll, true);
-    t.equal(definedDefault.state.allValue, '');
-    t.equal(definedDefault.state.current, defaultOption);
+    expect(definedDefault.state.includeAll).toBe(true);
+    expect(definedDefault.state.allValue).toBe('');
+    expect(definedDefault.state.current).toBe(defaultOption);
 
-    t.throws(
-        () =>
-            new Custom({
-                includeAll: true,
-                defaultValue: defaultOption.value,
-                options: [{ text: 'grafana', value: 'grafana' }],
-            }),
-        new SyntaxError('default value not found in options list')
-    );
+    expect(() =>
+        new Custom({
+            includeAll: true,
+            defaultValue: defaultOption.value,
+            options: [{ text: 'grafana', value: 'grafana' }],
+        })).toThrowError(new SyntaxError('default value not found in options list'));
 
-    t.throws(
-        () =>
-            new Custom({
-                includeAll: true,
-                defaultValue: defaultOption.value,
-            }),
-        new SyntaxError('cannot define default value without any options')
-    );
+    expect(() =>
+        new Custom({
+            includeAll: true,
+            defaultValue: defaultOption.value,
+        })).toThrowError(new SyntaxError('cannot define default value without any options'));
 
-    t.throws(
-        () =>
-            new Custom({
-                defaultValue: defaultOption.value,
-            }),
-        new SyntaxError('cannot define default value without any options')
-    );
-
-    t.end();
+    expect(() =>
+        new Custom({
+            defaultValue: defaultOption.value,
+        })).toThrowError(new SyntaxError('cannot define default value without any options'));
 });

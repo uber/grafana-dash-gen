@@ -20,21 +20,19 @@
 
 'use strict';
 
-var test = require('tape');
 var DashboardList = require('../../grafana/panels/dashboard_list');
 
 var dashboardList = require('../fixtures/panels/simple_dashboard_list.js');
 var overrideDashboardList = require('../fixtures/panels/override_dashboard_list.js');
 
-test('simple DashboardList panel', function (t) {
+test('simple DashboardList panel', function () {
     var graph = new DashboardList();
     graph.state.id = dashboardList.id;
 
-    t.deepEqual(graph.generate(), dashboardList);
-    t.end();
+    expect(graph.generate()).toEqual(dashboardList);
 });
 
-test('DashboardList panel with overriden information', function (t) {
+test('DashboardList panel with overriden information', function () {
     var graph = new DashboardList({
         span: 3,
         title: 'dashboard list',
@@ -42,19 +40,17 @@ test('DashboardList panel with overriden information', function (t) {
     });
     graph.state.id = overrideDashboardList.id;
 
-    t.deepEqual(graph.generate(), overrideDashboardList);
-    t.end();
+    expect(graph.generate()).toEqual(overrideDashboardList);
 });
 
-test('DashboardList can set title', function (t) {
+test('DashboardList can set title', function () {
     var title = 'title';
     var graph = new DashboardList();
     graph.setTitle(title);
-    t.deepEqual(graph.state.title, title);
-    t.end();
+    expect(graph.state.title).toEqual(title);
 });
 
-test('add graph to row and dashboard when passed', function (t) {
+test('add graph to row and dashboard when passed', function () {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 
@@ -72,7 +68,6 @@ test('add graph to row and dashboard when passed', function (t) {
         },
     });
 
-    t.deepEqual(calledAddRow, 1);
-    t.deepEqual(calledAddPanel, 1);
-    t.end();
+    expect(calledAddRow).toEqual(1);
+    expect(calledAddPanel).toEqual(1);
 });

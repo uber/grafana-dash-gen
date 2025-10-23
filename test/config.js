@@ -20,10 +20,9 @@
 
 'use strict';
 
-var test = require('tape');
 var config = require('../grafana/config');
 
-test('config extends default configuration', function (t) {
+test('config extends default configuration', function () {
     var foo = 'foo';
     var bar = 1;
     var user = 'notguest';
@@ -54,6 +53,5 @@ test('config extends default configuration', function (t) {
     config.configure(cfg);
     var result = config.getConfig();
 
-    t.deepEqual(result, expected);
-    t.end();
+    expect(result).toEqual(expected);
 });

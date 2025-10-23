@@ -20,43 +20,38 @@
 
 'use strict';
 
-var test = require('tape');
 var Graphite = require('../../grafana/annotations/graphite');
 
 var simpleGraphite = require('../fixtures/annotations/simple_graphite');
 var overrideGraphite = require('../fixtures/annotations/override_graphite');
 
-test('Graphite annotation has requirements', function (t) {
-    t.throws(function assertThrows() {
+test('Graphite annotation has requirements', function () {
+    expect(function assertThrows() {
         new Graphite();
-    }, /UnfulfilledRequirement/);
-    t.end();
+    }).toThrowError(/UnfulfilledRequirement/);
 });
 
-test('Graphite annotation requires name', function (t) {
-    t.throws(function assertThrows() {
+test('Graphite annotation requires name', function () {
+    expect(function assertThrows() {
         new Graphite({ target: 'foo' });
-    }, /UnfulfilledRequirement/);
-    t.end();
+    }).toThrowError(/UnfulfilledRequirement/);
 });
 
-test('Graphite annotation requires target', function (t) {
-    t.throws(function assertThrows() {
+test('Graphite annotation requires target', function () {
+    expect(function assertThrows() {
         new Graphite({ name: 'foo' });
-    }, /UnfulfilledRequirement/);
-    t.end();
+    }).toThrowError(/UnfulfilledRequirement/);
 });
 
-test('Graphite annotation generates state', function (t) {
+test('Graphite annotation generates state', function () {
     var annotation = new Graphite({
         name: 'name',
         target: 'target',
     });
-    t.deepEqual(annotation.generate(), simpleGraphite);
-    t.end();
+    expect(annotation.generate()).toEqual(simpleGraphite);
 });
 
-test('Graphite annotation state can be overridden', function (t) {
+test('Graphite annotation state can be overridden', function () {
     var annotation = new Graphite({
         name: 'custom name',
         datasource: 'custom datasource',
@@ -68,6 +63,5 @@ test('Graphite annotation state can be overridden', function (t) {
         target: 'custom.target',
         arbitraryProperty: 'foo',
     });
-    t.deepEqual(annotation.generate(), overrideGraphite);
-    t.end();
+    expect(annotation.generate()).toEqual(overrideGraphite);
 });

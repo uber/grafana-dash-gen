@@ -20,21 +20,19 @@
 
 'use strict';
 
-var test = require('tape');
 var SingleStat = require('../../grafana/panels/singlestat');
 
 var simpleSingleStat = require('../fixtures/panels/simple_singlestat.js');
 var overrideSingleStat = require('../fixtures/panels/override_singlestat.js');
 
-test('simple SingleStat panel', function (t) {
+test('simple SingleStat panel', function () {
     var graph = new SingleStat();
     graph.state.id = simpleSingleStat.id;
 
-    t.deepEqual(graph.generate(), simpleSingleStat);
-    t.end();
+    expect(graph.generate()).toEqual(simpleSingleStat);
 });
 
-test('SingleStat panel with overriden information', function (t) {
+test('SingleStat panel with overriden information', function () {
     var graph = new SingleStat({
         span: 4,
         title: 'custom title',
@@ -44,19 +42,17 @@ test('SingleStat panel with overriden information', function (t) {
     });
     graph.state.id = overrideSingleStat.id;
 
-    t.deepEqual(graph.generate(), overrideSingleStat);
-    t.end();
+    expect(graph.generate()).toEqual(overrideSingleStat);
 });
 
-test('SingleStat can set title', function (t) {
+test('SingleStat can set title', function () {
     var title = 'title';
     var graph = new SingleStat();
     graph.setTitle(title);
-    t.deepEqual(graph.state.title, title);
-    t.end();
+    expect(graph.state.title).toEqual(title);
 });
 
-test('add graph to row and dashboard when passed', function (t) {
+test('add graph to row and dashboard when passed', function () {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 
@@ -74,7 +70,6 @@ test('add graph to row and dashboard when passed', function (t) {
         },
     });
 
-    t.deepEqual(calledAddRow, 1);
-    t.deepEqual(calledAddPanel, 1);
-    t.end();
+    expect(calledAddRow).toEqual(1);
+    expect(calledAddPanel).toEqual(1);
 });

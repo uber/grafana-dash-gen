@@ -1,97 +1,84 @@
-const test = require('tape');
 const Condition = require('../../grafana/alert/condition');
 
-test('condition .withEvaluator', (t) => {
+test('condition .withEvaluator', () => {
     const condition = new Condition().withEvaluator(2, 'gt').generate();
 
-    t.deepEqual(condition.evaluator, {
+    expect(condition.evaluator).toEqual({
         params: [2],
         type: 'gt',
     });
-    t.end();
 });
 
-test('condition .withEvaluator should accept array of values', (t) => {
+test('condition .withEvaluator should accept array of values', () => {
     const condition = new Condition()
         .withEvaluator([2, 4], 'within_range')
         .generate();
 
-    t.deepEqual(condition.evaluator, {
+    expect(condition.evaluator).toEqual({
         params: [2, 4],
         type: 'within_range',
     });
-    t.end();
 });
 
-test('condition .witEvaluator should throw when passing a weird value', (t) => {
+test('condition .witEvaluator should throw when passing a weird value', () => {
     const condition = new Condition();
-    t.throws(() => condition.withEvaluator(2, 'bla'));
-    t.end();
+    expect(() => condition.withEvaluator(2, 'bla')).toThrow();
 });
 
-test('condition .withOperator', (t) => {
+test('condition .withOperator', () => {
     const condition = new Condition().withOperator('or').generate();
 
-    t.deepEqual(condition.operator, { type: 'or' });
-    t.end();
+    expect(condition.operator).toEqual({ type: 'or' });
 });
 
-test('condition .withOperator should throw when passing invalid value', (t) => {
+test('condition .withOperator should throw when passing invalid value', () => {
     const condition = new Condition();
-    t.throws(() => condition.withOperator('bla'));
-    t.end();
+    expect(() => condition.withOperator('bla')).toThrow();
 });
 
-test('condition .orCondition', (t) => {
+test('condition .orCondition', () => {
     const condition = new Condition().orCondition().generate();
 
-    t.deepEqual(condition.operator, { type: 'or' });
-    t.end();
+    expect(condition.operator).toEqual({ type: 'or' });
 });
 
-test('condition .andCondition', (t) => {
+test('condition .andCondition', () => {
     const condition = new Condition().andCondition().generate();
 
-    t.deepEqual(condition.operator, { type: 'and' });
-    t.end();
+    expect(condition.operator).toEqual({ type: 'and' });
 });
 
-test('condition should have default and operator', (t) => {
+test('condition should have default and operator', () => {
     const condition = new Condition().generate();
 
-    t.deepEqual(condition.operator, { type: 'and' });
-    t.end();
+    expect(condition.operator).toEqual({ type: 'and' });
 });
 
-test('condition should allow setting the query metric with .onQuery', (t) => {
+test('condition should allow setting the query metric with .onQuery', () => {
     const condition = new Condition().onQuery('D', '60m', 'now').generate();
 
-    t.deepEqual(condition.query.params[0], 'D');
-    t.deepEqual(condition.query.params[1], '60m');
-    t.deepEqual(condition.query.params[2], 'now');
-    t.end();
+    expect(condition.query.params[0]).toEqual('D');
+    expect(condition.query.params[1]).toEqual('60m');
+    expect(condition.query.params[2]).toEqual('now');
 });
 
-test('condition should throw when using .onQuery with a weird value', (t) => {
+test('condition should throw when using .onQuery with a weird value', () => {
     const condition = new Condition();
-    t.throws(() => condition.onQuery(2));
-    t.end();
+    expect(() => condition.onQuery(2)).toThrow();
 });
 
-test('condition should allow choosing condition reducer type', (t) => {
+test('condition should allow choosing condition reducer type', () => {
     const condition = new Condition().withReducer('min').generate();
 
-    t.deepEqual(condition.reducer, { params: [], type: 'min' });
-    t.end();
+    expect(condition.reducer).toEqual({ params: [], type: 'min' });
 });
 
-test('condition should throw when using .withReducer with a weird value', (t) => {
+test('condition should throw when using .withReducer with a weird value', () => {
     const condition = new Condition();
-    t.throws(() => condition.withReducer('bla'));
-    t.end();
+    expect(() => condition.withReducer('bla')).toThrow();
 });
 
-test('override condition values from constructor', (t) => {
+test('override condition values from constructor', () => {
     const overrideReducer = {
         reducer: {
             params: [],
@@ -100,9 +87,8 @@ test('override condition values from constructor', (t) => {
     };
     const condition = new Condition(overrideReducer).generate();
 
-    t.deepEqual(condition.reducer, {
+    expect(condition.reducer).toEqual({
         params: [],
         type: 'max',
     });
-    t.end();
 });

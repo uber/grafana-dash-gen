@@ -20,20 +20,18 @@
 
 'use strict';
 
-var test = require('tape');
 var ExternalLink = require('../grafana/external-link');
 var defaultExternalLink = require('./fixtures/external_link');
 
-test('default external link', function (t) {
+test('default external link', function () {
     var externalLink = new ExternalLink({
         title: 'Uber Home Page',
         url: 'www.uber.com',
     });
-    t.deepEqual(externalLink.generate(), defaultExternalLink);
-    t.end();
+    expect(externalLink.generate()).toEqual(defaultExternalLink);
 });
 
-test('external link with custom settings', function (t) {
+test('external link with custom settings', function () {
     var externalLink = new ExternalLink({
         title: 'Uber Home Page',
         tooltip: 'click to view',
@@ -43,7 +41,7 @@ test('external link with custom settings', function (t) {
         .includeVariableValues()
         .withIcon('custom icon');
 
-    t.deepEqual(externalLink.generate(), {
+    expect(externalLink.generate()).toEqual({
         title: 'Uber Home Page',
         tooltip: 'click to view',
         url: 'www.uber.com',
@@ -54,17 +52,9 @@ test('external link with custom settings', function (t) {
         includeVars: true,
         keepTime: true,
     });
-    t.end();
 });
 
-test('external link validates required fields', function (t) {
-    t.throws(
-        () => new ExternalLink().generate(),
-        new SyntaxError('a title for the link must be provided')
-    );
-    t.throws(
-        () => new ExternalLink({ title: 'Uber Home Page' }).generate(),
-        new SyntaxError('a url for the link must be provided')
-    );
-    t.end();
+test('external link validates required fields', function () {
+    expect(() => new ExternalLink().generate()).toThrowError(new SyntaxError('a title for the link must be provided'));
+    expect(() => new ExternalLink({ title: 'Uber Home Page' }).generate()).toThrowError(new SyntaxError('a url for the link must be provided'));
 });

@@ -20,88 +20,79 @@
 
 'use strict';
 
-var test = require('tape');
 var Query = require('../../grafana/templates/query');
 
 var simpleQuery = require('../fixtures/templates/simple_query');
 var overrideQuery = require('../fixtures/templates/override_query');
 
-test('Interval template has defaults', function (t) {
+test('Interval template has defaults', function () {
     var template = new Query('servers.*', {
         name: 'foo',
         datasource: 'default',
     });
-    t.deepEqual(template.generate(), simpleQuery);
-    t.end();
+    expect(template.generate()).toEqual(simpleQuery);
 });
 
-test('Query template requires query', function (t) {
-    t.throws(function catchError() {
+test('Query template requires query', function (done) {
+    expect(function catchError() {
         var template = new Query(null, {
             name: 'foo',
             datasource: 'default',
         });
         template.state.refresh = true;
-        t.fail();
-    }, Error);
-    t.end();
+        done.fail();
+    }).toThrowError(Error);
 });
 
-test('Query template options default to empty objects', function (t) {
-    t.throws(function catchError() {
+test('Query template options default to empty objects', function (done) {
+    expect(function catchError() {
         var template = new Query('servers.*');
         template.state.refresh = true;
-        t.fail();
-    }, Error);
-    t.end();
+        done.fail();
+    }).toThrowError(Error);
 });
 
-test('Query template requires name', function (t) {
-    t.throws(function catchTypeError() {
+test('Query template requires name', function (done) {
+    expect(function catchTypeError() {
         var template = new Query('servers.*', {
             datasource: 'default',
         });
         template.state.refresh = true;
-        t.fail();
-    }, Error);
-    t.end();
+        done.fail();
+    }).toThrowError(Error);
 });
 
-test('Query template requires datasource', function (t) {
-    t.throws(function catchTypeError() {
+test('Query template requires datasource', function (done) {
+    expect(function catchTypeError() {
         var template = new Query('servers.*', {
             name: 'foo',
         });
         template.state.refresh = true;
-        t.fail();
-    }, Error);
-    t.end();
+        done.fail();
+    }).toThrowError(Error);
 });
 
-test('Query template creates state', function (t) {
+test('Query template creates state', function () {
     var template = new Query('servers.*', {
         name: 'foo',
         datasource: 'default',
     });
-    t.deepEqual(template.generate(), simpleQuery);
-    t.end();
+    expect(template.generate()).toEqual(simpleQuery);
 });
 
-test('Query template state cannot be mutated after init', function (t) {
+test('Query template state cannot be mutated after init', function () {
     var template = new Query('servers.*', {
         name: 'foo',
         datasource: 'default',
     });
-    t.deepEqual(template.generate(), simpleQuery);
+    expect(template.generate()).toEqual(simpleQuery);
 
-    t.throws(function catchTypeError() {
+    expect(function catchTypeError() {
         template.state.refresh = true;
-    }, TypeError);
-
-    t.end();
+    }).toThrowError(TypeError);
 });
 
-test('Query template state overridden on init', function (t) {
+test('Query template state overridden on init', function () {
     var template = new Query('stats.*', {
         name: 'template',
         datasource: 'datasource',
@@ -111,6 +102,5 @@ test('Query template state overridden on init', function (t) {
         refresh: true,
         multi: true,
     });
-    t.deepEqual(template.generate(), overrideQuery);
-    t.end();
+    expect(template.generate()).toEqual(overrideQuery);
 });

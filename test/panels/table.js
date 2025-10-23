@@ -20,20 +20,18 @@
 
 'use strict';
 
-var test = require('tape');
 var Table = require('../../grafana/panels/table');
 
 var simpleTable = require('../fixtures/panels/simple_table.js');
 var overrideTable = require('../fixtures/panels/override_table.js');
 
-test('simple table', function (t) {
+test('simple table', function () {
     var table = new Table();
     table.state.id = simpleTable.id;
-    t.deepEqual(table.generate(), simpleTable);
-    t.end();
+    expect(table.generate()).toEqual(simpleTable);
 });
 
-test('table with overriden information', function (t) {
+test('table with overriden information', function () {
     var table = new Table({
         span: 4,
         title: 'custom title',
@@ -43,11 +41,10 @@ test('table with overriden information', function (t) {
     });
     table.state.id = overrideTable.id;
 
-    t.deepEqual(table.generate(), overrideTable);
-    t.end();
+    expect(table.generate()).toEqual(overrideTable);
 });
 
-test('add graph to row and dashboard when passed', function (t) {
+test('add graph to row and dashboard when passed', function () {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 
@@ -65,12 +62,11 @@ test('add graph to row and dashboard when passed', function (t) {
         },
     });
 
-    t.deepEqual(calledAddRow, 1);
-    t.deepEqual(calledAddPanel, 1);
-    t.end();
+    expect(calledAddRow).toEqual(1);
+    expect(calledAddPanel).toEqual(1);
 });
 
-test('table with overriden info and title', function (t) {
+test('table with overriden info and title', function () {
     var table = new Table({
         span: 4,
         targets: ['target'],
@@ -80,6 +76,5 @@ test('table with overriden info and title', function (t) {
     table.state.id = overrideTable.id;
     table.setTitle('custom title');
 
-    t.deepEqual(table.generate(), overrideTable);
-    t.end();
+    expect(table.generate()).toEqual(overrideTable);
 });

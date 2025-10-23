@@ -20,7 +20,6 @@
 
 'use strict';
 
-const test = require('tape');
 const Graph = require('../../grafana/panels/graph');
 
 const getAlert = require('../fixtures/alert/alert.mock').getAlert;
@@ -29,14 +28,13 @@ const overrideGraph = require('../fixtures/panels/override_graph.js');
 const simpleGraphWithAlert = require('../fixtures/panels/graph_with_alert.js');
 const alertWithCondition = require('../fixtures/alert/alert_with_condition.js');
 
-test('simple graph', (t) => {
+test('simple graph', () => {
     const graph = new Graph();
     graph.state.id = simpleGraph.id;
-    t.deepEqual(graph.generate(), simpleGraph);
-    t.end();
+    expect(graph.generate()).toEqual(simpleGraph);
 });
 
-test('graph with overriden information', (t) => {
+test('graph with overriden information', () => {
     const graph = new Graph({
         span: 4,
         title: 'custom title',
@@ -47,11 +45,10 @@ test('graph with overriden information', (t) => {
     });
     graph.state.id = overrideGraph.id;
 
-    t.deepEqual(graph.generate(), overrideGraph);
-    t.end();
+    expect(graph.generate()).toEqual(overrideGraph);
 });
 
-test('add graph to row and dashboard when passed', (t) => {
+test('add graph to row and dashboard when passed', () => {
     let calledAddPanel = 0;
     let calledAddRow = 0;
 
@@ -69,12 +66,11 @@ test('add graph to row and dashboard when passed', (t) => {
         },
     });
 
-    t.deepEqual(calledAddRow, 1);
-    t.deepEqual(calledAddPanel, 1);
-    t.end();
+    expect(calledAddRow).toEqual(1);
+    expect(calledAddPanel).toEqual(1);
 });
 
-test('graph should assign a refId to each target added', (t) => {
+test('graph should assign a refId to each target added', () => {
     const firstTarget = 'target';
     const secondTarget = 'target-2';
 
@@ -100,11 +96,10 @@ test('graph should assign a refId to each target added', (t) => {
         arbitraryProperty: 'foo',
     });
 
-    t.deepEqual(graph.generate().targets, expectedTargets);
-    t.end();
+    expect(graph.generate().targets).toEqual(expectedTargets);
 });
 
-test('graph should be able to add alert', (t) => {
+test('graph should be able to add alert', () => {
     const graph = new Graph({
         targets: ['firstTarget'],
     });
@@ -112,22 +107,20 @@ test('graph should be able to add alert', (t) => {
     graph.state.id = simpleGraphWithAlert.id;
     graph.addAlert(getAlert());
 
-    t.deepEqual(graph.generate(), simpleGraphWithAlert);
-    t.end();
+    expect(graph.generate()).toEqual(simpleGraphWithAlert);
 });
 
-test('graph should receive an alert in the constructor', (t) => {
+test('graph should receive an alert in the constructor', () => {
     const graph = new Graph({
         alert: alertWithCondition,
         targets: ['firstTarget'],
     });
     graph.state.id = simpleGraphWithAlert.id;
 
-    t.deepEqual(graph.generate(), simpleGraphWithAlert);
-    t.end();
+    expect(graph.generate()).toEqual(simpleGraphWithAlert);
 });
 
-test('graph should add other targets when a target contains refs', (t) => {
+test('graph should add other targets when a target contains refs', () => {
     const graph = new Graph({
         targets: [
             "alias(scaleToSeconds(summarize(sumSeries(target-1), '60m', 'sum', false), 60), 'alias-1')",
@@ -145,6 +138,5 @@ test('graph should add other targets when a target contains refs', (t) => {
             "alias(divideSeries(alias(scaleToSeconds(summarize(sumSeries(target-2), '60m', 'sum', false), 60), 'alias-2'), alias(scaleToSeconds(summarize(sumSeries(target-1), '60m', 'sum', false), 60), 'alias-1')), 'success rate')",
     };
 
-    t.deepEqual(actualDivideTarget, expectedDivideTarget);
-    t.end();
+    expect(actualDivideTarget).toEqual(expectedDivideTarget);
 });
