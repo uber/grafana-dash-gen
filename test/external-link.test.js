@@ -55,6 +55,10 @@ test('external link with custom settings', function () {
 });
 
 test('external link validates required fields', function () {
-    expect(() => new ExternalLink().generate()).toThrowError(new SyntaxError('a title for the link must be provided'));
-    expect(() => new ExternalLink({ title: 'Uber Home Page' }).generate()).toThrowError(new SyntaxError('a url for the link must be provided'));
+    expect(() => new ExternalLink().generate()).toThrow(
+        new SyntaxError('a title for the link must be provided')
+    );
+    expect(() =>
+        new ExternalLink({ title: 'Uber Home Page' }).generate()
+    ).toThrow(new SyntaxError('a url for the link must be provided'));
 });

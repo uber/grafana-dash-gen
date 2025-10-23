@@ -128,21 +128,31 @@ test('Custom template supports custom default', function () {
     expect(definedDefault.state.allValue).toBe('');
     expect(definedDefault.state.current).toBe(defaultOption);
 
-    expect(() =>
-        new Custom({
-            includeAll: true,
-            defaultValue: defaultOption.value,
-            options: [{ text: 'grafana', value: 'grafana' }],
-        })).toThrowError(new SyntaxError('default value not found in options list'));
+    expect(
+        () =>
+            new Custom({
+                includeAll: true,
+                defaultValue: defaultOption.value,
+                options: [{ text: 'grafana', value: 'grafana' }],
+            })
+    ).toThrow(new SyntaxError('default value not found in options list'));
 
-    expect(() =>
-        new Custom({
-            includeAll: true,
-            defaultValue: defaultOption.value,
-        })).toThrowError(new SyntaxError('cannot define default value without any options'));
+    expect(
+        () =>
+            new Custom({
+                includeAll: true,
+                defaultValue: defaultOption.value,
+            })
+    ).toThrow(
+        new SyntaxError('cannot define default value without any options')
+    );
 
-    expect(() =>
-        new Custom({
-            defaultValue: defaultOption.value,
-        })).toThrowError(new SyntaxError('cannot define default value without any options'));
+    expect(
+        () =>
+            new Custom({
+                defaultValue: defaultOption.value,
+            })
+    ).toThrow(
+        new SyntaxError('cannot define default value without any options')
+    );
 });

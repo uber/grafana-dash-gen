@@ -62,58 +62,64 @@ const dashboard = new Dashboard({
     links: externalLinks,
 });
 
-test('Publish dashboard - requires dashboard', function () {
-    expect(function assertThrows() {
+test('Publish dashboard - requires dashboard', async () => {
+    await expect(async () => {
         config.configure();
-        publish();
-    }).toThrowError(/UnfulfilledRequirement/);
+        return publish();
+    }).rejects.toThrow('grafana.publish missing requirement: dashboard');
 });
 
-test('Publish dashboard - invalid state', function () {
-    expect(function assertThrows() {
+test('Publish dashboard - invalid state', async () => {
+    await expect(async () => {
         config.configure();
-        publish({});
-    }).toThrowError(/InvalidState/);
+        return publish({});
+    }).rejects.toThrow(
+        'grafana.Dashboard state is invalid: state.title undefined'
+    );
 });
 
-test('Publish dashboard - invalid title', function () {
-    expect(function assertThrows() {
+test('Publish dashboard - invalid title', async () => {
+    await expect(async () => {
         config.configure();
-        publish({
+        return publish({
             state: {},
         });
-    }).toThrowError(/InvalidState/);
+    }).rejects.toThrow(
+        'grafana.Dashboard state is invalid: state.title undefined'
+    );
 });
 
-test('Publish dashboard - misconfigured url', function () {
-    expect(function assertThrows() {
+test('Publish dashboard - misconfigured url', async () => {
+    await expect(async () => {
         config.configure({
             cookie: cookie,
             url: null,
         });
-        publish({
+        return publish({
             state: {
                 title: title,
             },
         });
-    }).toThrowError(/Misconfigured/);
+    }).rejects.toThrow(
+        'Incorrect configuration: config.url undefined - Must call grafana.configure before publishing'
+    );
 });
 
-test('Publish dashboard - misconfigured cookie', function () {
-    expect(function assertThrows() {
+test('Publish dashboard - misconfigured cookie', async () => {
+    await expect(async () => {
         config.configure({
             cookie: null,
             url: url,
         });
-        publish({
+        return publish({
             state: {
                 title: title,
             },
         });
-    }).toThrowError(/Misconfigured/);
+    }).rejects.toThrow('Incorrect configuration: config.cookie undefined - ');
 });
 
-test('Publish dashboard - default empty headers', function () {
+test('Publish dashboard - default empty headers', async function () {
     expect.assertions(1);
     config.configure({
         cookie: cookie,
@@ -126,10 +132,10 @@ test('Publish dashboard - default empty headers', function () {
             const headerType = typeof this.req.headers;
             expect(headerType).toBe('object');
         });
-    publish(dashboard); // 200
+    await publish(dashboard); // 200
 });
 
-test('Publish dashboard - client error', function () {
+test('Publish dashboard - client error', async function () {
     expect.assertions(1);
     config.configure({
         cookie: cookie,
@@ -139,71 +145,72 @@ test('Publish dashboard - client error', function () {
         status: 'version-mismatch',
         message: 'Version mismatch',
     });
-    publish(dashboard).catch((e) => {
+    await publish(dashboard).catch((e) => {
+        console.log(e);
         expect(e.info().response.status).toBe(412);
     });
 });
 
-test('Publish dashboard - client error (invalid)', function () {
+test('Publish dashboard - client error (invalid)', async function () {
     expect.assertions(1);
     config.configure({
         cookie: cookie,
         url: url,
     });
     nock(baseUrl).post('/dashboard').reply(400, { status: 'error' });
-    publish(dashboard).catch((e) => {
+    await publish(dashboard).catch((e) => {
         expect(e.info().response.status).toBe(400);
     });
 });
 
-test('Publish dashboard - client error (n/a)', function () {
+test('Publish dashboard - client error (n/a)', async function () {
     expect.assertions(1);
     config.configure({
         cookie: cookie,
         url: url,
     });
     nock(baseUrl).post('/dashboard').reply(412, { status: 'error' });
-    publish(dashboard).catch((e) => {
+    await publish(dashboard).catch((e) => {
         expect(e.info().response.status).toBe(412);
     });
 });
 
-test('Publish dashboard - bad response', function () {
+test('Publish dashboard - bad response', async function () {
     expect.assertions(1);
     config.configure({
         cookie: cookie,
         url: url,
     });
     nock(baseUrl).post('/dashboard').reply(200, 'foo');
-    publish(dashboard).then((response) => {
+    await publish(dashboard).then((response) => {
         expect(response).toBe('foo');
     });
 });
 
-test('Publish dashboard - server unavailable', function () {
+test('Publish dashboard - server unavailable', async function () {
     expect.assertions(1);
     config.configure({
         cookie: cookie,
         url: 'http://111.111.111.111',
     });
-    publish(dashboard).catch((e) => {
+    await publish(dashboard).catch((e) => {
         expect(e.message).toBe('network timeout at: http://111.111.111.111/');
     });
 });
 
-test('Publish dashboard - server error', function () {
+test('Publish dashboard - server error', async function () {
     expect.assertions(1);
     config.configure({
         cookie: cookie,
         url: url,
     });
     nock(baseUrl).post('/dashboard').reply(500);
-    publish(dashboard).catch((e) => {
+    await publish(dashboard).catch((e) => {
         expect(e.info().response.status).toBe(500);
     });
 });
 
-test('Publish dashboard - success', function () {
+test('Publish dashboard - success', async function () {
     expect.assertions(2);
     config.configure({
         cookie: cookie,
@@ -225,11 +232,11 @@ test('Publish dashboard - success', function () {
         .reply(200, function okHandler(uri, requestBody) {
             expect(requestBody).toEqual(expectedBody);
         });
-    publish(dashboard) // 201
+    await publish(dashboard) // 201
         .then(() => publish(dashboard)); // 200
 });
 
-test('Publish dashboard - success w/ custom timeout', function (done) {
+test('Publish dashboard - success w/ custom timeout', async function () {
     config.configure({
         cookie: cookie,
         url: url,
@@ -249,9 +256,8 @@ test('Publish dashboard - success w/ custom timeout', function (done) {
         .post('/dashboard')
         .reply(200, function okHandler(uri, requestBody) {
             expect(requestBody).toEqual(expectedBody);
-            done();
         });
-    publish(dashboard, {
+    await publish(dashboard, {
         timeout: 2000,
     }) // 201
         .then(() =>
@@ -261,7 +267,7 @@ test('Publish dashboard - success w/ custom timeout', function (done) {
         ); // 200
 });
 
-test('Publish dashboard - passes headers', function (done) {
+test('Publish dashboard - passes headers', async function () {
     config.configure({
         cookie: cookie,
         headers: headers,
@@ -284,13 +290,12 @@ test('Publish dashboard - passes headers', function (done) {
             Object.keys(headers).forEach(function (key) {
                 expect(reqHeaders[key]).toEqual(headers[key]);
             });
-            done();
         });
-    publish(dashboard) // 201
+    await publish(dashboard) // 201
         .then(() => publish(dashboard)); // 200
 });
 
-test('Publish dashboard - follows redirect', () => {
+test('Publish dashboard - follows redirect', async () => {
     expect.assertions(1);
     const redirectBase = 'http://willredirect.com';
     config.configure({
@@ -314,5 +319,5 @@ test('Publish dashboard - follows redirect', () => {
         .reply(200, function okHandler(uri, requestBody) {
             expect(requestBody).toEqual(expectedBody);
         });
-    publish(dashboard);
+    await publish(dashboard);
 });

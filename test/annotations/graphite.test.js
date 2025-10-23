@@ -28,19 +28,19 @@ var overrideGraphite = require('../fixtures/annotations/override_graphite');
 test('Graphite annotation has requirements', function () {
     expect(function assertThrows() {
         new Graphite();
-    }).toThrowError(/UnfulfilledRequirement/);
+    }).toThrow('grafana.annotations.Graphite missing requirement: name');
 });
 
 test('Graphite annotation requires name', function () {
     expect(function assertThrows() {
         new Graphite({ target: 'foo' });
-    }).toThrowError(/UnfulfilledRequirement/);
+    }).toThrow('grafana.annotations.Graphite missing requirement: name');
 });
 
 test('Graphite annotation requires target', function () {
     expect(function assertThrows() {
         new Graphite({ name: 'foo' });
-    }).toThrowError(/UnfulfilledRequirement/);
+    }).toThrow('grafana.annotations.Graphite missing requirement: target');
 });
 
 test('Graphite annotation generates state', function () {

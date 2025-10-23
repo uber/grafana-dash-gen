@@ -26,7 +26,9 @@ var Target = require('../grafana/target');
 test('Target throws exception on invalid invocation', function () {
     expect(function shouldThrow() {
         new Target();
-    }).toThrowError(/Error/);
+    }).toThrow(
+        'Incorrect invocation of Target. Must provide at least one argument'
+    );
 });
 
 test('Target can initialize as a single string source', function () {

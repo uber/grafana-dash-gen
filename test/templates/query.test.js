@@ -33,43 +33,39 @@ test('Interval template has defaults', function () {
     expect(template.generate()).toEqual(simpleQuery);
 });
 
-test('Query template requires query', function (done) {
+test('Query template requires query', function () {
     expect(function catchError() {
         var template = new Query(null, {
             name: 'foo',
             datasource: 'default',
         });
         template.state.refresh = true;
-        done.fail();
-    }).toThrowError(Error);
+    }).toThrow(Error);
 });
 
-test('Query template options default to empty objects', function (done) {
+test('Query template options default to empty objects', function () {
     expect(function catchError() {
         var template = new Query('servers.*');
         template.state.refresh = true;
-        done.fail();
-    }).toThrowError(Error);
+    }).toThrow(Error);
 });
 
-test('Query template requires name', function (done) {
+test('Query template requires name', function () {
     expect(function catchTypeError() {
         var template = new Query('servers.*', {
             datasource: 'default',
         });
         template.state.refresh = true;
-        done.fail();
-    }).toThrowError(Error);
+    }).toThrow(Error);
 });
 
-test('Query template requires datasource', function (done) {
+test('Query template requires datasource', function () {
     expect(function catchTypeError() {
         var template = new Query('servers.*', {
             name: 'foo',
         });
         template.state.refresh = true;
-        done.fail();
-    }).toThrowError(Error);
+    }).toThrow(Error);
 });
 
 test('Query template creates state', function () {
@@ -89,7 +85,7 @@ test('Query template state cannot be mutated after init', function () {
 
     expect(function catchTypeError() {
         template.state.refresh = true;
-    }).toThrowError(TypeError);
+    }).toThrow(TypeError);
 });
 
 test('Query template state overridden on init', function () {
