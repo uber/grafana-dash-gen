@@ -28,20 +28,20 @@ function Graphite(opts) {
 
     if (!opts.name) {
         throw errors.UnfulfilledRequirement(
-            "{component} missing requirement: {unfulfilledArg}",
+            '{component} missing requirement: {unfulfilledArg}',
             {
                 component: 'grafana.annotations.Graphite',
-                unfulfilledArg: 'name'
+                unfulfilledArg: 'name',
             }
         );
     }
 
     if (!opts.target) {
         throw errors.UnfulfilledRequirement(
-            "{component} missing requirement: {unfulfilledArg}",
+            '{component} missing requirement: {unfulfilledArg}',
             {
                 component: 'grafana.annotations.Graphite',
-                unfulfilledArg: 'target'
+                unfulfilledArg: 'target',
             }
         );
     }
@@ -54,7 +54,7 @@ function Graphite(opts) {
         lineColor: 'rgba(165, 161, 70, 0.59)',
         iconSize: 10,
         enable: true,
-        target: ''
+        target: '',
     };
     self.state = defaults;
 

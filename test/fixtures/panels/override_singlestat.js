@@ -27,7 +27,7 @@ module.exports = {
     colors: [
         'rgba(71, 212, 59, 0.4)',
         'rgba(245, 150, 40, 0.73)',
-        'rgba(225, 40, 40, 0.59)'
+        'rgba(225, 40, 40, 0.59)',
     ],
     editable: true,
     error: false,
@@ -47,21 +47,25 @@ module.exports = {
         fillColor: 'rgba(134, 178, 214, 0.41)',
         full: true,
         lineColor: 'rgb(31, 193, 58)',
-        show: true
+        show: true,
     },
-    targets: [{
-        target: 'target'
-    }],
+    targets: [
+        {
+            target: 'target',
+        },
+    ],
     thresholds: '',
     title: 'custom title',
     type: 'singlestat',
     valueFontSize: '80%',
-    valueMaps: [{
-        op: '=',
-        text: 'N/A',
-        value: 'null'
-    }],
+    valueMaps: [
+        {
+            op: '=',
+            text: 'N/A',
+            value: 'null',
+        },
+    ],
     valueName: 'current',
     datasource: 'M3',
-    arbitraryProperty: 'foo'
+    arbitraryProperty: 'foo',
 };

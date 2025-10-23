@@ -24,9 +24,11 @@ module.exports = {
     editable: false,
     showTitle: true,
     collapse: true,
-    panels: [{
-        foo: 'foo',
-        bar: 'bar',
-        baz: 1
-    }]
+    panels: [
+        {
+            foo: 'foo',
+            bar: 'bar',
+            baz: 1,
+        },
+    ],
 };

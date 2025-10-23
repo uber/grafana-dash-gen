@@ -39,7 +39,7 @@ test('table with overriden information', function t(assert) {
         title: 'custom title',
         targets: ['target'],
         datasource: 'M3',
-        arbitraryProperty: 'foo'
+        arbitraryProperty: 'foo',
     });
     table.state.id = overrideTable.id;
 
@@ -55,14 +55,14 @@ test('add graph to row and dashboard when passed', function t(assert) {
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
-            }
+            },
         },
 
         dashboard: {
             addRow: function addRow() {
                 calledAddRow += 1;
-            }
-        }
+            },
+        },
     });
 
     assert.deepEqual(calledAddRow, 1);
@@ -75,7 +75,7 @@ test('table with overriden info and title', function t(assert) {
         span: 4,
         targets: ['target'],
         datasource: 'M3',
-        arbitraryProperty: 'foo'
+        arbitraryProperty: 'foo',
     });
     table.state.id = overrideTable.id;
     table.setTitle('custom title');

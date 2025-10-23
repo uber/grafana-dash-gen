@@ -34,7 +34,7 @@ module.exports = {
         threshold1: null,
         threshold1Color: 'rgba(216, 200, 27, 0.27)',
         threshold2: null,
-        threshold2Color: 'rgba(234, 112, 112, 0.22)'
+        threshold2Color: 'rgba(234, 112, 112, 0.22)',
     },
     id: 2,
     legend: {
@@ -44,7 +44,7 @@ module.exports = {
         min: false,
         show: true,
         total: false,
-        values: true
+        values: true,
     },
     lines: true,
     linewidth: 1,
@@ -58,20 +58,22 @@ module.exports = {
     span: 4,
     stack: false,
     steppedLine: false,
-    targets: [{
-        target: 'target',
-        hide: undefined,
-        refId: 'A',
-    }],
+    targets: [
+        {
+            target: 'target',
+            hide: undefined,
+            refId: 'A',
+        },
+    ],
     title: 'custom title',
     tooltip: {
         shared: false,
-        'value_type': 'cumulative'
+        value_type: 'cumulative',
     },
     type: 'graph',
     'x-axis': true,
     'y-axis': true,
-    'y_formats': ['short', 'short'],
+    y_formats: ['short', 'short'],
     datasource: 'M3',
-    arbitraryProperty: 'foo'
+    arbitraryProperty: 'foo',
 };

@@ -29,5 +29,5 @@ module.exports = {
     allValue: '',
     allFormat: 'glob',
     query: null,
-    current: {}
-}
+    current: {},
+};

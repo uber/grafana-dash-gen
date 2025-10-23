@@ -21,46 +21,47 @@
 'use strict';
 
 function ExternalLink(opts) {
-  opts = opts || {};
+    opts = opts || {};
 
-  const defaults = {
-    title: "",
-    tooltip: "",
-    url: "",
-    ...opts,
-    tags: [],
-    icon: "external link",
-    targetBlank: true,
-    type: "link",
-    includeVars: false,
-    keepTime: false,
-  };
-  this.state = defaults;
+    const defaults = {
+        title: '',
+        tooltip: '',
+        url: '',
+        ...opts,
+        tags: [],
+        icon: 'external link',
+        targetBlank: true,
+        type: 'link',
+        includeVars: false,
+        keepTime: false,
+    };
+    this.state = defaults;
 }
 
 ExternalLink.prototype.generate = function generate() {
-  if (this.state.title === "") {
-    throw new SyntaxError("a title for the link must be provided")
-  }
-  if (this.state.url === "") {
-    throw new SyntaxError("a url for the link must be provided")
-  }
-  return this.state;
+    if (this.state.title === '') {
+        throw new SyntaxError('a title for the link must be provided');
+    }
+    if (this.state.url === '') {
+        throw new SyntaxError('a url for the link must be provided');
+    }
+    return this.state;
 };
 
-ExternalLink.prototype.includeVariableValues = function includeVariableValues() {
-  this.state.includeVars = true;
-  return this
-};
+ExternalLink.prototype.includeVariableValues =
+    function includeVariableValues() {
+        this.state.includeVars = true;
+        return this;
+    };
 
 ExternalLink.prototype.includeTimeFilter = function includeTimeFilter() {
-  this.state.keepTime = true;
-  return this
+    this.state.keepTime = true;
+    return this;
 };
 
 ExternalLink.prototype.withIcon = function withIcon(iconName) {
-  this.state.icon = iconName;
-  return this
+    this.state.icon = iconName;
+    return this;
 };
 
 module.exports = ExternalLink;

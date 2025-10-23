@@ -40,7 +40,7 @@ test('SingleStat panel with overriden information', function t(assert) {
         title: 'custom title',
         targets: ['target'],
         datasource: 'M3',
-        arbitraryProperty: 'foo'
+        arbitraryProperty: 'foo',
     });
     graph.state.id = overrideSingleStat.id;
 
@@ -64,14 +64,14 @@ test('add graph to row and dashboard when passed', function t(assert) {
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
-            }
+            },
         },
 
         dashboard: {
             addRow: function addRow() {
                 calledAddRow += 1;
-            }
-        }
+            },
+        },
     });
 
     assert.deepEqual(calledAddRow, 1);

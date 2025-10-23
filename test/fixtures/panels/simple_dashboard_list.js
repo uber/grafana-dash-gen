@@ -30,5 +30,5 @@ module.exports = {
     query: 'dashboard list',
     limit: 10,
     tags: [],
-    links: []
+    links: [],
 };

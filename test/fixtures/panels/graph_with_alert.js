@@ -19,84 +19,82 @@
 // THE SOFTWARE.
 
 module.exports = {
-  alert: {
-    name: 'Panel Title alert',
-    conditions: [{
-      type: 'query',
-      query: {
-        params: [
-          'B',
-          '5m',
-          'now'
-        ]
-      },
-      reducer: {
-        type: 'min',
-        params: []
-      },
-      evaluator: {
-        type: 'gt',
-        params: [1.1]
-      },
-      operator: {
-        type: 'and'
-      }
-    }],
-    for: '15m',
-    frequency: '5m',
-    message: '',
-    notifications: [],
-    executionErrorState: 'keep_state',
-    noDataState: 'keep_state',
-    alertRuleTags: {},
-    handler: 1,
-  },
-  aliasColors: {},
-  bars: false,
-  editable: true,
-  error: false,
-  fill: 0,
-  grid: {
-    leftMax: null,
-    leftMin: null,
-    rightMax: null,
-    rightMin: null,
-    threshold1: null,
-    threshold1Color: 'rgba(216, 200, 27, 0.27)',
-    threshold2: null,
-    threshold2Color: 'rgba(234, 112, 112, 0.22)'
-  },
-  id: 1,
-  legend: {
-    avg: true,
-    current: false,
-    max: true,
-    min: false,
-    show: true,
-    total: false,
-    values: true
-  },
-  lines: true,
-  linewidth: 1,
-  links: [],
-  nullPointMode: 'null as zero',
-  percentage: false,
-  pointradius: 5,
-  points: false,
-  renderer: 'flot',
-  seriesOverrides: [{}],
-  span: 12,
-  stack: false,
-  steppedLine: false,
-  targets: [{ hide: undefined, refId: 'A', target: 'firstTarget' }],
-  title: 'no title (click here)',
-  tooltip: {
-    shared: false,
-    value_type: 'cumulative'
-  },
-  type: 'graph',
-  'x-axis': true,
-  'y-axis': true,
-  y_formats: ['short', 'short'],
-  datasource: 'graphite'
+    alert: {
+        name: 'Panel Title alert',
+        conditions: [
+            {
+                type: 'query',
+                query: {
+                    params: ['B', '5m', 'now'],
+                },
+                reducer: {
+                    type: 'min',
+                    params: [],
+                },
+                evaluator: {
+                    type: 'gt',
+                    params: [1.1],
+                },
+                operator: {
+                    type: 'and',
+                },
+            },
+        ],
+        for: '15m',
+        frequency: '5m',
+        message: '',
+        notifications: [],
+        executionErrorState: 'keep_state',
+        noDataState: 'keep_state',
+        alertRuleTags: {},
+        handler: 1,
+    },
+    aliasColors: {},
+    bars: false,
+    editable: true,
+    error: false,
+    fill: 0,
+    grid: {
+        leftMax: null,
+        leftMin: null,
+        rightMax: null,
+        rightMin: null,
+        threshold1: null,
+        threshold1Color: 'rgba(216, 200, 27, 0.27)',
+        threshold2: null,
+        threshold2Color: 'rgba(234, 112, 112, 0.22)',
+    },
+    id: 1,
+    legend: {
+        avg: true,
+        current: false,
+        max: true,
+        min: false,
+        show: true,
+        total: false,
+        values: true,
+    },
+    lines: true,
+    linewidth: 1,
+    links: [],
+    nullPointMode: 'null as zero',
+    percentage: false,
+    pointradius: 5,
+    points: false,
+    renderer: 'flot',
+    seriesOverrides: [{}],
+    span: 12,
+    stack: false,
+    steppedLine: false,
+    targets: [{ hide: undefined, refId: 'A', target: 'firstTarget' }],
+    title: 'no title (click here)',
+    tooltip: {
+        shared: false,
+        value_type: 'cumulative',
+    },
+    type: 'graph',
+    'x-axis': true,
+    'y-axis': true,
+    y_formats: ['short', 'short'],
+    datasource: 'graphite',
 };

@@ -28,5 +28,5 @@ module.exports = {
     lineColor: 'rgba(165, 161, 70, 0.59)',
     iconSize: 10,
     enable: true,
-    target: 'target'
+    target: 'target',
 };

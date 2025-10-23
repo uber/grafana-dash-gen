@@ -22,7 +22,7 @@
 
 var test = require('tape');
 var Dashboard = require('../grafana/dashboard');
-var ExternalLink = require('../grafana/external-link')
+var ExternalLink = require('../grafana/external-link');
 require('../grafana/panels'); // for coverage
 
 var simpleDashboard = require('./fixtures/simple_dashboard');
@@ -39,25 +39,32 @@ test('Dashboard with overriden information', function t(assert) {
     var dashboard = new Dashboard({
         title: 'custom title',
         tags: ['foo', 'bar'],
-        templating: [{
-            name: 'myvar',
-            options: ['a', 'b']
-        }, {
-            name: 'smoothing',
-            options: ['30min', '10min', '5min', '2min', '1min']
-        }],
-        annotations: [{
-            name: 'Deploy Completed',
-            target: 'path.to.metric.with.annotation'
-        }],
+        templating: [
+            {
+                name: 'myvar',
+                options: ['a', 'b'],
+            },
+            {
+                name: 'smoothing',
+                options: ['30min', '10min', '5min', '2min', '1min'],
+            },
+        ],
+        annotations: [
+            {
+                name: 'Deploy Completed',
+                target: 'path.to.metric.with.annotation',
+            },
+        ],
         refresh: '1m',
-        rows: [{
-            title: 'New row',
-            height: '250px',
-            editable: true,
-            collapse: false,
-            panels: []
-        }],
+        rows: [
+            {
+                title: 'New row',
+                height: '250px',
+                editable: true,
+                collapse: false,
+                panels: [],
+            },
+        ],
         editable: true,
     });
     dashboard.state.id = overrideDashboard.id;
@@ -67,96 +74,96 @@ test('Dashboard with overriden information', function t(assert) {
 
 test('Dashboard can add rows', function t(assert) {
     var dashboard = new Dashboard();
-    var row = {foo: 'foo'};
+    var row = { foo: 'foo' };
     dashboard.addRow(row);
     assert.deepEqual(dashboard.rows, [row]);
     assert.end();
 });
 
 test('Dashboard can add links', function t(assert) {
-  const externalLinks = [
-    new ExternalLink({
-      title: "Uber Homepage",
-      url: "www.uber.com",
-    })
-  ]
-  var dashboard = new Dashboard({
-    links: externalLinks
-  });
-  assert.deepEqual(dashboard.links, externalLinks);
-  assert.end();
-})
+    const externalLinks = [
+        new ExternalLink({
+            title: 'Uber Homepage',
+            url: 'www.uber.com',
+        }),
+    ];
+    var dashboard = new Dashboard({
+        links: externalLinks,
+    });
+    assert.deepEqual(dashboard.links, externalLinks);
+    assert.end();
+});
 
 test('Dashboard can set time', function t(assert) {
     var d = new Dashboard({
         time: {
             from: 'now-1h',
-            to: 'now'
-        }
+            to: 'now',
+        },
     });
 
     assert.deepEqual(d.generate().time, {
         from: 'now-1h',
-        to: 'now'
+        to: 'now',
     });
     assert.end();
 });
 
 test('Dashboard can generate correct body', function t(assert) {
-    var rowData = {foo: 'foo'};
+    var rowData = { foo: 'foo' };
     var dashboard = new Dashboard({
-      links: [
-        new ExternalLink({
-          title: "Uber Homepage",
-          url: "www.uber.com",
-        }),
-        {
-          title: "Google Homepage",
-          tooltip: "",
-          url: "www.google.com",
-          icon: "external link",
-          targetBlank: true,
-          type: "link",
-          includeVars: false,
-          keepTime: false,
-        }
-      ]
+        links: [
+            new ExternalLink({
+                title: 'Uber Homepage',
+                url: 'www.uber.com',
+            }),
+            {
+                title: 'Google Homepage',
+                tooltip: '',
+                url: 'www.google.com',
+                icon: 'external link',
+                targetBlank: true,
+                type: 'link',
+                includeVars: false,
+                keepTime: false,
+            },
+        ],
     });
     var row = {
         generate: function generate() {
             return rowData;
-        }
+        },
     };
     dashboard.addRow(row);
     simpleDashboard.rows = [rowData];
     var json = dashboard.generate();
 
     var expectedJson = {
-      ...simpleDashboard,
-      links: [
-        {
-          title: "Uber Homepage",
-          tooltip: "",
-          url: "www.uber.com",
-          tags: [],
-          icon: "external link",
-          targetBlank: true,
-          type: "link",
-          includeVars: false,
-          keepTime: false,
-        },
-        {
-          title: "Google Homepage",
-          tooltip: "",
-          url: "www.google.com",
-          icon: "external link",
-          targetBlank: true,
-          type: "link",
-          includeVars: false,
-          keepTime: false,
-        }
-      ]
-    }
+        ...simpleDashboard,
+        links: [
+            {
+                title: 'Uber Homepage',
+                tooltip: '',
+                url: 'www.uber.com',
+                tags: [],
+                icon: 'external link',
+                targetBlank: true,
+                type: 'link',
+                includeVars: false,
+                keepTime: false,
+            },
+            {
+                title: 'Google Homepage',
+                tooltip: '',
+                url: 'www.google.com',
+                icon: 'external link',
+                targetBlank: true,
+                type: 'link',
+                includeVars: false,
+                keepTime: false,
+            },
+        ],
+    };
     assert.deepEqual(json, expectedJson);
     assert.end();
 });

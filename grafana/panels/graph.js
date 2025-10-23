@@ -28,59 +28,54 @@ function Graph(opts) {
     this._currentRefIndex = 0;
 
     const defaults = {
-        'type': 'graph',
-        'id': generateGraphId(),
-        'renderer': 'flot',
-        'title': 'no title (click here)',
-        'error': false,
-        'editable': true,
+        type: 'graph',
+        id: generateGraphId(),
+        renderer: 'flot',
+        title: 'no title (click here)',
+        error: false,
+        editable: true,
         'x-axis': true,
         'y-axis': true,
-        'y_formats': [
-            'short',
-            'short'
-        ],
-        'grid': {
-            'leftMax': null,
-            'rightMax': null,
-            'leftMin': null,
-            'rightMin': null,
-            'threshold1': null,
-            'threshold2': null,
-            'threshold1Color': 'rgba(216, 200, 27, 0.27)',
-            'threshold2Color': 'rgba(234, 112, 112, 0.22)'
+        y_formats: ['short', 'short'],
+        grid: {
+            leftMax: null,
+            rightMax: null,
+            leftMin: null,
+            rightMin: null,
+            threshold1: null,
+            threshold2: null,
+            threshold1Color: 'rgba(216, 200, 27, 0.27)',
+            threshold2Color: 'rgba(234, 112, 112, 0.22)',
         },
-        'lines': true,
-        'span': 12,
-        'fill': 0,
-        'linewidth': 1,
-        'points': false,
-        'pointradius': 5,
-        'bars': false,
-        'stack': false,
-        'percentage': false,
-        'targets': [],
-        'legend': {
-            'show': true,
-            'values': true,
-            'min': false,
-            'max': true,
-            'current': false,
-            'total': false,
-            'avg': true
+        lines: true,
+        span: 12,
+        fill: 0,
+        linewidth: 1,
+        points: false,
+        pointradius: 5,
+        bars: false,
+        stack: false,
+        percentage: false,
+        targets: [],
+        legend: {
+            show: true,
+            values: true,
+            min: false,
+            max: true,
+            current: false,
+            total: false,
+            avg: true,
         },
-        'nullPointMode': 'null as zero',
-        'steppedLine': false,
-        'tooltip': {
-            'value_type': 'cumulative',
-            'shared': false
+        nullPointMode: 'null as zero',
+        steppedLine: false,
+        tooltip: {
+            value_type: 'cumulative',
+            shared: false,
         },
-        'aliasColors': {},
-        'seriesOverrides': [
-            {}
-        ],
-        'links': [],
-        'datasource': 'graphite'
+        aliasColors: {},
+        seriesOverrides: [{}],
+        links: [],
+        datasource: 'graphite',
     };
     this.state = defaults;
 
@@ -131,8 +126,7 @@ function getRefsFromTarget(target) {
     const refs = [];
     let matches;
 
-    // eslint-disable-next-line no-cond-assign
-    while (matches = refMatchRegex.exec(target)) {
+    while ((matches = refMatchRegex.exec(target))) {
         refs.push(matches[1]);
     }
     return refs;
@@ -141,16 +135,19 @@ function getRefsFromTarget(target) {
 function handleRefTargets(target, targets) {
     if (target.includes('#')) {
         const refs = getRefsFromTarget(target);
-        const findTargetByRefId = (targets, refId) => targets.find(target => target.refId === refId).target;
+        const findTargetByRefId = (targets, refId) =>
+            targets.find((target) => target.refId === refId).target;
 
         return {
-            targetFull: refs.reduce((res, ref) =>
-                res.replace(`#${ref}`, findTargetByRefId(targets, ref)),
-              target)
+            targetFull: refs.reduce(
+                (res, ref) =>
+                    res.replace(`#${ref}`, findTargetByRefId(targets, ref)),
+                target
+            ),
         };
     }
 
-    return {}
+    return {};
 }
 
 module.exports = Graph;

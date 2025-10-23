@@ -19,45 +19,48 @@
 // THE SOFTWARE.
 
 module.exports = {
-    title: "Panel Title",
+    title: 'Panel Title',
     error: false,
     span: 12,
     editable: true,
-    type: "table",
+    type: 'table',
     isNew: true,
     id: 1,
-    styles: 
-    [{
-        type: "date",
-        pattern: "Time",
-        dateFormat: "YYYY-MM-DD HH:mm:ss"
-    },{
-        unit: "short",
-        type: "number",
-        decimals: 0,
-        colors: [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-        ],
-        colorMode: null,
-        pattern: "/.*/",
-        thresholds: []
-    }],
+    styles: [
+        {
+            type: 'date',
+            pattern: 'Time',
+            dateFormat: 'YYYY-MM-DD HH:mm:ss',
+        },
+        {
+            unit: 'short',
+            type: 'number',
+            decimals: 0,
+            colors: [
+                'rgba(245, 54, 54, 0.9)',
+                'rgba(237, 129, 40, 0.89)',
+                'rgba(50, 172, 45, 0.97)',
+            ],
+            colorMode: null,
+            pattern: '/.*/',
+            thresholds: [],
+        },
+    ],
     targets: [],
-    transform: "timeseries_aggregations",
+    transform: 'timeseries_aggregations',
     pageSize: null,
     showHeader: true,
-    columns: 
-    [{
-        text: "Avg",
-        value: "avg"
-    }],
+    columns: [
+        {
+            text: 'Avg',
+            value: 'avg',
+        },
+    ],
     scroll: true,
-    fontSize: "100%",
+    fontSize: '100%',
     sort: {
         col: 0,
-        desc: true
+        desc: true,
     },
-    links: []
+    links: [],
 };

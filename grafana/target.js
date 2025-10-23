@@ -25,8 +25,10 @@ var util = require('util');
 
 function Target() {
     if (arguments.length === 0) {
-        throw new Error('Incorrect invocation of Target. ' +
-                        'Must provide at least one argument');
+        throw new Error(
+            'Incorrect invocation of Target. ' +
+                'Must provide at least one argument'
+        );
     }
     if (typeof arguments[0] === 'string') {
         // Format string
@@ -40,14 +42,18 @@ function Target() {
 
 Target.prototype.toString = function toString() {
     if (this.func) {
-        var args = _.reduce(this.func.slice(1), function reduce(memo, arg) {
-            if (typeof arg === 'string') {
-                arg = JSON.stringify(arg);
-            } else {
-                arg = arg.toString();
-            }
-            return memo + ', ' + arg;
-        }, '');
+        var args = _.reduce(
+            this.func.slice(1),
+            function reduce(memo, arg) {
+                if (typeof arg === 'string') {
+                    arg = JSON.stringify(arg);
+                } else {
+                    arg = arg.toString();
+                }
+                return memo + ', ' + arg;
+            },
+            ''
+        );
         return this.func[0] + '(' + this.source.toString() + args + ')';
     } else {
         return this.source;
@@ -147,17 +153,19 @@ Target.PRIMITIVES = {
     timeStack: 3,
     transformNull: 0,
     useSeriesAbove: 3,
-    weightedAverage: 2
+    weightedAverage: 2,
 };
 
 _.each(Target.PRIMITIVES, function each(n, method) {
     Target.prototype[method] = function t() {
         if (arguments.length < n) {
-            console.warn("Incorrect number of arguments passed to %s", method);
+            console.warn('Incorrect number of arguments passed to %s', method);
             console.trace();
         }
-        return new Target(this,
-            [method].concat(Array.prototype.slice.call(arguments, 0)));
+        return new Target(
+            this,
+            [method].concat(Array.prototype.slice.call(arguments, 0))
+        );
     };
 });
 
@@ -171,7 +179,7 @@ Target.COLORS = [
     'brown',
     'purple',
     'pink',
-    'aqua'
+    'aqua',
 ];
 
 _.each(Target.COLORS, function each(color) {

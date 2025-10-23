@@ -25,8 +25,8 @@
 
 var graphId = 0;
 function generateGraphId() {
-	graphId = graphId + 1;
-	return graphId;
+    graphId = graphId + 1;
+    return graphId;
 }
 
 module.exports = generateGraphId;

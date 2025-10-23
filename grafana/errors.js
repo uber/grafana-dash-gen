@@ -21,14 +21,14 @@
 'use strict';
 var SError = require('error').SError;
 
-class UnfulfilledRequirement extends SError {};
-class InvalidState extends SError {};
-class Misconfigured extends SError {};
-class ResponseError extends SError {};
+class UnfulfilledRequirement extends SError {}
+class InvalidState extends SError {}
+class Misconfigured extends SError {}
+class ResponseError extends SError {}
 
 module.exports = {
     UnfulfilledRequirement: UnfulfilledRequirement,
     InvalidState: InvalidState,
     Misconfigured: Misconfigured,
-    ResponseError: ResponseError
+    ResponseError: ResponseError,
 };

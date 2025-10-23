@@ -25,5 +25,5 @@ var Query = require('./query');
 
 module.exports = {
     Custom: Custom,
-    Query: Query
+    Query: Query,
 };
