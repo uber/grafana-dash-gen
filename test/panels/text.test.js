@@ -22,8 +22,8 @@
 
 var Text = require('../../src/panels/text');
 
-var simpleText = require('../fixtures/panels/simple_text.js');
-var overrideText = require('../fixtures/panels/override_text.js');
+var simpleText = require('../fixtures/panels/simple_text');
+var overrideText = require('../fixtures/panels/override_text');
 
 test('simple Text panel', function () {
     var graph = new Text();

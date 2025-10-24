@@ -18,16 +18,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import type { GrafanaCustomTemplate } from '../../../src/grafana';
 
-module.exports = {
-    name: 'custom name',
-    datasource: 'custom datasource',
-    showLine: false,
-    iconColor: 'rgb(255, 0, 0)',
-    lineColor: 'rgb(0, 0, 255)',
-    iconSize: 5,
-    enable: false,
-    target: 'custom.target',
+const overrideCustomTemplate: GrafanaCustomTemplate = {
+    name: 'custom',
+    type: 'custom',
+    options: [
+        {
+            text: 'a',
+            value: 'a',
+        },
+        {
+            text: 'b',
+            value: 'b',
+        },
+    ],
+    datasource: null,
+    refresh: 0,
+    refresh_on_load: false,
+    includeAll: false,
+    allValue: '',
+    allFormat: 'glob',
+    query: 'a,b',
+    current: {
+        text: 'a',
+        value: 'a',
+    },
     arbitraryProperty: 'foo',
 };
+
+export = overrideCustomTemplate;

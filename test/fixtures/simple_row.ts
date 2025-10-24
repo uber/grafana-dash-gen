@@ -18,17 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
-    title: 'dashboard list',
-    error: false,
-    span: 3,
+import type { GrafanaRow } from '../../src/grafana';
+
+const simpleRow: GrafanaRow = {
+    title: 'New row',
+    showTitle: true,
+    height: '250px',
     editable: true,
-    type: 'dashlist',
-    isNew: true,
-    id: 7,
-    mode: 'search',
-    query: 'dashboard list',
-    limit: 10,
-    tags: [],
-    links: [],
+    collapse: false,
+    panels: [],
 };
+
+export = simpleRow;

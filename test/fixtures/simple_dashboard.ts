@@ -18,31 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import type { GrafanaDashboard } from '../../src/grafana';
 
-module.exports = {
-    name: 'custom',
-    type: 'custom',
-    options: [
-        {
-            text: 'a',
-            value: 'a',
-        },
-        {
-            text: 'b',
-            value: 'b',
-        },
-    ],
-    datasource: null,
-    refresh: 0,
-    refresh_on_load: false,
-    includeAll: false,
-    allValue: '',
-    allFormat: 'glob',
-    query: 'a,b',
-    current: {
-        text: 'a',
-        value: 'a',
-    },
-    arbitraryProperty: 'foo',
+const simpleDashboard: GrafanaDashboard = {
+    id: null,
+    title: 'Generated Grafana Dashboard',
+    originalTitle: 'Generated Dashboard',
+    tags: [],
+    style: 'dark',
+    timezone: 'browser',
+    editable: true,
+    hideControls: false,
+    sharedCrosshair: false,
+    refresh: false,
+    schemaVersion: 6,
+    hideAllLegends: false,
+    rows: [],
+    annotations: { list: [], enable: true },
+    templating: { list: [], enable: true },
+    time: null,
+    links: [],
 };
+
+export = simpleDashboard;

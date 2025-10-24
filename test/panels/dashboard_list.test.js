@@ -22,8 +22,8 @@
 
 var DashboardList = require('../../src/panels/dashboard_list');
 
-var dashboardList = require('../fixtures/panels/simple_dashboard_list.js');
-var overrideDashboardList = require('../fixtures/panels/override_dashboard_list.js');
+var dashboardList = require('../fixtures/panels/simple_dashboard_list');
+var overrideDashboardList = require('../fixtures/panels/override_dashboard_list');
 
 test('simple DashboardList panel', function () {
     var graph = new DashboardList();

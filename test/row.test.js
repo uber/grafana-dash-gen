@@ -22,8 +22,8 @@
 
 var Row = require('../src/row');
 
-var simpleRow = require('./fixtures/simple_row.js');
-var overrideRow = require('./fixtures/override_row.js');
+var simpleRow = require('./fixtures/simple_row');
+var overrideRow = require('./fixtures/override_row');
 var panelData = {
     foo: 'foo',
     bar: 'bar',

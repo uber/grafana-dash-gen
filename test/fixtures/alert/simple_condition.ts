@@ -1,4 +1,6 @@
-module.exports = {
+import { GrafanaCondition } from '../../../src/grafana';
+
+const simpleCondition: GrafanaCondition = {
     type: 'query',
     query: {
         params: ['A', '5m', 'now'],
@@ -15,3 +17,5 @@ module.exports = {
         type: 'and',
     },
 };
+
+export = simpleCondition;

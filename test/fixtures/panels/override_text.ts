@@ -18,23 +18,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-module.exports = {
-    id: null,
-    title: 'Generated Grafana Dashboard',
-    originalTitle: 'Generated Dashboard',
-    tags: [],
-    style: 'dark',
-    timezone: 'browser',
+import { GrafanaTextPanel } from '../../../src/grafana';
+
+const overrideTextPanel: GrafanaTextPanel = {
+    title: '',
+    error: false,
+    span: 4,
     editable: true,
-    hideControls: false,
-    sharedCrosshair: false,
-    refresh: false,
-    schemaVersion: 6,
-    hideAllLegends: false,
-    rows: [],
-    annotations: { list: [], enable: true },
-    templating: { list: [], enable: true },
-    time: null,
+    type: 'text',
+    id: 2,
+    mode: 'markdown',
+    content: 'TEST',
+    style: {},
     links: [],
+    height: '100px',
+    transparent: true,
 };
+
+export = overrideTextPanel;

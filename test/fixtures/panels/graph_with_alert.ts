@@ -18,7 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
+import type { GrafanaGraphPanel } from '../../../src/grafana';
+
+const graphWithAlertPanel: GrafanaGraphPanel = {
     alert: {
         name: 'Panel Title alert',
         conditions: [
@@ -98,3 +100,5 @@ module.exports = {
     y_formats: ['short', 'short'],
     datasource: 'graphite',
 };
+
+export = graphWithAlertPanel;

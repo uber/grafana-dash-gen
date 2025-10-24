@@ -18,18 +18,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import type { GrafanaDashboardListPanel } from '../../../src/grafana';
 
-module.exports = {
-    type: 'query',
-    query: 'servers.*',
-    name: 'foo',
-    datasource: 'default',
-    options: [],
-    current: {},
-    includeAll: true,
-    allFormat: 'wildcard',
-    allValue: null,
-    refresh: false,
-    multi: false,
+const simpleDashboardListPanel: GrafanaDashboardListPanel = {
+    title: 'dashboard list',
+    error: false,
+    span: 3,
+    editable: true,
+    type: 'dashlist',
+    isNew: true,
+    id: 7,
+    mode: 'search',
+    query: 'dashboard list',
+    limit: 10,
+    tags: [],
+    links: [],
 };
+
+export = simpleDashboardListPanel;

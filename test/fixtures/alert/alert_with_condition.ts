@@ -1,4 +1,6 @@
-module.exports = {
+import { GrafanaAlert } from '../../../src/grafana';
+
+const alertWithCondition: GrafanaAlert = {
     name: 'Panel Title alert',
     conditions: [
         {
@@ -28,3 +30,5 @@ module.exports = {
     alertRuleTags: {},
     handler: 1,
 };
+
+export = alertWithCondition;

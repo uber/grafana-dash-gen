@@ -18,17 +18,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
-    title: '',
-    error: false,
-    span: 4,
-    editable: true,
-    type: 'text',
-    id: 2,
-    mode: 'markdown',
-    content: 'TEST',
-    style: {},
-    links: [],
-    height: '100px',
-    transparent: true,
+import type { GrafanaCustomTemplate } from '../../../src/grafana';
+
+const overrideCustomTextValue: GrafanaCustomTemplate = {
+    name: 'custom',
+    type: 'custom',
+    options: [
+        {
+            text: 'myText',
+            value: 'myValue',
+        },
+    ],
+    datasource: null,
+    refresh: 0,
+    refresh_on_load: false,
+    includeAll: false,
+    allValue: '',
+    allFormat: 'glob',
+    query: 'myValue',
+    current: {
+        text: 'myText',
+        value: 'myValue',
+    },
+    arbitraryProperty: 'foo',
 };
+
+export = overrideCustomTextValue;

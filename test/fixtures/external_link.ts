@@ -18,58 +18,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import type { GrafanaExternalLink } from '../../src/grafana';
 
-module.exports = {
-    title: 'custom title',
-    error: false,
-    span: 4,
-    editable: true,
-    type: 'table',
-    isNew: true,
-    id: 1,
-    datasource: 'M3',
-    styles: [
-        {
-            type: 'date',
-            pattern: 'Time',
-            dateFormat: 'YYYY-MM-DD HH:mm:ss',
-        },
-        {
-            unit: 'short',
-            type: 'number',
-            decimals: 0,
-            colors: [
-                'rgba(245, 54, 54, 0.9)',
-                'rgba(237, 129, 40, 0.89)',
-                'rgba(50, 172, 45, 0.97)',
-            ],
-            colorMode: null,
-            pattern: '/.*/',
-            thresholds: [],
-        },
-    ],
-    targets: [
-        {
-            target: 'target',
-            hide: undefined,
-        },
-    ],
-    transform: 'timeseries_aggregations',
-    pageSize: null,
-    showHeader: true,
-    columns: [
-        {
-            text: 'Avg',
-            value: 'avg',
-        },
-    ],
-    scroll: true,
-    fontSize: '100%',
-    sort: {
-        col: 0,
-        desc: true,
-    },
-    links: [],
-    arbitraryProperty: 'foo',
+const externalLink: GrafanaExternalLink = {
+    title: 'Uber Home Page',
+    tooltip: '',
+    url: 'www.uber.com',
+    tags: [],
+    icon: 'external link',
+    targetBlank: true,
+    type: 'link',
+    includeVars: false,
+    keepTime: false,
 };
+
+export = externalLink;

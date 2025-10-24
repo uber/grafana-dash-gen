@@ -18,27 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import type { GrafanaQueryTemplate } from '../../../src/grafana';
 
-module.exports = {
-    name: 'custom',
-    type: 'custom',
-    options: [
-        {
-            text: 'myText',
-            value: 'myValue',
-        },
-    ],
-    datasource: null,
-    refresh: 0,
-    refresh_on_load: false,
-    includeAll: false,
-    allValue: '',
-    allFormat: 'glob',
-    query: 'myValue',
-    current: {
-        text: 'myText',
-        value: 'myValue',
-    },
-    arbitraryProperty: 'foo',
+const simpleQueryTemplate: GrafanaQueryTemplate = {
+    type: 'query',
+    query: 'servers.*',
+    name: 'foo',
+    datasource: 'default',
+    options: [],
+    current: {},
+    includeAll: true,
+    allFormat: 'wildcard',
+    allValue: null,
+    refresh: false,
+    multi: false,
 };
+
+export = simpleQueryTemplate;

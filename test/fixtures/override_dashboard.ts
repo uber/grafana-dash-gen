@@ -18,8 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-module.exports = {
+import type { GrafanaDashboard } from '../../src/grafana';
+
+const overrideDashboard: GrafanaDashboard = {
     id: null,
     title: 'custom title',
     originalTitle: 'Generated Dashboard',
@@ -118,3 +119,5 @@ module.exports = {
     time: null,
     links: [],
 };
+
+export = overrideDashboard;

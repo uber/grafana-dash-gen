@@ -18,7 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
+import { GrafanaRow } from '../../src/grafana';
+
+const overrideRow: GrafanaRow = {
     title: 'My Row',
     height: '1000px',
     editable: false,
@@ -32,3 +34,5 @@ module.exports = {
         },
     ],
 };
+
+export = overrideRow;

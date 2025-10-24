@@ -18,17 +18,60 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
-    title: 'dashboard list',
+import type { GrafanaTablePanel } from '../../../src/grafana';
+
+const overrideTablePanel: GrafanaTablePanel = {
+    title: 'custom title',
     error: false,
-    span: 3,
+    span: 4,
     editable: true,
-    type: 'dashlist',
+    type: 'table',
     isNew: true,
-    id: 9,
-    mode: 'search',
-    query: 'dashboard list',
-    limit: 10,
-    tags: [],
+    id: 1,
+    datasource: 'M3',
+    styles: [
+        {
+            type: 'date',
+            pattern: 'Time',
+            dateFormat: 'YYYY-MM-DD HH:mm:ss',
+        },
+        {
+            unit: 'short',
+            type: 'number',
+            decimals: 0,
+            colors: [
+                'rgba(245, 54, 54, 0.9)',
+                'rgba(237, 129, 40, 0.89)',
+                'rgba(50, 172, 45, 0.97)',
+            ],
+            colorMode: null,
+            pattern: '/.*/',
+            thresholds: [],
+        },
+    ],
+    targets: [
+        {
+            target: 'target',
+            hide: undefined,
+        },
+    ],
+    transform: 'timeseries_aggregations',
+    pageSize: null,
+    showHeader: true,
+    columns: [
+        {
+            text: 'Avg',
+            value: 'avg',
+        },
+    ],
+    scroll: true,
+    fontSize: '100%',
+    sort: {
+        col: 0,
+        desc: true,
+    },
     links: [],
+    arbitraryProperty: 'foo',
 };
+
+export = overrideTablePanel;

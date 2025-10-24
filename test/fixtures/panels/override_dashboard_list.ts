@@ -18,16 +18,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
-    name: 'template',
-    type: 'custom',
-    options: [],
-    datasource: null,
-    refresh: 0,
-    refresh_on_load: false,
-    includeAll: false,
-    allValue: '',
-    allFormat: 'glob',
-    query: null,
-    current: {},
+import type { GrafanaDashboardListPanel } from '../../../src/grafana';
+
+const overrideDashboardListPanel: GrafanaDashboardListPanel = {
+    title: 'dashboard list',
+    error: false,
+    span: 3,
+    editable: true,
+    type: 'dashlist',
+    isNew: true,
+    id: 9,
+    mode: 'search',
+    query: 'dashboard list',
+    limit: 10,
+    tags: [],
+    links: [],
 };
+
+export = overrideDashboardListPanel;

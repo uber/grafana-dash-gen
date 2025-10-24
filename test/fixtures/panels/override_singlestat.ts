@@ -18,9 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import type { GrafanaSingleStatPanel } from '../../../src/grafana';
 
-module.exports = {
+const overrideSingleStatPanel: GrafanaSingleStatPanel = {
     cacheTimeout: null,
     colorBackground: false,
     colorValue: false,
@@ -69,3 +69,5 @@ module.exports = {
     datasource: 'M3',
     arbitraryProperty: 'foo',
 };
+
+export = overrideSingleStatPanel;

@@ -18,14 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
-    title: 'Uber Home Page',
-    tooltip: '',
-    url: 'www.uber.com',
-    tags: [],
-    icon: 'external link',
-    targetBlank: true,
-    type: 'link',
-    includeVars: false,
-    keepTime: false,
+import { GrafanaQueryTemplate } from '../../../src/grafana';
+
+const overrideQueryTemplate: GrafanaQueryTemplate = {
+    type: 'query',
+    query: 'stats.*',
+    name: 'template',
+    datasource: 'datasource',
+    options: [],
+    current: {},
+    includeAll: false,
+    allFormat: 'glob',
+    allValue: '*',
+    refresh: true,
+    multi: true,
 };
+
+export = overrideQueryTemplate;
