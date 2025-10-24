@@ -38,7 +38,7 @@
  * @see http://docs.grafana.org/reference/templating/
  */
 class Query {
-    private state: any;
+    state: any;
     private _required: string[];
     private _overridable: string[];
     constructor(query: any, opts: any = {}) {

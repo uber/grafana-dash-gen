@@ -24,7 +24,7 @@ import _ = require('underscore');
 import util = require('util');
 
 class Target {
-    private source: any;
+    source: any;
     private func: any;
 
     constructor(template: string, ...substitutions: any[]);

@@ -22,7 +22,7 @@ import generateGraphId = require('../id');
 
 class Graph {
     private _currentRefIndex: number;
-    private state: any;
+    state: any;
     constructor(opts: any = {}) {
         this._currentRefIndex = 0;
 

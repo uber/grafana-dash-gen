@@ -23,9 +23,9 @@ import Annotations = require('./annotations');
 import ExternalLink = require('./external-link');
 
 class Dashboard {
-    private state: any;
-    private rows: any[];
-    private links: any[];
+    state: any;
+    rows: any[];
+    links: any[];
     constructor(opts = {}) {
         this.state = {};
         this._init(opts);

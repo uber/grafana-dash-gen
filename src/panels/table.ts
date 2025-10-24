@@ -21,7 +21,7 @@
 import generateGraphId = require('../id');
 
 class Table {
-    private state: any;
+    state: any;
     constructor(opts: any = {}) {
         const defaults = {
             title: 'Panel Title',

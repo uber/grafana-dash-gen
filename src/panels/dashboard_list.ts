@@ -21,7 +21,7 @@
 import generateGraphId = require('../id');
 
 class DashboardList {
-    private state: any;
+    state: any;
     constructor(opts: any = {}) {
         this.state = {
             title: 'dashboard list',

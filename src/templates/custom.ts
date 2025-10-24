@@ -21,7 +21,7 @@
 const DEFAULT_VARIABLE_ALL = '$__all';
 
 class Custom {
-    private state: any;
+    state: any;
     private defaultValue: string;
     constructor(opts = {}) {
         this.state = {

@@ -21,8 +21,8 @@
 import xtend = require('xtend');
 
 class Row {
-    private state: any;
-    private panels: any[];
+    state: any;
+    panels: any[];
     constructor(opts) {
         opts = opts || {};
         const state = {

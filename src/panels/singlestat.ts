@@ -21,7 +21,7 @@
 import generateGraphId = require('../id');
 
 class SingleStat {
-    private state: any;
+    state: any;
     constructor(opts: any = {}) {
         const defaults = {
             id: generateGraphId(),
