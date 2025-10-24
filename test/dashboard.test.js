@@ -38,19 +38,16 @@ test('Dashboard with overriden information', function () {
         title: 'custom title',
         tags: ['foo', 'bar'],
         templating: [
-            // @ts-expect-error todo: this is not correct and will result in errors if to call .generate()
             {
                 name: 'myvar',
                 options: ['a', 'b'],
             },
-            // @ts-expect-error todo: this is not correct and will result in errors if to call .generate()
             {
                 name: 'smoothing',
                 options: ['30min', '10min', '5min', '2min', '1min'],
             },
         ],
         annotations: [
-            // @ts-expect-error todo: this is not correct and will result in errors if to call .generate()
             {
                 name: 'Deploy Completed',
                 target: 'path.to.metric.with.annotation',

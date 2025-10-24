@@ -19,27 +19,36 @@ export interface GrafanaQueryTemplate extends GrafanaSharedProps {
 
 export interface GrafanaCustomTemplate extends GrafanaSharedProps {
     name: string;
-    type: string;
+    type?: string;
     options: any[];
-    datasource: null;
-    refresh: number;
-    refresh_on_load: boolean;
-    includeAll: boolean;
-    allValue: string;
-    allFormat: string;
-    query: null | string;
-    current: object;
+    datasource?: null | {
+        type: string;
+        uid: string;
+    };
+    refresh?: number;
+    refresh_on_load?: boolean;
+    includeAll?: boolean;
+    allValue?: string;
+    allFormat?: string;
+    query?: null | string;
+    current?: object;
 }
 
 export interface GrafanaGraphiteAnnotation extends GrafanaSharedProps {
     name: string;
-    datasource: string;
-    showLine: boolean;
-    iconColor: string;
-    lineColor: string;
-    iconSize: number;
-    enable: boolean;
-    target: string;
+    datasource?:
+        | null
+        | {
+              type: string;
+              uid: string;
+          }
+        | string;
+    showLine?: boolean;
+    iconColor?: string;
+    lineColor?: string;
+    iconSize?: number;
+    enable?: boolean;
+    target?: string;
 }
 
 export interface GrafanaDashboardListPanel extends GrafanaSharedProps {
@@ -226,9 +235,9 @@ export interface GrafanaRow extends GrafanaSharedProps {
 
 export interface GrafanaExternalLink extends GrafanaSharedProps {
     title: string;
-    tooltip: string;
+    tooltip?: string;
     url: string;
-    tags: any[];
+    tags?: any[];
     icon: string;
     targetBlank: boolean;
     type: string;
@@ -239,22 +248,25 @@ export interface GrafanaExternalLink extends GrafanaSharedProps {
 export type GrafanaTemplate = GrafanaQueryTemplate | GrafanaCustomTemplate;
 
 export interface GrafanaDashboard extends GrafanaSharedProps {
-    id: null;
+    id?: number | null;
     title: string;
-    originalTitle: string;
+    originalTitle?: string;
     tags: any[];
     style: string;
     timezone: string;
     editable: boolean;
-    hideControls: boolean;
-    sharedCrosshair: boolean;
+    hideControls?: boolean;
+    sharedCrosshair?: boolean;
     refresh: boolean | string;
     schemaVersion: number;
-    hideAllLegends: boolean;
+    hideAllLegends?: boolean;
     rows: GrafanaRow[];
-    annotations: { list: any[]; enable: boolean };
-    templating: { list: GrafanaTemplate[]; enable: boolean };
-    time: null;
+    annotations: { list: GrafanaGraphiteAnnotation[]; enable?: boolean };
+    templating: { list: GrafanaTemplate[]; enable?: boolean };
+    time?: null | {
+        from: string;
+        to: string;
+    };
     links: GrafanaExternalLink[];
 }
 

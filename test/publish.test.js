@@ -57,9 +57,7 @@ const dashboard = new Dashboard({
     title: title,
     tags: tags,
     refresh: refresh,
-    // @ts-expect-error todo: figure optional fields
     templating: [templateconst1, templateconst2],
-    // @ts-expect-error todo: figure optional fields
     annotations: [annotation1],
     links: externalLinks,
 });
