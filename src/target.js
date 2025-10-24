@@ -23,46 +23,75 @@
 var _ = require('underscore');
 var util = require('util');
 
-function Target() {
-    if (arguments.length === 0) {
-        throw new Error(
-            'Incorrect invocation of Target. ' +
-                'Must provide at least one argument'
-        );
+class Target {
+    constructor() {
+        if (arguments.length === 0) {
+            throw new Error(
+                'Incorrect invocation of Target. ' +
+                    'Must provide at least one argument'
+            );
+        }
+        if (typeof arguments[0] === 'string') {
+            // Format string
+            this.source = util.format.apply(null, arguments);
+        } else {
+            // Another target
+            this.source = arguments[0];
+            this.func = arguments[1];
+        }
     }
-    if (typeof arguments[0] === 'string') {
-        // Format string
-        this.source = util.format.apply(null, arguments);
-    } else {
-        // Another target
-        this.source = arguments[0];
-        this.func = arguments[1];
+
+    toString() {
+        if (this.func) {
+            const args = _.reduce(
+                this.func.slice(1),
+                function reduce(memo, arg) {
+                    if (typeof arg === 'string') {
+                        arg = JSON.stringify(arg);
+                    } else {
+                        arg = arg.toString();
+                    }
+                    return memo + ', ' + arg;
+                },
+                ''
+            );
+            return this.func[0] + '(' + this.source.toString() + args + ')';
+        } else {
+            return this.source;
+        }
+    }
+
+    // Target Helpers
+
+    cpu() {
+        return this.derivative().scale(0.016666666667).removeBelowValue(0);
+    }
+
+    reallyFaded() {
+        return this.lineWidth(5).alpha(0.5);
+    }
+
+    faded() {
+        return this.alpha(0.5).lineWidth(5);
+    }
+
+    lastWeek() {
+        return this.timeShift('7d');
+    }
+
+    summarize15min() {
+        return this.summarize('15min');
+    }
+
+    hide() {
+        this.hide = true;
+        return this;
     }
 }
 
-Target.prototype.toString = function toString() {
-    if (this.func) {
-        var args = _.reduce(
-            this.func.slice(1),
-            function reduce(memo, arg) {
-                if (typeof arg === 'string') {
-                    arg = JSON.stringify(arg);
-                } else {
-                    arg = arg.toString();
-                }
-                return memo + ', ' + arg;
-            },
-            ''
-        );
-        return this.func[0] + '(' + this.source.toString() + args + ')';
-    } else {
-        return this.source;
-    }
-};
-
 // Primitive methods
 // Method Name: arity ignoring first target input
-Target.PRIMITIVES = {
+const PRIMITIVES = {
     absolute: 0,
     aggregateLine: 0,
     alias: 1,
@@ -155,12 +184,15 @@ Target.PRIMITIVES = {
     useSeriesAbove: 3,
     weightedAverage: 2,
 };
+Target.PRIMITIVES = PRIMITIVES;
 
 _.each(Target.PRIMITIVES, function each(n, method) {
     Target.prototype[method] = function t() {
         if (arguments.length < n) {
-            console.warn('Incorrect number of arguments passed to %s', method);
+            /*eslint-disable*/
+            console.warn("Incorrect number of arguments passed to %s", method);
             console.trace();
+            /*eslint-enable*/
         }
         return new Target(
             this,
@@ -169,7 +201,7 @@ _.each(Target.PRIMITIVES, function each(n, method) {
     };
 });
 
-Target.COLORS = [
+const COLORS = [
     'orange',
     'blue',
     'green',
@@ -182,37 +214,12 @@ Target.COLORS = [
     'aqua',
 ];
 
+Target.COLORS = COLORS;
+
 _.each(Target.COLORS, function each(color) {
     Target.prototype[color] = function t() {
         return this.color(color);
     };
 });
-
-// Target Helpers
-
-Target.prototype.cpu = function cpu() {
-    return this.derivative().scale(0.016666666667).removeBelowValue(0);
-};
-
-Target.prototype.reallyFaded = function reallyFaded() {
-    return this.lineWidth(5).alpha(0.5);
-};
-
-Target.prototype.faded = function faded() {
-    return this.alpha(0.5).lineWidth(5);
-};
-
-Target.prototype.lastWeek = function lastWeek() {
-    return this.timeShift('7d');
-};
-
-Target.prototype.summarize15min = function summarize15min() {
-    return this.summarize('15min');
-};
-
-Target.prototype.hide = function hide() {
-    this.hide = true;
-    return this;
-};
 
 module.exports = Target;

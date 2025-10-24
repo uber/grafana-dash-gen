@@ -23,9 +23,7 @@ const fetch = require('node-fetch');
 const config = require('./config');
 const errors = require('./errors');
 
-function publish(dashboard, opts) {
-    opts = opts || {};
-
+function publish(dashboard, opts = {}) {
     if (!dashboard) {
         throw errors.UnfulfilledRequirement.create(
             '{component} missing requirement: {unfulfilledArg}',

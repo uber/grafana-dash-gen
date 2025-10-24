@@ -39,57 +39,56 @@
  *
  * @see http://docs.grafana.org/reference/templating/
  */
-function Query(query, opts) {
-    opts = opts || {};
-    var self = this;
+class Query {
+    constructor(query, opts = {}) {
+        this.state = {
+            query: query,
+            name: opts.name,
+            datasource: opts.datasource,
+            type: 'query',
+            includeAll: true,
+            allFormat: 'wildcard',
+            allValue: null,
+            refresh: false,
+            multi: false,
+            options: [],
+            current: {},
+        };
 
-    this.state = {
-        query: query,
-        name: opts.name,
-        datasource: opts.datasource,
-        type: 'query',
-        includeAll: true,
-        allFormat: 'wildcard',
-        allValue: null,
-        refresh: false,
-        multi: false,
-        options: [],
-        current: {},
-    };
+        this._required = ['name', 'datasource'];
 
-    this._required = ['name', 'datasource'];
+        this._overridable = [
+            'includeAll',
+            'allFormat',
+            'allValue',
+            'multi',
+            'multiFormat',
+            'refresh',
+            'regex',
+            'tag',
+        ];
 
-    this._overridable = [
-        'includeAll',
-        'allFormat',
-        'allValue',
-        'multi',
-        'multiFormat',
-        'refresh',
-        'regex',
-        'tag',
-    ];
+        // Override overridable values
+        Object.keys(opts).forEach((opt) => {
+            if (this._overridable.indexOf(opt) !== -1) {
+                this.state[opt] = opts[opt];
+            }
+        });
 
-    // Override overridable values
-    Object.keys(opts).forEach(function eachOpt(opt) {
-        if (self._overridable.indexOf(opt) !== -1) {
-            self.state[opt] = opts[opt];
-        }
-    });
+        // assert required state has been populated
+        this._required.forEach((reqOpt) => {
+            if (!this.state[reqOpt]) {
+                throw new Error('Missing Requirement: ' + reqOpt);
+            }
+        });
 
-    // assert required state has been populated
-    this._required.forEach(function eachRequired(reqOpt) {
-        if (!self.state[reqOpt]) {
-            throw new Error('Missing Requirement: ' + reqOpt);
-        }
-    });
+        // make state immutable after this point
+        Object.freeze(this.state);
+    }
 
-    // make state immutable after this point
-    Object.freeze(this.state);
+    generate() {
+        return this.state;
+    }
 }
-
-Query.prototype.generate = function generate() {
-    return this.state;
-};
 
 module.exports = Query;

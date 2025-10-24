@@ -22,50 +22,49 @@
 
 var errors = require('../errors');
 
-function Graphite(opts) {
-    opts = opts || {};
-    var self = this;
+class Graphite {
+    constructor(opts = {}) {
+        if (!opts.name) {
+            throw errors.UnfulfilledRequirement.create(
+                '{component} missing requirement: {unfulfilledArg}',
+                {
+                    component: 'grafana.annotations.Graphite',
+                    unfulfilledArg: 'name',
+                }
+            );
+        }
 
-    if (!opts.name) {
-        throw errors.UnfulfilledRequirement.create(
-            '{component} missing requirement: {unfulfilledArg}',
-            {
-                component: 'grafana.annotations.Graphite',
-                unfulfilledArg: 'name',
-            }
-        );
+        if (!opts.target) {
+            throw errors.UnfulfilledRequirement.create(
+                '{component} missing requirement: {unfulfilledArg}',
+                {
+                    component: 'grafana.annotations.Graphite',
+                    unfulfilledArg: 'target',
+                }
+            );
+        }
+
+        var defaults = {
+            name: 'no name',
+            datasource: 'graphite',
+            showLine: true,
+            iconColor: 'rgb(255, 234, 0)',
+            lineColor: 'rgba(165, 161, 70, 0.59)',
+            iconSize: 10,
+            enable: true,
+            target: '',
+        };
+        this.state = defaults;
+
+        // Overwrite defaults with custom values
+        Object.keys(opts).forEach((opt) => {
+            this.state[opt] = opts[opt];
+        });
     }
 
-    if (!opts.target) {
-        throw errors.UnfulfilledRequirement.create(
-            '{component} missing requirement: {unfulfilledArg}',
-            {
-                component: 'grafana.annotations.Graphite',
-                unfulfilledArg: 'target',
-            }
-        );
+    generate() {
+        return this.state;
     }
-
-    var defaults = {
-        name: 'no name',
-        datasource: 'graphite',
-        showLine: true,
-        iconColor: 'rgb(255, 234, 0)',
-        lineColor: 'rgba(165, 161, 70, 0.59)',
-        iconSize: 10,
-        enable: true,
-        target: '',
-    };
-    self.state = defaults;
-
-    // Overwrite defaults with custom values
-    Object.keys(opts).forEach(function eachOpt(opt) {
-        self.state[opt] = opts[opt];
-    });
 }
-
-Graphite.prototype.generate = function generate() {
-    return this.state;
-};
 
 module.exports = Graphite;
