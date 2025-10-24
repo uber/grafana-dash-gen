@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 class ExternalLink {
+    private state: any;
     constructor(opts = {}) {
         const defaults = {
             title: '',
@@ -61,4 +62,4 @@ class ExternalLink {
     }
 }
 
-module.exports = ExternalLink;
+export = ExternalLink;

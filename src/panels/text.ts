@@ -18,13 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var generateGraphId = require('../id');
+import generateGraphId = require('../id');
 
 class Text {
-    constructor(opts = {}) {
-        var defaults = {
+    private state: any;
+    constructor(opts: any = {}) {
+        const defaults = {
             title: '',
             id: generateGraphId(),
             error: false,
@@ -59,4 +58,4 @@ class Text {
     }
 }
 
-module.exports = Text;
+export = Text;

@@ -18,12 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var errors = require('../errors');
+import errors = require('../errors');
 
 class Graphite {
-    constructor(opts = {}) {
+    private state: any;
+    constructor(opts: any = {}) {
         if (!opts.name) {
             throw errors.UnfulfilledRequirement.create(
                 '{component} missing requirement: {unfulfilledArg}',
@@ -44,7 +43,7 @@ class Graphite {
             );
         }
 
-        var defaults = {
+        const defaults = {
             name: 'no name',
             datasource: 'graphite',
             showLine: true,
@@ -67,4 +66,4 @@ class Graphite {
     }
 }
 
-module.exports = Graphite;
+export = Graphite;

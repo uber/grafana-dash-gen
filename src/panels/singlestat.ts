@@ -18,13 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var generateGraphId = require('../id');
+import generateGraphId = require('../id');
 
 class SingleStat {
-    constructor(opts = {}) {
-        var defaults = {
+    private state: any;
+    constructor(opts: any = {}) {
+        const defaults = {
             id: generateGraphId(),
             title: 'single stat',
             targets: [],
@@ -104,4 +103,4 @@ class SingleStat {
     }
 }
 
-module.exports = SingleStat;
+export = SingleStat;

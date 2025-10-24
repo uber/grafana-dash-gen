@@ -18,13 +18,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var Templates = require('./templates');
-var Annotations = require('./annotations');
-var ExternalLink = require('./external-link');
+import Templates = require('./templates');
+import Annotations = require('./annotations');
+import ExternalLink = require('./external-link');
 
 class Dashboard {
+    private state: any;
+    private rows: any[];
+    private links: any[];
     constructor(opts = {}) {
         this.state = {};
         this._init(opts);
@@ -123,4 +124,4 @@ class Dashboard {
     }
 }
 
-module.exports = Dashboard;
+export = Dashboard;

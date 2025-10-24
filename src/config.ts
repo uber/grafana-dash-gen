@@ -18,8 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-var xtend = require('xtend');
+import xtend = require('xtend');
 
 /**
  * `user` - Auth user, defaults to "guest"
@@ -28,7 +27,7 @@ var xtend = require('xtend');
  * `cookie` - Key/value pair for auth, defaults to"auth-openid="
  * `headers` - Map of header keys/values, defaults to no headers
  */
-var configurations = {
+let configurations = {
     user: 'guest',
     group: 'guest',
     url: 'https://your.graphite.url.com/elasticsearch/grafana-dash/dashboard/',
@@ -44,7 +43,7 @@ function getConfig() {
     return configurations;
 }
 
-module.exports = {
+export = {
     configure: configure,
     getConfig: getConfig,
 };

@@ -18,14 +18,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var xtend = require('xtend');
+import xtend = require('xtend');
 
 class Row {
+    private state: any;
+    private panels: any[];
     constructor(opts) {
         opts = opts || {};
-        var state = {
+        const state = {
             title: 'New row',
             height: '250px',
             editable: true,
@@ -54,4 +54,4 @@ class Row {
     }
 }
 
-module.exports = Row;
+export = Row;

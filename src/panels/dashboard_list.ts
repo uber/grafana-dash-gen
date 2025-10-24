@@ -18,12 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var generateGraphId = require('../id');
+import generateGraphId = require('../id');
 
 class DashboardList {
-    constructor(opts = {}) {
+    private state: any;
+    constructor(opts: any = {}) {
         this.state = {
             title: 'dashboard list',
             error: false,
@@ -60,4 +59,4 @@ class DashboardList {
     }
 }
 
-module.exports = DashboardList;
+export = DashboardList;

@@ -18,22 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Dashboard = require('./dashboard');
+import Row = require('./row');
+import ExternalLink = require('./external-link');
+import Target = require('./target');
+import Panels = require('./panels');
+import Alert = require('./alert/alert');
+import Condition = require('./alert/condition');
+import Templates = require('./templates');
+import publish = require('./publish');
+import generateGraphId = require('./id');
+import config = require('./config');
+import Annotations = require('./annotations');
 
-var Dashboard = require('./dashboard');
-var Row = require('./row');
-var ExternalLink = require('./external-link');
-var Target = require('./target');
-var Panels = require('./panels');
-var Alert = require('./alert/alert');
-var Condition = require('./alert/condition');
-var Templates = require('./templates');
-var publish = require('./publish');
-var generateGraphId = require('./id');
-var config = require('./config');
-var Annotations = require('./annotations');
-
-module.exports = {
+export = {
     Dashboard: Dashboard,
     Row: Row,
     ExternalLink: ExternalLink,

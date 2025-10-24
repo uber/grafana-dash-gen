@@ -18,12 +18,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging,prefer-rest-params */
 
-var _ = require('underscore');
-var util = require('util');
+import _ = require('underscore');
+import util = require('util');
 
 class Target {
+    private source: any;
+    private func: any;
+
+    constructor(template: string, ...substitutions: any[]);
+    constructor(source: Target, func: (string | number | boolean)[]);
+
     constructor() {
         if (arguments.length === 0) {
             throw new Error(
@@ -40,6 +46,9 @@ class Target {
             this.func = arguments[1];
         }
     }
+
+    static PRIMITIVES: typeof PRIMITIVES;
+    static COLORS: typeof COLORS;
 
     toString() {
         if (this.func) {
@@ -83,6 +92,12 @@ class Target {
         return this.summarize('15min');
     }
 
+    // @ts-expect-error disabling typechecks for this call
+    declare hide: any;
+    /**
+     * @deprecated this is weird - function replaces itself to be "true" when called, do expect surprises when calling
+     */
+    // @ts-expect-error disabling typechecks for this call
     hide() {
         this.hide = true;
         return this;
@@ -186,13 +201,105 @@ const PRIMITIVES = {
 };
 Target.PRIMITIVES = PRIMITIVES;
 
+interface Target {
+    absolute(...args: any[]): Target;
+    aggregateLine(...args: any[]): Target;
+    alias(arg1: any, ...args: any[]): Target;
+    aliasByMetric(...args: any[]): Target;
+    aliasByNode(arg1: any, ...args: any[]): Target;
+    aliasSub(arg1: any, arg2: any, ...args: any[]): Target;
+    alpha(arg1: any, ...args: any[]): Target;
+    areaBetween(...args: any[]): Target;
+    asPercent(...args: any[]): Target;
+    averageAbove(arg1: any, ...args: any[]): Target;
+    averageBelow(arg1: any, ...args: any[]): Target;
+    averageOutsidePercentile(arg1: any, ...args: any[]): Target;
+    averageSeries(...args: any[]): Target;
+    averageSeriesWithWildcards(arg1: any, ...args: any[]): Target;
+    cactiStyle(...args: any[]): Target;
+    color(arg1: any, ...args: any[]): Target;
+    consolidateBy(arg1: any, ...args: any[]): Target;
+    countSeries(...args: any[]): Target;
+    cumulative(...args: any[]): Target;
+    currentAbove(arg1: any, ...args: any[]): Target;
+    currentBelow(arg1: any, ...args: any[]): Target;
+    dashed(...args: any[]): Target;
+    derivative(...args: any[]): Target;
+    diffSeries(arg1: any, ...args: any[]): Target;
+    divideSeries(arg1: any, ...args: any[]): Target;
+    drawAsInfinite(...args: any[]): Target;
+    exclude(arg1: any, ...args: any[]): Target;
+    grep(arg1: any, ...args: any[]): Target;
+    group(...args: any[]): Target;
+    groupByNode(arg1: any, arg2: any, ...args: any[]): Target;
+    highestAverage(arg1: any, ...args: any[]): Target;
+    highestCurrent(arg1: any, ...args: any[]): Target;
+    highestMax(arg1: any, ...args: any[]): Target;
+    hitcount(arg1: any, ...args: any[]): Target;
+    holtWintersAbberation(...args: any[]): Target;
+    holtWintersConfidenceArea(...args: any[]): Target;
+    holtWintersConfidenceBands(...args: any[]): Target;
+    holtWintersForecast(...args: any[]): Target;
+    integral(...args: any[]): Target;
+    invert(...args: any[]): Target;
+    isNonNull(...args: any[]): Target;
+    keepLastValue(...args: any[]): Target;
+    legendValue(arg1: any, ...args: any[]): Target;
+    limit(arg1: any, ...args: any[]): Target;
+    lineWidth(arg1: any, ...args: any[]): Target;
+    logarithm(...args: any[]): Target;
+    lowestAverage(arg1: any, ...args: any[]): Target;
+    lowestCurrent(arg1: any, ...args: any[]): Target;
+    mapSeries(arg1: any, ...args: any[]): Target;
+    maxSeries(...args: any[]): Target;
+    maximumAbove(arg1: any, ...args: any[]): Target;
+    maximumBelow(arg1: any, ...args: any[]): Target;
+    minSeries(...args: any[]): Target;
+    minimumAbove(arg1: any, ...args: any[]): Target;
+    mostDeviant(arg1: any, ...args: any[]): Target;
+    movingAverage(arg1: any, ...args: any[]): Target;
+    movingMedian(arg1: any, ...args: any[]): Target;
+    multiplySeries(...args: any[]): Target;
+    nPercentile(arg1: any, ...args: any[]): Target;
+    nonNegativeDerivative(...args: any[]): Target;
+    offset(arg1: any, ...args: any[]): Target;
+    offsetToZero(...args: any[]): Target;
+    perSecond(...args: any[]): Target;
+    percentileOfSeries(arg1: any, ...args: any[]): Target;
+    rangeOfSeries(...args: any[]): Target;
+    reduceSeries(arg1: any, arg2: any, arg3: any, ...args: any[]): Target;
+    removeAbovePercentile(arg1: any, ...args: any[]): Target;
+    removeAboveValue(arg1: any, ...args: any[]): Target;
+    removeBelowPercentile(arg1: any, ...args: any[]): Target;
+    removeBelowValue(arg1: any, ...args: any[]): Target;
+    removeBetweenPercentile(arg1: any, ...args: any[]): Target;
+    scale(arg1: any, ...args: any[]): Target;
+    scaleToSeconds(arg1: any, ...args: any[]): Target;
+    secondYAxis(...args: any[]): Target;
+    smartSummarize(arg1: any, ...args: any[]): Target;
+    sortByMaxima(...args: any[]): Target;
+    sortByMinima(...args: any[]): Target;
+    sortByName(...args: any[]): Target;
+    sortByTotal(...args: any[]): Target;
+    stacked(...args: any[]): Target;
+    stddevSeries(...args: any[]): Target;
+    stdev(arg1: any, ...args: any[]): Target;
+    sum(...args: any[]): Target;
+    sumSeries(...args: any[]): Target;
+    sumSeriesWithWildcards(arg1: any, ...args: any[]): Target;
+    summarize(arg1: any, ...args: any[]): Target;
+    timeShift(arg1: any, ...args: any[]): Target;
+    timeStack(arg1: any, arg2: any, arg3: any, ...args: any[]): Target;
+    transformNull(...args: any[]): Target;
+    useSeriesAbove(arg1: any, arg2: any, arg3: any, ...args: any[]): Target;
+    weightedAverage(arg1: any, arg2: any, ...args: any[]): Target;
+}
+
 _.each(Target.PRIMITIVES, function each(n, method) {
     Target.prototype[method] = function t() {
         if (arguments.length < n) {
-            /*eslint-disable*/
-            console.warn("Incorrect number of arguments passed to %s", method);
+            console.warn('Incorrect number of arguments passed to %s', method);
             console.trace();
-            /*eslint-enable*/
         }
         return new Target(
             this,
@@ -222,4 +329,4 @@ _.each(Target.COLORS, function each(color) {
     };
 });
 
-module.exports = Target;
+export = Target;

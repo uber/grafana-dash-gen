@@ -18,13 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var generateGraphId = require('../id');
+import generateGraphId = require('../id');
 
 class Table {
-    constructor(opts = {}) {
-        var defaults = {
+    private state: any;
+    constructor(opts: any = {}) {
+        const defaults = {
             title: 'Panel Title',
             error: false,
             span: 12,
@@ -107,4 +106,4 @@ class Table {
     }
 }
 
-module.exports = Table;
+export = Table;

@@ -18,12 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-const generateGraphId = require('../id');
+import generateGraphId = require('../id');
 
 class Graph {
-    constructor(opts = {}) {
+    private _currentRefIndex: number;
+    private state: any;
+    constructor(opts: any = {}) {
         this._currentRefIndex = 0;
 
         const defaults = {
@@ -150,4 +150,4 @@ function handleRefTargets(target, targets) {
     return {};
 }
 
-module.exports = Graph;
+export = Graph;

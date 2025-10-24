@@ -18,15 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
 // Used to provide unique if for
 // generated graphs
 
-var graphId = 0;
+let graphId = 0;
 function generateGraphId() {
     graphId = graphId + 1;
     return graphId;
 }
 
-module.exports = generateGraphId;
+export = generateGraphId;

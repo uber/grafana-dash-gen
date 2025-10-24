@@ -18,10 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Graphite = require('./graphite');
 
-var Graphite = require('./graphite');
-
-module.exports = {
+export = {
     Graphite: Graphite,
 };
