@@ -27,6 +27,7 @@ const overrideRow: GrafanaRow = {
     showTitle: true,
     collapse: true,
     panels: [
+        // @ts-expect-error todo: unexpected type
         {
             foo: 'foo',
             bar: 'bar',

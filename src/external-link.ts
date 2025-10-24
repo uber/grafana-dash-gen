@@ -22,7 +22,7 @@ import type { GrafanaExternalLink } from './grafana';
 
 class ExternalLink {
     private state: GrafanaExternalLink;
-    constructor(opts = {}) {
+    constructor(opts: Partial<GrafanaExternalLink> = {}) {
         const defaults: GrafanaExternalLink = {
             title: '',
             tooltip: '',
@@ -58,7 +58,7 @@ class ExternalLink {
         return this;
     }
 
-    withIcon(iconName) {
+    withIcon(iconName: string) {
         this.state.icon = iconName;
         return this;
     }

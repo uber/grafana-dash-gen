@@ -1,11 +1,18 @@
-import type { GrafanaAlert, GrafanaCondition } from '../grafana';
+import type { GrafanaAlert } from '../grafana';
+import type Condition from './condition';
+
+type AlertOptions = Partial<
+    Omit<GrafanaAlert, 'conditions'> & {
+        conditions: Condition[];
+    }
+>;
 
 class Alert {
-    private conditions: GrafanaCondition[];
+    private conditions: Condition[];
 
     private state: GrafanaAlert;
 
-    constructor(opts = {}) {
+    constructor(opts: AlertOptions = {}) {
         this.conditions = [];
 
         this.state = {
@@ -25,13 +32,13 @@ class Alert {
         this._initConditions(opts);
     }
 
-    _init(opts) {
+    _init(opts: AlertOptions) {
         Object.keys(opts).forEach((opt) => {
             this.state[opt] = opts[opt];
         });
     }
 
-    _initConditions(opts) {
+    _initConditions(opts: AlertOptions) {
         this.state.conditions = this.state.conditions || [];
 
         if (opts.conditions) {
@@ -39,7 +46,7 @@ class Alert {
         }
     }
 
-    addCondition(condition) {
+    addCondition(condition: Condition) {
         this.conditions.push(condition);
         return this;
     }

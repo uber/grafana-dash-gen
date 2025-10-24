@@ -6,7 +6,7 @@ class Condition {
     private _operator: { type: string };
     private _query: { params: string[] };
     private _reducer: { params: any[]; type: string };
-    constructor(opts = {}) {
+    constructor(opts: Partial<GrafanaCondition> = {}) {
         // @ts-expect-error todo: should fields be optional?
         this.state = {};
 

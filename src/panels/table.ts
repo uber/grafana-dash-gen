@@ -20,10 +20,19 @@
 
 import generateGraphId = require('../id');
 import type { GrafanaTablePanel } from '../grafana';
+import type Row from '../row';
+import type Dashboard from '../dashboard';
+
+type TableOptions = Partial<
+    GrafanaTablePanel & {
+        row: Row;
+        dashboard: Dashboard;
+    }
+>;
 
 class Table {
     state: GrafanaTablePanel;
-    constructor(opts: any = {}) {
+    constructor(opts: TableOptions = {}) {
         const defaults: GrafanaTablePanel = {
             title: 'Panel Title',
             error: false,
@@ -95,7 +104,7 @@ class Table {
         return this.state;
     }
 
-    setTitle(title) {
+    setTitle(title: string) {
         this.state.title = title;
     }
 

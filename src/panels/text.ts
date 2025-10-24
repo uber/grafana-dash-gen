@@ -20,10 +20,19 @@
 
 import generateGraphId = require('../id');
 import type { GrafanaTextPanel } from '../grafana';
+import type Dashboard from '../dashboard';
+import type Row from '../row';
+
+type TextPanelOptions = Partial<
+    GrafanaTextPanel & {
+        row: Row;
+        dashboard: Dashboard;
+    }
+>;
 
 class Text {
     state: GrafanaTextPanel;
-    constructor(opts: any = {}) {
+    constructor(opts: TextPanelOptions = {}) {
         const defaults: GrafanaTextPanel = {
             title: '',
             id: generateGraphId(),
@@ -54,7 +63,7 @@ class Text {
         return this.state;
     }
 
-    setTitle(title) {
+    setTitle(title: string) {
         this.state.title = title;
     }
 }

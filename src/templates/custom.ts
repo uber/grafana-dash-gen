@@ -25,7 +25,7 @@ const DEFAULT_VARIABLE_ALL = '$__all';
 class Custom {
     state: GrafanaCustomTemplate;
     private defaultValue: string;
-    constructor(opts = {}) {
+    constructor(opts: Partial<GrafanaCustomTemplate> = {}) {
         this.state = {
             allFormat: 'glob',
             current: {},

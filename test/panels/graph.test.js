@@ -53,12 +53,14 @@ test('add graph to row and dashboard when passed', () => {
     let calledAddRow = 0;
 
     new Graph({
+        // @ts-expect-error incomplete mock
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
             },
         },
 
+        // @ts-expect-error incomplete mock
         dashboard: {
             addRow: function addRow() {
                 calledAddRow += 1;

@@ -20,13 +20,17 @@
 
 import xtend = require('xtend');
 import type { GrafanaRow } from './grafana';
+import { Panel } from './panels';
+
+type RowOptions = Omit<Partial<GrafanaRow>, 'panels'> & {
+    panels?: Panel[];
+};
 
 class Row {
     state: GrafanaRow;
-    panels: any[];
-    constructor(opts) {
-        opts = opts || {};
-        const state = {
+    panels: Panel[];
+    constructor(opts: RowOptions = {}) {
+        const state: GrafanaRow = {
             title: 'New row',
             height: '250px',
             editable: true,
@@ -50,7 +54,7 @@ class Row {
         return this.state;
     }
 
-    addPanel(panel) {
+    addPanel(panel: Panel) {
         this.panels.push(panel);
     }
 }

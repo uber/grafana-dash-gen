@@ -20,11 +20,20 @@
 
 import generateGraphId = require('../id');
 import type { GrafanaGraphPanel } from '../grafana';
+import type Row from '../row';
+import type Dashboard from '../dashboard';
+
+type GraphPanelOptions = Partial<
+    GrafanaGraphPanel & {
+        row: Row;
+        dashboard: Dashboard;
+    }
+>;
 
 class Graph {
     private _currentRefIndex: number;
     state: GrafanaGraphPanel;
-    constructor(opts: any = {}) {
+    constructor(opts: GraphPanelOptions = {}) {
         this._currentRefIndex = 0;
 
         const defaults: GrafanaGraphPanel = {

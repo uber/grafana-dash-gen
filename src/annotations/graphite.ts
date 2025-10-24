@@ -23,7 +23,7 @@ import type { GrafanaGraphiteAnnotation } from '../grafana';
 
 class Graphite {
     state: GrafanaGraphiteAnnotation;
-    constructor(opts: any = {}) {
+    constructor(opts: Partial<GrafanaGraphiteAnnotation> = {}) {
         if (!opts.name) {
             throw errors.UnfulfilledRequirement.create(
                 '{component} missing requirement: {unfulfilledArg}',

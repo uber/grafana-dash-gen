@@ -38,16 +38,19 @@ test('Dashboard with overriden information', function () {
         title: 'custom title',
         tags: ['foo', 'bar'],
         templating: [
+            // @ts-expect-error todo: this is not correct and will result in errors if to call .generate()
             {
                 name: 'myvar',
                 options: ['a', 'b'],
             },
+            // @ts-expect-error todo: this is not correct and will result in errors if to call .generate()
             {
                 name: 'smoothing',
                 options: ['30min', '10min', '5min', '2min', '1min'],
             },
         ],
         annotations: [
+            // @ts-expect-error todo: this is not correct and will result in errors if to call .generate()
             {
                 name: 'Deploy Completed',
                 target: 'path.to.metric.with.annotation',
@@ -56,6 +59,7 @@ test('Dashboard with overriden information', function () {
         refresh: '1m',
         rows: [
             {
+                // @ts-expect-error todo: this is not correct and will result in errors if to call .generate()
                 title: 'New row',
                 height: '250px',
                 editable: true,
@@ -72,6 +76,7 @@ test('Dashboard with overriden information', function () {
 test('Dashboard can add rows', function () {
     var dashboard = new Dashboard();
     var row = { foo: 'foo' };
+    // @ts-expect-error todo: bad mock
     dashboard.addRow(row);
     expect(dashboard.rows).toEqual([row]);
 });
@@ -128,6 +133,7 @@ test('Dashboard can generate correct body', function () {
             return rowData;
         },
     };
+    // @ts-expect-error incomplete mock
     dashboard.addRow(row);
     // @ts-expect-error todo: incomplete mock
     simpleDashboard.rows = [rowData];

@@ -208,13 +208,20 @@ export interface GrafanaTextPanel extends GrafanaSharedProps {
     links: any[];
 }
 
+export type GrafanaPanel =
+    | GrafanaDashboardListPanel
+    | GrafanaGraphPanel
+    | GrafanaSingleStatPanel
+    | GrafanaTablePanel
+    | GrafanaTextPanel;
+
 export interface GrafanaRow extends GrafanaSharedProps {
     title: string;
     showTitle: boolean;
     height: string;
     editable: boolean;
     collapse: boolean;
-    panels: any[];
+    panels: GrafanaPanel[];
 }
 
 export interface GrafanaExternalLink extends GrafanaSharedProps {
@@ -228,6 +235,8 @@ export interface GrafanaExternalLink extends GrafanaSharedProps {
     includeVars: boolean;
     keepTime: boolean;
 }
+
+export type GrafanaTemplate = GrafanaQueryTemplate | GrafanaCustomTemplate;
 
 export interface GrafanaDashboard extends GrafanaSharedProps {
     id: null;
@@ -244,7 +253,7 @@ export interface GrafanaDashboard extends GrafanaSharedProps {
     hideAllLegends: boolean;
     rows: GrafanaRow[];
     annotations: { list: any[]; enable: boolean };
-    templating: { list: any[]; enable: boolean };
+    templating: { list: GrafanaTemplate[]; enable: boolean };
     time: null;
     links: GrafanaExternalLink[];
 }
