@@ -18,11 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
 const DEFAULT_VARIABLE_ALL = '$__all';
 
 class Custom {
+    state: any;
+    private defaultValue: string;
     constructor(opts = {}) {
         this.state = {
             allFormat: 'glob',
@@ -66,8 +66,8 @@ class Custom {
             return;
         }
 
-        let newOptions = [];
-        let newQuery = [];
+        const newOptions = [];
+        const newQuery = [];
 
         let hasAll = false;
         for (let i = 0; i < this.state.options.length; i++) {
@@ -118,4 +118,4 @@ class Custom {
     }
 }
 
-module.exports = Custom;
+export = Custom;

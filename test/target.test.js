@@ -25,6 +25,7 @@ var Target = require('../src/target');
 
 test('Target throws exception on invalid invocation', function () {
     expect(function shouldThrow() {
+        // @ts-expect-error intentionally invalid call
         new Target();
     }).toThrow(
         'Incorrect invocation of Target. Must provide at least one argument'

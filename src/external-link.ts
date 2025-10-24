@@ -18,45 +18,48 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var generateGraphId = require('../id');
-
-class Text {
+class ExternalLink {
+    private state: any;
     constructor(opts = {}) {
-        var defaults = {
+        const defaults = {
             title: '',
-            id: generateGraphId(),
-            error: false,
-            span: 12,
-            editable: true,
-            type: 'text',
-            mode: 'markdown',
-            content: '',
-            style: {},
-            links: [],
+            tooltip: '',
+            url: '',
+            ...opts,
+            tags: [],
+            icon: 'external link',
+            targetBlank: true,
+            type: 'link',
+            includeVars: false,
+            keepTime: false,
         };
         this.state = defaults;
-
-        // Overwrite defaults with custom values
-        Object.keys(opts).forEach((opt) => {
-            this.state[opt] = opts[opt];
-        });
-
-        // finally add to row/dashboard if given
-        if (opts.row && opts.dashboard) {
-            opts.row.addPanel(this);
-            opts.dashboard.addRow(opts.row);
-        }
     }
 
     generate() {
+        if (this.state.title === '') {
+            throw new SyntaxError('a title for the link must be provided');
+        }
+        if (this.state.url === '') {
+            throw new SyntaxError('a url for the link must be provided');
+        }
         return this.state;
     }
 
-    setTitle(title) {
-        this.state.title = title;
+    includeVariableValues() {
+        this.state.includeVars = true;
+        return this;
+    }
+
+    includeTimeFilter() {
+        this.state.keepTime = true;
+        return this;
+    }
+
+    withIcon(iconName) {
+        this.state.icon = iconName;
+        return this;
     }
 }
 
-module.exports = Text;
+export = ExternalLink;

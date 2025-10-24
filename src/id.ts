@@ -18,47 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-class ExternalLink {
-    constructor(opts = {}) {
-        const defaults = {
-            title: '',
-            tooltip: '',
-            url: '',
-            ...opts,
-            tags: [],
-            icon: 'external link',
-            targetBlank: true,
-            type: 'link',
-            includeVars: false,
-            keepTime: false,
-        };
-        this.state = defaults;
-    }
+// Used to provide unique if for
+// generated graphs
 
-    generate() {
-        if (this.state.title === '') {
-            throw new SyntaxError('a title for the link must be provided');
-        }
-        if (this.state.url === '') {
-            throw new SyntaxError('a url for the link must be provided');
-        }
-        return this.state;
-    }
-
-    includeVariableValues() {
-        this.state.includeVars = true;
-        return this;
-    }
-
-    includeTimeFilter() {
-        this.state.keepTime = true;
-        return this;
-    }
-
-    withIcon(iconName) {
-        this.state.icon = iconName;
-        return this;
-    }
+let graphId = 0;
+function generateGraphId() {
+    graphId = graphId + 1;
+    return graphId;
 }
 
-module.exports = ExternalLink;
+export = generateGraphId;

@@ -18,12 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-const fetch = require('node-fetch');
-const config = require('./config');
-const errors = require('./errors');
+import fetch = require('node-fetch');
+import config = require('./config');
+import errors = require('./errors');
 
-function publish(dashboard, opts = {}) {
+function publish(dashboard, opts: any = {}) {
     if (!dashboard) {
         throw errors.UnfulfilledRequirement.create(
             '{component} missing requirement: {unfulfilledArg}',
@@ -117,4 +116,4 @@ function publish(dashboard, opts = {}) {
         });
 }
 
-module.exports = publish;
+export = publish;

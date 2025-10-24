@@ -18,10 +18,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import xtend = require('xtend');
 
-var Graphite = require('./graphite');
+class Row {
+    state: any;
+    panels: any[];
+    constructor(opts) {
+        opts = opts || {};
+        const state = {
+            title: 'New row',
+            height: '250px',
+            editable: true,
+            collapse: false,
+            panels: [],
+            showTitle: true,
+        };
 
-module.exports = {
-    Graphite: Graphite,
-};
+        this.state = xtend(state, opts);
+        this.panels = [];
+
+        if (opts.panels) {
+            opts.panels.forEach((panel) => {
+                this.addPanel(panel);
+            });
+        }
+    }
+
+    generate() {
+        this.state.panels = this.panels.map((panel) => panel.generate());
+        return this.state;
+    }
+
+    addPanel(panel) {
+        this.panels.push(panel);
+    }
+}
+
+export = Row;

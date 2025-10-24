@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Uber Technologies, Inc.
+// Copyright (c) 2015 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,46 +18,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Dashboard = require('./dashboard');
+import Row = require('./row');
+import ExternalLink = require('./external-link');
+import Target = require('./target');
+import Panels = require('./panels');
+import Alert = require('./alert/alert');
+import Condition = require('./alert/condition');
+import Templates = require('./templates');
+import publish = require('./publish');
+import generateGraphId = require('./id');
+import config = require('./config');
+import Annotations = require('./annotations');
 
-var generateGraphId = require('../id');
-
-class DashboardList {
-    constructor(opts = {}) {
-        this.state = {
-            title: 'dashboard list',
-            error: false,
-            span: 3,
-            editable: true,
-            type: 'dashlist',
-            isNew: true,
-            id: generateGraphId(),
-            mode: 'search',
-            query: 'dashboard list',
-            limit: 10,
-            tags: [],
-            links: [],
-        };
-
-        // Overwrite defaults with custom values
-        Object.keys(opts).forEach((opt) => {
-            this.state[opt] = opts[opt];
-        });
-
-        // finally add to row/dashboard if given
-        if (opts.row && opts.dashboard) {
-            opts.row.addPanel(this);
-            opts.dashboard.addRow(opts.row);
-        }
-    }
-
-    setTitle(title) {
-        this.state.title = title;
-    }
-
-    generate() {
-        return this.state;
-    }
-}
-
-module.exports = DashboardList;
+export = {
+    Dashboard: Dashboard,
+    Row: Row,
+    ExternalLink: ExternalLink,
+    Panels: Panels,
+    Templates: Templates,
+    Alert,
+    Condition,
+    Annotations: Annotations,
+    Target: Target,
+    publish: publish,
+    generateGraphId: generateGraphId,
+    configure: config.configure,
+};

@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
 /**
  * Provide a query to populate template variable.
  *
@@ -40,7 +38,10 @@
  * @see http://docs.grafana.org/reference/templating/
  */
 class Query {
-    constructor(query, opts = {}) {
+    state: any;
+    private _required: string[];
+    private _overridable: string[];
+    constructor(query: any, opts: any = {}) {
         this.state = {
             query: query,
             name: opts.name,
@@ -91,4 +92,4 @@ class Query {
     }
 }
 
-module.exports = Query;
+export = Query;

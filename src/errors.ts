@@ -18,15 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-var SError = require('error').SError;
+import error = require('error');
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+declare class _SError extends error.SError {
+    static create(message: string, info: Record<string, any>): error.SError;
+}
+const SError = error.SError as typeof _SError;
 
 class UnfulfilledRequirement extends SError {}
 class InvalidState extends SError {}
 class Misconfigured extends SError {}
 class ResponseError extends SError {}
 
-module.exports = {
+export = {
     UnfulfilledRequirement: UnfulfilledRequirement,
     InvalidState: InvalidState,
     Misconfigured: Misconfigured,

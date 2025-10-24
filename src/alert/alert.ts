@@ -1,5 +1,9 @@
 class Alert {
-    constructor(opts = {}) {
+    private conditions: any[];
+
+    private state: any;
+
+    constructor(opts: any = {}) {
         this.conditions = [];
 
         this.state = {
@@ -46,4 +50,4 @@ class Alert {
     }
 }
 
-module.exports = Alert;
+export = Alert;

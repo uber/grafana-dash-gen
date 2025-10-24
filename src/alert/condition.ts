@@ -1,4 +1,9 @@
 class Condition {
+    private state: object;
+    private _evaluator: { params: any[]; type: string };
+    private _operator: { type: string };
+    private _query: { params: any[] };
+    private _reducer: { params: any[]; type: string };
     constructor(opts = {}) {
         this.state = {};
 
@@ -105,4 +110,4 @@ class Condition {
     }
 }
 
-module.exports = Condition;
+export = Condition;

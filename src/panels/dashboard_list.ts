@@ -1,4 +1,4 @@
-// Copyright (c) 2015 Uber Technologies, Inc.
+// Copyright (c) 2018 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,40 +18,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import generateGraphId = require('../id');
 
-var xtend = require('xtend');
-
-class Row {
-    constructor(opts) {
-        opts = opts || {};
-        var state = {
-            title: 'New row',
-            height: '250px',
+class DashboardList {
+    state: any;
+    constructor(opts: any = {}) {
+        this.state = {
+            title: 'dashboard list',
+            error: false,
+            span: 3,
             editable: true,
-            collapse: false,
-            panels: [],
-            showTitle: true,
+            type: 'dashlist',
+            isNew: true,
+            id: generateGraphId(),
+            mode: 'search',
+            query: 'dashboard list',
+            limit: 10,
+            tags: [],
+            links: [],
         };
 
-        this.state = xtend(state, opts);
-        this.panels = [];
+        // Overwrite defaults with custom values
+        Object.keys(opts).forEach((opt) => {
+            this.state[opt] = opts[opt];
+        });
 
-        if (opts.panels) {
-            opts.panels.forEach((panel) => {
-                this.addPanel(panel);
-            });
+        // finally add to row/dashboard if given
+        if (opts.row && opts.dashboard) {
+            opts.row.addPanel(this);
+            opts.dashboard.addRow(opts.row);
         }
     }
 
-    generate() {
-        this.state.panels = this.panels.map((panel) => panel.generate());
-        return this.state;
+    setTitle(title) {
+        this.state.title = title;
     }
 
-    addPanel(panel) {
-        this.panels.push(panel);
+    generate() {
+        return this.state;
     }
 }
 
-module.exports = Row;
+export = DashboardList;

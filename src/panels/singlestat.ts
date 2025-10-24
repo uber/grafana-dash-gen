@@ -18,57 +18,54 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import generateGraphId = require('../id');
 
-var generateGraphId = require('../id');
-
-class Table {
-    constructor(opts = {}) {
-        var defaults = {
-            title: 'Panel Title',
+class SingleStat {
+    state: any;
+    constructor(opts: any = {}) {
+        const defaults = {
+            id: generateGraphId(),
+            title: 'single stat',
+            targets: [],
             error: false,
             span: 12,
             editable: true,
-            type: 'table',
-            isNew: true,
-            id: generateGraphId(),
-            styles: [
-                {
-                    type: 'date',
-                    pattern: 'Time',
-                    dateFormat: 'YYYY-MM-DD HH:mm:ss',
-                },
-                {
-                    unit: 'short',
-                    type: 'number',
-                    decimals: 0,
-                    colors: [
-                        'rgba(245, 54, 54, 0.9)',
-                        'rgba(237, 129, 40, 0.89)',
-                        'rgba(50, 172, 45, 0.97)',
-                    ],
-                    colorMode: null,
-                    pattern: '/.*/',
-                    thresholds: [],
-                },
-            ],
-            targets: [],
-            transform: 'timeseries_aggregations',
-            pageSize: null,
-            showHeader: true,
-            columns: [
-                {
-                    text: 'Avg',
-                    value: 'avg',
-                },
-            ],
-            scroll: true,
-            fontSize: '100%',
-            sort: {
-                col: 0,
-                desc: true,
-            },
+            type: 'singlestat',
             links: [],
+            maxDataPoints: 100,
+            interval: null,
+            cacheTimeout: null,
+            format: 'none',
+            prefix: '',
+            postfix: '',
+            nullText: null,
+            valueMaps: [
+                {
+                    value: 'null',
+                    op: '=',
+                    text: 'N/A',
+                },
+            ],
+            nullPointMode: 'connected',
+            valueName: 'current',
+            prefixFontSize: '50%',
+            valueFontSize: '80%',
+            postfixFontSize: '50%',
+            thresholds: '',
+            colorBackground: false,
+            colorValue: false,
+            colors: [
+                'rgba(71, 212, 59, 0.4)',
+                'rgba(245, 150, 40, 0.73)',
+                'rgba(225, 40, 40, 0.59)',
+            ],
+            sparkline: {
+                show: true,
+                full: true,
+                lineColor: 'rgb(31, 193, 58)',
+                fillColor: 'rgba(134, 178, 214, 0.41)',
+            },
+            datasource: 'graphite',
         };
         this.state = defaults;
 
@@ -102,9 +99,8 @@ class Table {
     addTarget(target) {
         this.state.targets.push({
             target: target.toString(),
-            hide: target.hide,
         });
     }
 }
 
-module.exports = Table;
+export = SingleStat;

@@ -18,32 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Custom = require('./custom');
+import Query = require('./query');
 
-var Dashboard = require('./dashboard');
-var Row = require('./row');
-var ExternalLink = require('./external-link');
-var Target = require('./target');
-var Panels = require('./panels');
-var Alert = require('./alert/alert');
-var Condition = require('./alert/condition');
-var Templates = require('./templates');
-var publish = require('./publish');
-var generateGraphId = require('./id');
-var config = require('./config');
-var Annotations = require('./annotations');
-
-module.exports = {
-    Dashboard: Dashboard,
-    Row: Row,
-    ExternalLink: ExternalLink,
-    Panels: Panels,
-    Templates: Templates,
-    Alert,
-    Condition,
-    Annotations: Annotations,
-    Target: Target,
-    publish: publish,
-    generateGraphId: generateGraphId,
-    configure: config.configure,
+export = {
+    Custom: Custom,
+    Query: Query,
 };
