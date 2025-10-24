@@ -6,7 +6,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 export default defineConfig([
     {
-        ignores: ['coverage'],
+        ignores: ['coverage', 'grafana'],
     },
     {
         files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],

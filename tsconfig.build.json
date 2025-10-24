@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./grafana",
+    "noEmit": false,
+  },
+  "include": ["./src"]
+}
