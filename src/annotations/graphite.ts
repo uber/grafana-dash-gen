@@ -44,7 +44,7 @@ class Graphite {
             );
         }
 
-        const defaults = {
+        const defaults: GrafanaGraphiteAnnotation = {
             name: 'no name',
             datasource: 'graphite',
             showLine: true,

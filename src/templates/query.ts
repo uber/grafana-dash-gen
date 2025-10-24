@@ -43,10 +43,11 @@ class Query {
     state: GrafanaQueryTemplate;
     private _required: string[];
     private _overridable: string[];
-    constructor(query: any, opts: any = {}) {
+    constructor(query: string, opts: Partial<GrafanaQueryTemplate> = {}) {
         this.state = {
             query: query,
-            name: opts.name,
+            // todo: added default
+            name: opts.name || '',
             datasource: opts.datasource,
             type: 'query',
             includeAll: true,
