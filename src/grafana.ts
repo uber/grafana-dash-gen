@@ -66,12 +66,32 @@ export interface GrafanaDashboardListPanel extends GrafanaSharedProps {
     links: any[];
 }
 
+export type GrafanaEvaluatorType = 'gt' | 'lt' | 'within_range';
+
+export type GrafanaOperatorType = 'and' | 'or';
+
+export type GrafanaReducerType =
+    | 'min'
+    | 'max'
+    | 'sum'
+    | 'avg'
+    | 'count'
+    | 'last'
+    | 'median'
+    | 'diff';
+
 export interface GrafanaCondition extends GrafanaSharedProps {
-    type: string;
-    query: { params: string[] };
-    reducer: { type: string; params: any[] };
-    evaluator: { type: string; params: any[] };
-    operator: { type: string };
+    type: 'query';
+    query: {
+        params: [
+            query: string,
+            duration: string | undefined,
+            from: string | undefined,
+        ];
+    };
+    reducer: { params: string[]; type: GrafanaReducerType };
+    evaluator: { params: (string | number)[]; type: GrafanaEvaluatorType };
+    operator: { type: GrafanaOperatorType };
 }
 
 export interface GrafanaAlert extends GrafanaSharedProps {

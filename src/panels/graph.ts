@@ -22,6 +22,7 @@ import generateGraphId = require('../id');
 import type { GrafanaGraphPanel } from '../grafana';
 import type Row from '../row';
 import type Dashboard from '../dashboard';
+import type Alert from '../alert/alert';
 
 type GraphPanelOptions = Partial<
     GrafanaGraphPanel & {
@@ -111,19 +112,21 @@ class Graph {
         return this.state;
     }
 
-    addAlert(alert) {
+    addAlert(alert: Alert) {
         this.state.alert = alert.generate();
     }
 
-    addTarget(target) {
+    addTarget(target: string & { hide: any }) {
         const refs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const builtTarget = target.toString();
 
-        const targetWithRefs = {
-            target: builtTarget,
-            hide: target.hide,
-            refId: refs[this._currentRefIndex++],
-        };
+        const targetWithRefs: { target: string; hide: unknown; refId: string } =
+            {
+                target: builtTarget,
+                hide: target.hide,
+                // todo: can potentially run out of bounds
+                refId: refs[this._currentRefIndex++]!,
+            };
 
         const targetFull = handleRefTargets(builtTarget, this.state.targets);
         const targetToAdd = Object.assign({}, targetWithRefs, targetFull);
@@ -131,7 +134,7 @@ class Graph {
     }
 }
 
-function getRefsFromTarget(target) {
+function getRefsFromTarget(target: string) {
     const refMatchRegex = /.*?#(\w)[,)]/g;
     const refs = [];
     let matches;
@@ -142,11 +145,21 @@ function getRefsFromTarget(target) {
     return refs;
 }
 
-function handleRefTargets(target, targets) {
+type TargetObject = {
+    target: string;
+    hide: unknown;
+    refId: string;
+    targetFull?: string | undefined;
+};
+
+function handleRefTargets(
+    target: string,
+    targets: TargetObject[]
+): { targetFull?: string | undefined } {
     if (target.includes('#')) {
         const refs = getRefsFromTarget(target);
-        const findTargetByRefId = (targets, refId) =>
-            targets.find((target) => target.refId === refId).target;
+        const findTargetByRefId = (targets: TargetObject[], refId: string) =>
+            targets.find((target) => target.refId === refId)!.target;
 
         return {
             targetFull: refs.reduce(
