@@ -24,5 +24,5 @@ module.exports = {
     height: '250px',
     editable: true,
     collapse: false,
-    panels: []
+    panels: [],
 };

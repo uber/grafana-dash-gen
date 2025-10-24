@@ -38,7 +38,7 @@ function DashboardList(opts) {
         query: 'dashboard list',
         limit: 10,
         tags: [],
-        links: []
+        links: [],
     };
 
     // Overwrite defaults with custom values

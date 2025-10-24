@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/*global console*/
-
 'use strict';
 
 var util = require('util');
@@ -40,9 +38,7 @@ test('Target can initialize as a single string source', function t(assert) {
     assert.end();
 });
 
-/*eslint-disable*/
 test('Target can initialize as a single interpolated string source', function t(assert) {
-/*eslint-enable*/
     var arg = 'path.to.%s.metric';
     var sub = 'foo';
     var argFinal = 'path.to.foo.metric';
@@ -53,29 +49,28 @@ test('Target can initialize as a single interpolated string source', function t(
 
 test('Target can initialize as a source and function', function t(assert) {
     var arg = 'path.to.metric';
-    new Target(arg).
-        averageSeries().
-        movingAverage('$smoothing').
-        alias('Total P95');
+    new Target(arg)
+        .averageSeries()
+        .movingAverage('$smoothing')
+        .alias('Total P95');
     assert.end();
 });
 
 test('Target can initialize and chain methods', function t(assert) {
     var arg = 'path.to.metric';
-    var target = new Target(arg).
-        averageSeries().
-        movingAverage('$smoothing').
-        alias('Total P95');
+    var target = new Target(arg)
+        .averageSeries()
+        .movingAverage('$smoothing')
+        .alias('Total P95');
 
     Object.keys(Target.PRIMITIVES).forEach(function eachPrimitive(primitive) {
-        assert.ok((typeof target[primitive]) === 'function');
+        assert.ok(typeof target[primitive] === 'function');
     });
     assert.end();
 });
 
 test('Target warns on incorrect primitive invocation', function t(assert) {
     assert.plan(2);
-    /*eslint-disable*/
     console.warn = function warn(str) {
         assert.ok(str);
     };
@@ -83,7 +78,6 @@ test('Target warns on incorrect primitive invocation', function t(assert) {
         assert.notOk(str);
     };
     new Target('foo').alpha();
-    /*eslint-enable*/
 
     assert.end();
 });
@@ -93,7 +87,7 @@ test('Target color methods are generated correctly', function t(assert) {
     var target = new Target(arg);
 
     Target.COLORS.forEach(function eachColor(color) {
-        assert.ok((typeof target[color]) === 'function');
+        assert.ok(typeof target[color] === 'function');
         var str = target[color]().toString();
         var expected = util.format('color(path.to.metric, "%s")', color);
         assert.equal(str, expected);
@@ -111,11 +105,13 @@ test('Target helper-method - color', function t(assert) {
 
 test('Target helper-method - cpu', function t(assert) {
     var arg = 'path.to.metric';
-    var expected = ['removeBelowValue(',
-                    'scale(',
-                    'derivative(',
-                    'path.to.metric), ',
-                    '0.016666666667), 0)'].join('');
+    var expected = [
+        'removeBelowValue(',
+        'scale(',
+        'derivative(',
+        'path.to.metric), ',
+        '0.016666666667), 0)',
+    ].join('');
     var target = new Target(arg).cpu().toString();
     assert.equal(target, expected);
     assert.end();

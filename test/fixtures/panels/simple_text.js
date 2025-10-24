@@ -19,14 +19,14 @@
 // THE SOFTWARE.
 
 module.exports = {
-    "title": "",
-    "error": false,
-    "span": 12,
-    "editable": true,
-    "type": "text",
-    "id": 2,
-    "mode": "markdown",
-    "content": "",
-    "style": {},
-    "links": []
-}
+    title: '',
+    error: false,
+    span: 12,
+    editable: true,
+    type: 'text',
+    id: 2,
+    mode: 'markdown',
+    content: '',
+    style: {},
+    links: [],
+};

@@ -22,7 +22,7 @@
 
 var Templates = require('./templates');
 var Annotations = require('./annotations');
-var ExternalLink = require('./external-link')
+var ExternalLink = require('./external-link');
 
 function Dashboard(opts) {
     opts = opts || {};
@@ -35,7 +35,6 @@ function Dashboard(opts) {
 }
 
 Dashboard.prototype._init = function _init(opts) {
-    this.state = this.state;
     this.state.id = opts.id || null;
     this.state.title = opts.title || 'Generated Grafana Dashboard';
     this.state.originalTitle = opts.originalTitle || 'Generated Dashboard';
@@ -49,7 +48,7 @@ Dashboard.prototype._init = function _init(opts) {
     this.state.schemaVersion = opts.schemaVersion || 6;
     this.state.hideAllLegends = !!opts.hideAllLegends;
     this.state.time = opts.time || null;
-    if("editable" in opts) {
+    if ('editable' in opts) {
         this.state.editable = opts.editable;
     }
 };
@@ -68,8 +67,8 @@ Dashboard.prototype._initRows = function _initRows(opts) {
 };
 
 Dashboard.prototype._initLinks = function _initLinks(opts) {
-  this.links = opts.links || [];
-  this.state.links = [];
+    this.links = opts.links || [];
+    this.state.links = [];
 };
 
 Dashboard.prototype._initTemplating = function _initRows(opts) {
@@ -77,7 +76,7 @@ Dashboard.prototype._initTemplating = function _initRows(opts) {
 
     this.state.templating = {
         list: [],
-        enable: true
+        enable: true,
     };
 
     if (opts.templating) {
@@ -93,7 +92,7 @@ Dashboard.prototype._initAnnotations = function _initAnnotations(opts) {
 
     this.state.annotations = {
         list: [],
-        enable: true
+        enable: true,
     };
 
     if (opts.annotations) {
@@ -118,12 +117,12 @@ Dashboard.prototype.addAnnotation = function addAnnotation(annotation) {
 
 Dashboard.prototype.generate = function generate() {
     // Generate jsons.
-    this.state.rows = this.rows.map(row => row.generate());
-    this.state.links = this.links.map(link => {
-      if (link instanceof ExternalLink) {
-        return link.generate()
-      }
-      return link
+    this.state.rows = this.rows.map((row) => row.generate());
+    this.state.links = this.links.map((link) => {
+        if (link instanceof ExternalLink) {
+            return link.generate();
+        }
+        return link;
     });
 
     return this.state;

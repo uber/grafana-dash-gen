@@ -29,5 +29,5 @@ module.exports = {
     iconSize: 5,
     enable: false,
     target: 'custom.target',
-    arbitraryProperty: 'foo'
+    arbitraryProperty: 'foo',
 };

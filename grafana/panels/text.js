@@ -36,7 +36,7 @@ function Text(opts) {
         mode: 'markdown',
         content: '',
         style: {},
-        links: []
+        links: [],
     };
     this.state = defaults;
 

@@ -23,23 +23,26 @@
 module.exports = {
     name: 'custom',
     type: 'custom',
-    options: [{
-        text: 'a',
-        value: 'a'
-    }, {
-        text: 'b',
-        value: 'b'
-    }],
+    options: [
+        {
+            text: 'a',
+            value: 'a',
+        },
+        {
+            text: 'b',
+            value: 'b',
+        },
+    ],
     datasource: null,
     refresh: 0,
-    'refresh_on_load': false,
+    refresh_on_load: false,
     includeAll: false,
     allValue: '',
     allFormat: 'glob',
     query: 'a,b',
     current: {
         text: 'a',
-        value: 'a'
+        value: 'a',
     },
-    arbitraryProperty: 'foo'
+    arbitraryProperty: 'foo',
 };

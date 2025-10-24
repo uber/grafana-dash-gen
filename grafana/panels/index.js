@@ -26,9 +26,9 @@ var Table = require('./table');
 var DashboardList = require('./dashboard_list');
 
 module.exports = {
-	Graph: Graph,
-	SingleStat: SingleStat,
-	Text: Text,
-	Table: Table,
-	DashboardList: DashboardList
+    Graph: Graph,
+    SingleStat: SingleStat,
+    Text: Text,
+    Table: Table,
+    DashboardList: DashboardList,
 };

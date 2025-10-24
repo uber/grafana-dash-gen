@@ -19,13 +19,13 @@
 // THE SOFTWARE.
 
 module.exports = {
-  title: 'Uber Home Page',
-  tooltip: "",
-  url: "www.uber.com",
-  tags: [],
-  icon: "external link",
-  targetBlank: true,
-  type: "link",
-  includeVars: false,
-  keepTime: false,
+    title: 'Uber Home Page',
+    tooltip: '',
+    url: 'www.uber.com',
+    tags: [],
+    icon: 'external link',
+    targetBlank: true,
+    type: 'link',
+    includeVars: false,
+    keepTime: false,
 };

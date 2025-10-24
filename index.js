@@ -22,7 +22,7 @@
 
 var Dashboard = require('./grafana/dashboard');
 var Row = require('./grafana/row');
-var ExternalLink = require('./grafana/external-link')
+var ExternalLink = require('./grafana/external-link');
 var Target = require('./grafana/target');
 var Panels = require('./grafana/panels');
 var Alert = require('./grafana/alert/alert');
@@ -45,5 +45,5 @@ module.exports = {
     Target: Target,
     publish: publish,
     generateGraphId: generateGraphId,
-    configure: config.configure
+    configure: config.configure,
 };

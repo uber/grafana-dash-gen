@@ -33,7 +33,7 @@ var configurations = {
     group: 'guest',
     url: 'https://your.graphite.url.com/elasticsearch/grafana-dash/dashboard/',
     cookie: 'auth-openid=',
-    headers: {}
+    headers: {},
 };
 
 function configure(opts) {
@@ -46,5 +46,5 @@ function getConfig() {
 
 module.exports = {
     configure: configure,
-    getConfig: getConfig
+    getConfig: getConfig,
 };

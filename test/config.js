@@ -30,7 +30,7 @@ test('config extends default configuration', function t(assert) {
     var group = 'guest';
     var url = 'http://myfakeurl.com';
     var cookie = 'auth=value';
-    var headers = {'asdf': 'qwer'};
+    var headers = { asdf: 'qwer' };
 
     var cfg = {
         foo: foo,
@@ -38,7 +38,7 @@ test('config extends default configuration', function t(assert) {
         user: user,
         url: url,
         cookie: cookie,
-        headers: headers
+        headers: headers,
     };
 
     var expected = {
@@ -48,7 +48,7 @@ test('config extends default configuration', function t(assert) {
         group: group,
         url: url,
         cookie: cookie,
-        headers: headers
+        headers: headers,
     };
 
     config.configure(cfg);

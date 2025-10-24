@@ -31,5 +31,5 @@ module.exports = {
     allFormat: 'wildcard',
     allValue: null,
     refresh: false,
-    multi: false
+    multi: false,
 };

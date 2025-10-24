@@ -27,12 +27,12 @@ function Row(opts) {
     var self = this;
 
     var state = {
-      title: 'New row',
-      height: '250px',
-      editable: true,
-      collapse: false,
-      panels: [],
-      showTitle: true
+        title: 'New row',
+        height: '250px',
+        editable: true,
+        collapse: false,
+        panels: [],
+        showTitle: true,
     };
 
     this.state = xtend(state, opts);
@@ -41,7 +41,7 @@ function Row(opts) {
     if (opts.panels) {
         opts.panels.forEach(function addP(panel) {
             self.addPanel(panel);
-        })
+        });
     }
 }
 

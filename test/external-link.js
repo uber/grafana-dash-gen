@@ -25,49 +25,46 @@ var ExternalLink = require('../grafana/external-link');
 var defaultExternalLink = require('./fixtures/external_link');
 
 test('default external link', function t(assert) {
-  var externalLink = new ExternalLink({
-    title: "Uber Home Page",
-    url: "www.uber.com",
-  });
-  assert.deepEqual(externalLink.generate(), defaultExternalLink);
-  assert.end();
+    var externalLink = new ExternalLink({
+        title: 'Uber Home Page',
+        url: 'www.uber.com',
+    });
+    assert.deepEqual(externalLink.generate(), defaultExternalLink);
+    assert.end();
 });
 
 test('external link with custom settings', function t(assert) {
-  var externalLink = new ExternalLink({
-    title: "Uber Home Page",
-    tooltip: "click to view",
-    url: "www.uber.com",
-  })
-    .includeTimeFilter()
-    .includeVariableValues()
-    .withIcon("custom icon");
+    var externalLink = new ExternalLink({
+        title: 'Uber Home Page',
+        tooltip: 'click to view',
+        url: 'www.uber.com',
+    })
+        .includeTimeFilter()
+        .includeVariableValues()
+        .withIcon('custom icon');
 
-  assert.deepEqual(externalLink.generate(), {
-    title: 'Uber Home Page',
-    tooltip: "click to view",
-    url: "www.uber.com",
-    tags: [],
-    icon: "custom icon",
-    targetBlank: true,
-    type: "link",
-    includeVars: true,
-    keepTime: true,
-  });
-  assert.end();
+    assert.deepEqual(externalLink.generate(), {
+        title: 'Uber Home Page',
+        tooltip: 'click to view',
+        url: 'www.uber.com',
+        tags: [],
+        icon: 'custom icon',
+        targetBlank: true,
+        type: 'link',
+        includeVars: true,
+        keepTime: true,
+    });
+    assert.end();
 });
 
 test('external link validates required fields', function t(assert) {
-  assert.throws(
-    () => new ExternalLink().generate(),
-    new SyntaxError("a title for the link must be provided"),
-  );
-  assert.throws(
-    () => new ExternalLink({title: "Uber Home Page"}).generate(),
-    new SyntaxError("a url for the link must be provided"),
-  );
-  assert.end();
+    assert.throws(
+        () => new ExternalLink().generate(),
+        new SyntaxError('a title for the link must be provided')
+    );
+    assert.throws(
+        () => new ExternalLink({ title: 'Uber Home Page' }).generate(),
+        new SyntaxError('a url for the link must be provided')
+    );
+    assert.end();
 });
-
-
-

@@ -27,47 +27,50 @@ function Table(opts) {
     var self = this;
 
     var defaults = {
-        "title": "Panel Title",
-        "error": false,
-        "span": 12,
-        "editable": true,
-        "type": "table",
-        "isNew": true,
-        "id": generateGraphId(),
-        "styles": [
+        title: 'Panel Title',
+        error: false,
+        span: 12,
+        editable: true,
+        type: 'table',
+        isNew: true,
+        id: generateGraphId(),
+        styles: [
             {
-                "type": "date",
-                "pattern": "Time",
-                "dateFormat": "YYYY-MM-DD HH:mm:ss"
-            },{
-                "unit": "short",
-                "type": "number",
-                "decimals": 0,
-                "colors": [
-                    "rgba(245, 54, 54, 0.9)",
-                    "rgba(237, 129, 40, 0.89)",
-                    "rgba(50, 172, 45, 0.97)"
+                type: 'date',
+                pattern: 'Time',
+                dateFormat: 'YYYY-MM-DD HH:mm:ss',
+            },
+            {
+                unit: 'short',
+                type: 'number',
+                decimals: 0,
+                colors: [
+                    'rgba(245, 54, 54, 0.9)',
+                    'rgba(237, 129, 40, 0.89)',
+                    'rgba(50, 172, 45, 0.97)',
                 ],
-                "colorMode": null,
-                "pattern": "/.*/",
-                "thresholds": []
-            }
+                colorMode: null,
+                pattern: '/.*/',
+                thresholds: [],
+            },
         ],
-        "targets": [],
-        "transform": "timeseries_aggregations",
-        "pageSize": null,
-        "showHeader": true,
-        "columns": [{
-            "text": "Avg",
-            "value": "avg"
-        }],
-        "scroll": true,
-        "fontSize": "100%",
-        "sort": {
-            "col": 0,
-            "desc": true
+        targets: [],
+        transform: 'timeseries_aggregations',
+        pageSize: null,
+        showHeader: true,
+        columns: [
+            {
+                text: 'Avg',
+                value: 'avg',
+            },
+        ],
+        scroll: true,
+        fontSize: '100%',
+        sort: {
+            col: 0,
+            desc: true,
         },
-        "links": []
+        links: [],
     };
     this.state = defaults;
 
@@ -101,7 +104,7 @@ Table.prototype.setTitle = function setTitle(title) {
 Table.prototype.addTarget = function addTarget(target) {
     this.state.targets.push({
         target: target.toString(),
-        hide: target.hide
+        hide: target.hide,
     });
 };
 module.exports = Table;

@@ -57,10 +57,7 @@ function Query(query, opts) {
         current: {},
     };
 
-    this._required = [
-        'name',
-        'datasource'
-    ];
+    this._required = ['name', 'datasource'];
 
     this._overridable = [
         'includeAll',
@@ -70,7 +67,7 @@ function Query(query, opts) {
         'multiFormat',
         'refresh',
         'regex',
-        'tag'
+        'tag',
     ];
 
     // Override overridable values

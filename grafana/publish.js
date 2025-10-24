@@ -18,104 +18,105 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-"use strict";
-const fetch = require("node-fetch");
-const config = require("./config");
-const errors = require("./errors");
+'use strict';
+const fetch = require('node-fetch');
+const config = require('./config');
+const errors = require('./errors');
 
-/* eslint-disable max-statements, max-len, no-console, no-undef */
 function publish(dashboard, opts) {
-  opts = opts || {};
+    opts = opts || {};
 
-  if (!dashboard) {
-    throw errors.UnfulfilledRequirement(
-      "{component} missing requirement: {unfulfilledArg}",
-      {
-        component: "grafana.publish",
-        unfulfilledArg: "dashboard"
-      }
-    );
-  }
-
-  const state = dashboard.state;
-  const cfg = config.getConfig();
-
-  if (!state || !state.title) {
-    throw errors.InvalidState(
-      "{component} state is invalid: state.{invalidArg} {reason}",
-      {
-        component: "grafana.Dashboard",
-        invalidArg: "title",
-        reason: "undefined"
-      }
-    );
-  }
-
-  if (!cfg.url) {
-    throw errors.Misconfigured(
-      "Incorrect configuration: config.{invalidArg} {reason} - {resolution}",
-      {
-        invalidArg: "url",
-        reason: "undefined",
-        resolution: "Must call grafana.configure before publishing"
-      }
-    );
-  }
-
-  if (!cfg.cookie) {
-    throw errors.Misconfigured(
-      "Incorrect configuration: config.{invalidArg} {reason} - {resolution}",
-        {
-        invalidArg: "cookie",
-        reason: "undefined"
-      }
-    );
-  }
-
-  const headers = new fetch.Headers(cfg.headers || {});
-  headers.set("Cookie", cfg.cookie);
-  headers.set("Content-Type", "application/json");
-
-  const createData = {
-    dashboard: dashboard.generate(),
-    overwrite: true
-  };
-
-  return fetch(cfg.url, {
-    method: "POST",
-    headers: headers,
-    body: JSON.stringify(createData),
-    timeout: opts.timeout || 1000
-  })
-    .then(resp => {
-      if (resp.ok) {
-        console.log("Published the dashboard", state.title);
-        return resp.text();
-      } else {
-        throw new errors.ResponseError(
-          "request failed: {name}",
-          {
-            name: resp.statusText,
-            response: resp
-          }
+    if (!dashboard) {
+        throw errors.UnfulfilledRequirement(
+            '{component} missing requirement: {unfulfilledArg}',
+            {
+                component: 'grafana.publish',
+                unfulfilledArg: 'dashboard',
+            }
         );
-      }
+    }
+
+    const state = dashboard.state;
+    const cfg = config.getConfig();
+
+    if (!state || !state.title) {
+        throw errors.InvalidState(
+            '{component} state is invalid: state.{invalidArg} {reason}',
+            {
+                component: 'grafana.Dashboard',
+                invalidArg: 'title',
+                reason: 'undefined',
+            }
+        );
+    }
+
+    if (!cfg.url) {
+        throw errors.Misconfigured(
+            'Incorrect configuration: config.{invalidArg} {reason} - {resolution}',
+            {
+                invalidArg: 'url',
+                reason: 'undefined',
+                resolution: 'Must call grafana.configure before publishing',
+            }
+        );
+    }
+
+    if (!cfg.cookie) {
+        throw errors.Misconfigured(
+            'Incorrect configuration: config.{invalidArg} {reason} - {resolution}',
+            {
+                invalidArg: 'cookie',
+                reason: 'undefined',
+            }
+        );
+    }
+
+    const headers = new fetch.Headers(cfg.headers || {});
+    headers.set('Cookie', cfg.cookie);
+    headers.set('Content-Type', 'application/json');
+
+    const createData = {
+        dashboard: dashboard.generate(),
+        overwrite: true,
+    };
+
+    return fetch(cfg.url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(createData),
+        timeout: opts.timeout || 1000,
     })
-    .catch(e => {
-      console.log(
-        "grafana-dash-gen: publish: caught error: ",
-        e.name,
-        e.message
-      );
-      console.log("Unable to publish dashboard ", state.title);
-      if (e.response) {
-        console.log("response headers: ", e.response && e.response.headers.raw());
-        console.log("response body: ", e.response && e.response.text());
-        console.log("response statusCode:", e.response && e.response.status);
-      }
-      throw e; // rethrow for downstream consumers
-    });
+        .then((resp) => {
+            if (resp.ok) {
+                console.log('Published the dashboard', state.title);
+                return resp.text();
+            } else {
+                throw new errors.ResponseError('request failed: {name}', {
+                    name: resp.statusText,
+                    response: resp,
+                });
+            }
+        })
+        .catch((e) => {
+            console.log(
+                'grafana-dash-gen: publish: caught error: ',
+                e.name,
+                e.message
+            );
+            console.log('Unable to publish dashboard ', state.title);
+            if (e.response) {
+                console.log(
+                    'response headers: ',
+                    e.response && e.response.headers.raw()
+                );
+                console.log('response body: ', e.response && e.response.text());
+                console.log(
+                    'response statusCode:',
+                    e.response && e.response.status
+                );
+            }
+            throw e; // rethrow for downstream consumers
+        });
 }
-/* eslint-enable */
 
 module.exports = publish;

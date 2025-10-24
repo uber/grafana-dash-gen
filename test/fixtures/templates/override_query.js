@@ -31,5 +31,5 @@ module.exports = {
     allFormat: 'glob',
     allValue: '*',
     refresh: true,
-    multi: true
+    multi: true,
 };

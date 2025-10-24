@@ -29,7 +29,7 @@ var overrideQuery = require('../fixtures/templates/override_query');
 test('Interval template has defaults', function t(assert) {
     var template = new Query('servers.*', {
         name: 'foo',
-        datasource: 'default'
+        datasource: 'default',
     });
     assert.deepEqual(template.generate(), simpleQuery);
     assert.end();
@@ -39,7 +39,7 @@ test('Query template requires query', function t(assert) {
     assert.throws(function catchError() {
         var template = new Query(null, {
             name: 'foo',
-            datasource: 'default'
+            datasource: 'default',
         });
         template.state.refresh = true;
         assert.fail();
@@ -59,7 +59,7 @@ test('Query template options default to empty objects', function t(assert) {
 test('Query template requires name', function t(assert) {
     assert.throws(function catchTypeError() {
         var template = new Query('servers.*', {
-            datasource: 'default'
+            datasource: 'default',
         });
         template.state.refresh = true;
         assert.fail();
@@ -70,7 +70,7 @@ test('Query template requires name', function t(assert) {
 test('Query template requires datasource', function t(assert) {
     assert.throws(function catchTypeError() {
         var template = new Query('servers.*', {
-            name: 'foo'
+            name: 'foo',
         });
         template.state.refresh = true;
         assert.fail();
@@ -81,7 +81,7 @@ test('Query template requires datasource', function t(assert) {
 test('Query template creates state', function t(assert) {
     var template = new Query('servers.*', {
         name: 'foo',
-        datasource: 'default'
+        datasource: 'default',
     });
     assert.deepEqual(template.generate(), simpleQuery);
     assert.end();
@@ -90,7 +90,7 @@ test('Query template creates state', function t(assert) {
 test('Query template state cannot be mutated after init', function t(assert) {
     var template = new Query('servers.*', {
         name: 'foo',
-        datasource: 'default'
+        datasource: 'default',
     });
     assert.deepEqual(template.generate(), simpleQuery);
 
@@ -109,7 +109,7 @@ test('Query template state overridden on init', function t(assert) {
         allFormat: 'glob',
         allValue: '*',
         refresh: true,
-        multi: true
+        multi: true,
     });
     assert.deepEqual(template.generate(), overrideQuery);
     assert.end();

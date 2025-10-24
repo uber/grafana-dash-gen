@@ -39,7 +39,7 @@ test('Text panel with overriden information', function t(assert) {
         span: 4,
         content: 'TEST',
         height: '100px',
-        transparent: true
+        transparent: true,
     });
     graph.state.id = overrideText.id;
 
@@ -55,7 +55,7 @@ test('Text can set title', function t(assert) {
     assert.end();
 });
 
-test('add graph to row and dashboard when passed', function t(assert){
+test('add graph to row and dashboard when passed', function t(assert) {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 
@@ -63,13 +63,13 @@ test('add graph to row and dashboard when passed', function t(assert){
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
-            }
+            },
         },
         dashboard: {
             addRow: function addRow() {
                 calledAddRow += 1;
-            }
-        }
+            },
+        },
     });
 
     assert.deepEqual(calledAddRow, 1);

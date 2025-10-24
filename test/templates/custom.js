@@ -25,8 +25,7 @@ var Custom = require('../../grafana/templates/custom');
 
 var simpleCustom = require('../fixtures/templates/simple_custom');
 var overrideCustom = require('../fixtures/templates/override_custom');
-var overrideCustomTextValue =
-    require('../fixtures/templates/override_custom_text_value');
+var overrideCustomTextValue = require('../fixtures/templates/override_custom_text_value');
 
 test('Custom template has defaults', function t(assert) {
     var template = new Custom();
@@ -40,7 +39,7 @@ test('Custom template creates state', function t(assert) {
     var template = new Custom({
         name: name,
         options: options,
-        arbitraryProperty: 'foo'
+        arbitraryProperty: 'foo',
     });
     assert.deepEqual(template.state, overrideCustom);
     assert.end();
@@ -52,7 +51,7 @@ test('Custom template generates state', function t(assert) {
     var template = new Custom({
         name: name,
         options: options,
-        arbitraryProperty: 'foo'
+        arbitraryProperty: 'foo',
     });
     assert.deepEqual(template.generate(), overrideCustom);
     assert.end();
@@ -64,7 +63,7 @@ test('Custom template can add options', function t(assert) {
     var template = new Custom({
         name: name,
         options: options,
-        arbitraryProperty: 'foo'
+        arbitraryProperty: 'foo',
     });
     assert.deepEqual(template.state, overrideCustom);
     assert.end();
@@ -74,12 +73,12 @@ test('Custom template can specify text and value', function t(assert) {
     var name = 'custom';
     var opt = {
         text: 'myText',
-        value: 'myValue'
+        value: 'myValue',
     };
     var template = new Custom({
         name: name,
         options: [opt],
-        arbitraryProperty: 'foo'
+        arbitraryProperty: 'foo',
     });
     assert.deepEqual(template.generate(), overrideCustomTextValue);
     assert.end();
@@ -91,76 +90,78 @@ test('Custom template overwrites default state', function t(assert) {
 
     var customTemplate = new Custom({
         includeAll: true,
-        arbitraryProperty: 'foo'
+        arbitraryProperty: 'foo',
     });
     assert.equal(customTemplate.state.includeAll, true);
     assert.equal(customTemplate.state.allValue, '');
     assert.deepEqual(customTemplate.state.current, {});
 
     var customWithAllValue = new Custom({
-      includeAll: true,
-      arbitraryProperty: 'foo',
-      allValue: 'grafana',
+        includeAll: true,
+        arbitraryProperty: 'foo',
+        allValue: 'grafana',
     });
     assert.equal(customWithAllValue.state.includeAll, true);
     assert.deepEqual(customWithAllValue.state.current, {});
-    assert.equal(customWithAllValue.state.allValue, 'grafana')
+    assert.equal(customWithAllValue.state.allValue, 'grafana');
 
     var allIsDefault = new Custom({
-      includeAll: true,
-      arbitraryProperty: 'foo',
-      options: [{ text: 'grafana', value: 'grafana' }]
+        includeAll: true,
+        arbitraryProperty: 'foo',
+        options: [{ text: 'grafana', value: 'grafana' }],
     });
     assert.equal(allIsDefault.state.includeAll, true);
-    assert.equal(allIsDefault.state.allValue, '')
+    assert.equal(allIsDefault.state.allValue, '');
     assert.deepEqual(allIsDefault.state.current, {});
 
     var firstIsDefault = new Custom({
-      arbitraryProperty: 'foo',
-      options: [{ text: 'grafana', value: 'grafana' }]
+        arbitraryProperty: 'foo',
+        options: [{ text: 'grafana', value: 'grafana' }],
     });
     assert.equal(firstIsDefault.state.includeAll, false);
-    assert.equal(firstIsDefault.state.allValue, '')
+    assert.equal(firstIsDefault.state.allValue, '');
     assert.equal(firstIsDefault.state.current, firstIsDefault.state.options[0]);
 
     assert.end();
 });
 
 test('Custom template supports custom default', function t(assert) {
-  const defaultOption = { text: 'dash-gen', value: 'dash-gen' }
-  var definedDefault = new Custom({
-    includeAll: true,
-    defaultValue: defaultOption.value,
-    options: [{ text: 'grafana', value: 'grafana' }, defaultOption]
-  });
-  assert.equal(definedDefault.state.includeAll, true);
-  assert.equal(definedDefault.state.allValue, '')
-  assert.equal(definedDefault.state.current, defaultOption);
+    const defaultOption = { text: 'dash-gen', value: 'dash-gen' };
+    var definedDefault = new Custom({
+        includeAll: true,
+        defaultValue: defaultOption.value,
+        options: [{ text: 'grafana', value: 'grafana' }, defaultOption],
+    });
+    assert.equal(definedDefault.state.includeAll, true);
+    assert.equal(definedDefault.state.allValue, '');
+    assert.equal(definedDefault.state.current, defaultOption);
 
-  assert.throws(
-    () => new Custom({
-      includeAll: true,
-      defaultValue: defaultOption.value,
-      options: [{ text: 'grafana', value: 'grafana' }]
-    }),
-    new SyntaxError("default value not found in options list"),
-  );
+    assert.throws(
+        () =>
+            new Custom({
+                includeAll: true,
+                defaultValue: defaultOption.value,
+                options: [{ text: 'grafana', value: 'grafana' }],
+            }),
+        new SyntaxError('default value not found in options list')
+    );
 
-  assert.throws(
-    () => new Custom({
-      includeAll: true,
-      defaultValue: defaultOption.value,
-    }),
-    new SyntaxError("cannot define default value without any options"),
-  );
+    assert.throws(
+        () =>
+            new Custom({
+                includeAll: true,
+                defaultValue: defaultOption.value,
+            }),
+        new SyntaxError('cannot define default value without any options')
+    );
 
-  assert.throws(
-    () => new Custom({
-      defaultValue: defaultOption.value,
-    }),
-    new SyntaxError("cannot define default value without any options"),
-  );
+    assert.throws(
+        () =>
+            new Custom({
+                defaultValue: defaultOption.value,
+            }),
+        new SyntaxError('cannot define default value without any options')
+    );
 
-  assert.end();
+    assert.end();
 });
-
