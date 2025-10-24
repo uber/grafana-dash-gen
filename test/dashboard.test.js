@@ -129,6 +129,7 @@ test('Dashboard can generate correct body', function () {
         },
     };
     dashboard.addRow(row);
+    // @ts-expect-error todo: incomplete mock
     simpleDashboard.rows = [rowData];
     var json = dashboard.generate();
 

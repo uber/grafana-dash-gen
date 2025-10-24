@@ -19,14 +19,15 @@
 // THE SOFTWARE.
 
 import generateGraphId = require('../id');
+import type { GrafanaGraphPanel } from '../grafana';
 
 class Graph {
     private _currentRefIndex: number;
-    state: any;
+    state: GrafanaGraphPanel;
     constructor(opts: any = {}) {
         this._currentRefIndex = 0;
 
-        const defaults = {
+        const defaults: GrafanaGraphPanel = {
             type: 'graph',
             id: generateGraphId(),
             renderer: 'flot',

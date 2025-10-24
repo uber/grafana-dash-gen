@@ -19,11 +19,12 @@
 // THE SOFTWARE.
 
 import generateGraphId = require('../id');
+import type { GrafanaSingleStatPanel } from '../grafana';
 
 class SingleStat {
-    state: any;
+    state: GrafanaSingleStatPanel;
     constructor(opts: any = {}) {
-        const defaults = {
+        const defaults: GrafanaSingleStatPanel = {
             id: generateGraphId(),
             title: 'single stat',
             targets: [],

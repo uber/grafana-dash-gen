@@ -1,10 +1,13 @@
+import type { GrafanaCondition } from '../grafana';
+
 class Condition {
-    private state: object;
+    private state: GrafanaCondition;
     private _evaluator: { params: any[]; type: string };
     private _operator: { type: string };
-    private _query: { params: any[] };
+    private _query: { params: string[] };
     private _reducer: { params: any[]; type: string };
     constructor(opts = {}) {
+        // @ts-expect-error todo: should fields be optional?
         this.state = {};
 
         this._evaluator = {

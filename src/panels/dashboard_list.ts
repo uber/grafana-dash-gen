@@ -19,9 +19,10 @@
 // THE SOFTWARE.
 
 import generateGraphId = require('../id');
+import type { GrafanaDashboardListPanel } from '../grafana';
 
 class DashboardList {
-    state: any;
+    state: GrafanaDashboardListPanel;
     constructor(opts: any = {}) {
         this.state = {
             title: 'dashboard list',

@@ -19,9 +19,10 @@
 // THE SOFTWARE.
 
 import xtend = require('xtend');
+import type { GrafanaRow } from './grafana';
 
 class Row {
-    state: any;
+    state: GrafanaRow;
     panels: any[];
     constructor(opts) {
         opts = opts || {};

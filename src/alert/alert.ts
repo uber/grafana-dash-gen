@@ -1,9 +1,11 @@
+import type { GrafanaAlert, GrafanaCondition } from '../grafana';
+
 class Alert {
-    private conditions: any[];
+    private conditions: GrafanaCondition[];
 
-    private state: any;
+    private state: GrafanaAlert;
 
-    constructor(opts: any = {}) {
+    constructor(opts = {}) {
         this.conditions = [];
 
         this.state = {

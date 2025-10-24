@@ -19,9 +19,10 @@
 // THE SOFTWARE.
 
 import errors = require('../errors');
+import type { GrafanaGraphiteAnnotation } from '../grafana';
 
 class Graphite {
-    private state: any;
+    state: GrafanaGraphiteAnnotation;
     constructor(opts: any = {}) {
         if (!opts.name) {
             throw errors.UnfulfilledRequirement.create(

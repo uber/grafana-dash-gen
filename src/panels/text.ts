@@ -19,11 +19,12 @@
 // THE SOFTWARE.
 
 import generateGraphId = require('../id');
+import type { GrafanaTextPanel } from '../grafana';
 
 class Text {
-    state: any;
+    state: GrafanaTextPanel;
     constructor(opts: any = {}) {
-        const defaults = {
+        const defaults: GrafanaTextPanel = {
             title: '',
             id: generateGraphId(),
             error: false,

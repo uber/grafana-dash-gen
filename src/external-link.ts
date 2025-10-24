@@ -18,10 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import type { GrafanaExternalLink } from './grafana';
+
 class ExternalLink {
-    private state: any;
+    private state: GrafanaExternalLink;
     constructor(opts = {}) {
-        const defaults = {
+        const defaults: GrafanaExternalLink = {
             title: '',
             tooltip: '',
             url: '',
