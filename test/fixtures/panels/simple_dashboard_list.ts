@@ -18,15 +18,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import type { GrafanaDashboardListPanel } from '../../../src/grafana';
 
-module.exports = {
-    name: 'name',
-    datasource: 'graphite',
-    showLine: true,
-    iconColor: 'rgb(255, 234, 0)',
-    lineColor: 'rgba(165, 161, 70, 0.59)',
-    iconSize: 10,
-    enable: true,
-    target: 'target',
+const simpleDashboardListPanel: GrafanaDashboardListPanel = {
+    title: 'dashboard list',
+    error: false,
+    span: 3,
+    editable: true,
+    type: 'dashlist',
+    isNew: true,
+    id: 7,
+    mode: 'search',
+    query: 'dashboard list',
+    limit: 10,
+    tags: [],
+    links: [],
 };
+
+export = simpleDashboardListPanel;

@@ -18,31 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import type { GrafanaRow } from '../../src/grafana';
 
-module.exports = {
-    name: 'custom',
-    type: 'custom',
-    options: [
-        {
-            text: 'a',
-            value: 'a',
-        },
-        {
-            text: 'b',
-            value: 'b',
-        },
-    ],
-    datasource: null,
-    refresh: 0,
-    refresh_on_load: false,
-    includeAll: false,
-    allValue: '',
-    allFormat: 'glob',
-    query: 'a,b',
-    current: {
-        text: 'a',
-        value: 'a',
-    },
-    arbitraryProperty: 'foo',
+const simpleRow: GrafanaRow = {
+    title: 'New row',
+    showTitle: true,
+    height: '250px',
+    editable: true,
+    collapse: false,
+    panels: [],
 };
+
+export = simpleRow;

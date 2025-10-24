@@ -27,7 +27,7 @@ import xtend = require('xtend');
  * `cookie` - Key/value pair for auth, defaults to"auth-openid="
  * `headers` - Map of header keys/values, defaults to no headers
  */
-let configurations = {
+let configurations: Config = {
     user: 'guest',
     group: 'guest',
     url: 'https://your.graphite.url.com/elasticsearch/grafana-dash/dashboard/',
@@ -35,11 +35,19 @@ let configurations = {
     headers: {},
 };
 
-function configure(opts) {
+type Config = {
+    user: string;
+    group: string;
+    url: string;
+    cookie: string;
+    headers: Record<string, string>;
+};
+
+function configure(opts: Partial<Config> = {}) {
     configurations = xtend(configurations, opts);
 }
 
-function getConfig() {
+function getConfig(): Config {
     return configurations;
 }
 

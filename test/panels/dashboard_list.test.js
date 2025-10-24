@@ -22,8 +22,8 @@
 
 var DashboardList = require('../../src/panels/dashboard_list');
 
-var dashboardList = require('../fixtures/panels/simple_dashboard_list.js');
-var overrideDashboardList = require('../fixtures/panels/override_dashboard_list.js');
+var dashboardList = require('../fixtures/panels/simple_dashboard_list');
+var overrideDashboardList = require('../fixtures/panels/override_dashboard_list');
 
 test('simple DashboardList panel', function () {
     var graph = new DashboardList();
@@ -55,12 +55,14 @@ test('add graph to row and dashboard when passed', function () {
     var calledAddRow = 0;
 
     new DashboardList({
+        // @ts-expect-error incomplete mock
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
             },
         },
 
+        // @ts-expect-error incomplete mock
         dashboard: {
             addRow: function addRow() {
                 calledAddRow += 1;

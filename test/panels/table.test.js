@@ -22,8 +22,8 @@
 
 var Table = require('../../src/panels/table');
 
-var simpleTable = require('../fixtures/panels/simple_table.js');
-var overrideTable = require('../fixtures/panels/override_table.js');
+var simpleTable = require('../fixtures/panels/simple_table');
+var overrideTable = require('../fixtures/panels/override_table');
 
 test('simple table', function () {
     var table = new Table();
@@ -49,12 +49,14 @@ test('add graph to row and dashboard when passed', function () {
     var calledAddRow = 0;
 
     new Table({
+        // @ts-expect-error incomplete mock
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
             },
         },
 
+        // @ts-expect-error incomplete mock
         dashboard: {
             addRow: function addRow() {
                 calledAddRow += 1;

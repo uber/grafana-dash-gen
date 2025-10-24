@@ -30,3 +30,4 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
     - run: npm run lint
+    - run: npm run typecheck

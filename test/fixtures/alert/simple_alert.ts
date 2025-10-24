@@ -1,4 +1,6 @@
-module.exports = {
+import { GrafanaAlert } from '../../../src/grafana';
+
+const simpleAlert: GrafanaAlert = {
     name: 'Panel Title alert',
     for: '15m',
     frequency: '5m',
@@ -10,3 +12,5 @@ module.exports = {
     alertRuleTags: {},
     handler: 1,
 };
+
+export = simpleAlert;

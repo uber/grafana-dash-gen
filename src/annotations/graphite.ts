@@ -19,10 +19,11 @@
 // THE SOFTWARE.
 
 import errors = require('../errors');
+import type { GrafanaGraphiteAnnotation } from '../grafana';
 
 class Graphite {
-    private state: any;
-    constructor(opts: any = {}) {
+    state: GrafanaGraphiteAnnotation;
+    constructor(opts: Partial<GrafanaGraphiteAnnotation> = {}) {
         if (!opts.name) {
             throw errors.UnfulfilledRequirement.create(
                 '{component} missing requirement: {unfulfilledArg}',
@@ -43,7 +44,7 @@ class Graphite {
             );
         }
 
-        const defaults = {
+        const defaults: GrafanaGraphiteAnnotation = {
             name: 'no name',
             datasource: 'graphite',
             showLine: true,

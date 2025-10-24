@@ -22,8 +22,8 @@
 
 var SingleStat = require('../../src/panels/singlestat');
 
-var simpleSingleStat = require('../fixtures/panels/simple_singlestat.js');
-var overrideSingleStat = require('../fixtures/panels/override_singlestat.js');
+var simpleSingleStat = require('../fixtures/panels/simple_singlestat');
+var overrideSingleStat = require('../fixtures/panels/override_singlestat');
 
 test('simple SingleStat panel', function () {
     var graph = new SingleStat();
@@ -57,12 +57,14 @@ test('add graph to row and dashboard when passed', function () {
     var calledAddRow = 0;
 
     new SingleStat({
+        // @ts-expect-error incomplete mock
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
             },
         },
 
+        // @ts-expect-error incomplete mock
         dashboard: {
             addRow: function addRow() {
                 calledAddRow += 1;

@@ -18,18 +18,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import { GrafanaTextPanel } from '../../../src/grafana';
 
-module.exports = {
-    type: 'query',
-    query: 'stats.*',
-    name: 'template',
-    datasource: 'datasource',
-    options: [],
-    current: {},
-    includeAll: false,
-    allFormat: 'glob',
-    allValue: '*',
-    refresh: true,
-    multi: true,
+const simpleTextPanel: GrafanaTextPanel = {
+    title: '',
+    error: false,
+    span: 12,
+    editable: true,
+    type: 'text',
+    id: 2,
+    mode: 'markdown',
+    content: '',
+    style: {},
+    links: [],
 };
+
+export = simpleTextPanel;

@@ -65,6 +65,7 @@ const dashboard = new Dashboard({
 test('Publish dashboard - requires dashboard', async () => {
     await expect(async () => {
         config.configure();
+        // @ts-expect-error intentionally invalid arguments
         return publish();
     }).rejects.toThrow('grafana.publish missing requirement: dashboard');
 });
@@ -72,6 +73,7 @@ test('Publish dashboard - requires dashboard', async () => {
 test('Publish dashboard - invalid state', async () => {
     await expect(async () => {
         config.configure();
+        // @ts-expect-error intentionally invalid arguments
         return publish({});
     }).rejects.toThrow(
         'grafana.Dashboard state is invalid: state.title undefined'
@@ -82,6 +84,7 @@ test('Publish dashboard - invalid title', async () => {
     await expect(async () => {
         config.configure();
         return publish({
+            // @ts-expect-error intentionally invalid arguments
             state: {},
         });
     }).rejects.toThrow(
@@ -96,6 +99,7 @@ test('Publish dashboard - misconfigured url', async () => {
             url: null,
         });
         return publish({
+            // @ts-expect-error incomplete mock
             state: {
                 title: title,
             },
@@ -112,6 +116,7 @@ test('Publish dashboard - misconfigured cookie', async () => {
             url: url,
         });
         return publish({
+            // @ts-expect-error incomplete mock
             state: {
                 title: title,
             },
@@ -270,6 +275,7 @@ test('Publish dashboard - success w/ custom timeout', async function () {
 test('Publish dashboard - passes headers', async function () {
     config.configure({
         cookie: cookie,
+        // @ts-expect-error bad mock
         headers: headers,
         url: url,
     });

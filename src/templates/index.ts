@@ -21,7 +21,9 @@
 import Custom = require('./custom');
 import Query = require('./query');
 
-export = {
+const templates = {
     Custom: Custom,
     Query: Query,
 };
+
+export = templates;

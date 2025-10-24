@@ -22,8 +22,8 @@
 
 var Row = require('../src/row');
 
-var simpleRow = require('./fixtures/simple_row.js');
-var overrideRow = require('./fixtures/override_row.js');
+var simpleRow = require('./fixtures/simple_row');
+var overrideRow = require('./fixtures/override_row');
 var panelData = {
     foo: 'foo',
     bar: 'bar',
@@ -46,6 +46,7 @@ test('Row with overriden information', function () {
         height: '1000px',
         editable: false,
         collapse: true,
+        // @ts-expect-error incomplete mock
         panels: [panel1],
     });
     expect(row.generate()).toEqual(overrideRow);
@@ -63,6 +64,7 @@ test('Add panels to row when passed', function () {
         baz: 2,
     };
     var row = new Row({
+        // @ts-expect-error incomplete mock
         panels: [panel1, panel2],
     });
 
@@ -87,7 +89,9 @@ test('Row can add panels', function () {
         baz: 2,
     };
 
+    // @ts-expect-error bad mock type
     row.addPanel(panel1);
+    // @ts-expect-error bad mock type
     row.addPanel(panel2);
     expect(row.panels).toEqual([panel1, panel2]);
 });
@@ -103,6 +107,7 @@ test('Row generates state', function () {
         height: '1000px',
         editable: false,
         collapse: true,
+        // @ts-expect-error incomplete mock
         panels: [panel],
     });
 

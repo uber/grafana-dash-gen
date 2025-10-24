@@ -24,11 +24,14 @@ import _ = require('underscore');
 import util = require('util');
 
 class Target {
-    source: any;
-    private func: any;
+    source: string | { toString(): string };
+    func?: [string, ...args: (string | number | boolean)[]];
 
     constructor(template: string, ...substitutions: any[]);
-    constructor(source: Target, func: (string | number | boolean)[]);
+    constructor(
+        source: { toString(): string },
+        func: (string | number | boolean)[]
+    );
 
     constructor() {
         if (arguments.length === 0) {
@@ -50,7 +53,7 @@ class Target {
     static PRIMITIVES: typeof PRIMITIVES;
     static COLORS: typeof COLORS;
 
-    toString() {
+    toString(): string {
         if (this.func) {
             const args = _.reduce(
                 this.func.slice(1),
@@ -66,7 +69,7 @@ class Target {
             );
             return this.func[0] + '(' + this.source.toString() + args + ')';
         } else {
-            return this.source;
+            return this.source as string;
         }
     }
 
@@ -198,7 +201,7 @@ const PRIMITIVES = {
     transformNull: 0,
     useSeriesAbove: 3,
     weightedAverage: 2,
-};
+} as const;
 Target.PRIMITIVES = PRIMITIVES;
 
 interface Target {
@@ -319,9 +322,22 @@ const COLORS = [
     'purple',
     'pink',
     'aqua',
-];
+] as const;
 
 Target.COLORS = COLORS;
+
+interface Target {
+    orange(): Target;
+    blue(): Target;
+    green(): Target;
+    red(): Target;
+    white(): Target;
+    yellow(): Target;
+    brown(): Target;
+    purple(): Target;
+    pink(): Target;
+    aqua(): Target;
+}
 
 _.each(Target.COLORS, function each(color) {
     Target.prototype[color] = function t() {

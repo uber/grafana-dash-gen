@@ -21,8 +21,12 @@
 import fetch = require('node-fetch');
 import config = require('./config');
 import errors = require('./errors');
+import type Dashboard from './dashboard';
 
-function publish(dashboard, opts: any = {}) {
+function publish(
+    dashboard: Dashboard,
+    opts: Partial<{ timeout: number }> = {}
+) {
     if (!dashboard) {
         throw errors.UnfulfilledRequirement.create(
             '{component} missing requirement: {unfulfilledArg}',

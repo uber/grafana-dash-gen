@@ -21,12 +21,30 @@
 import Templates = require('./templates');
 import Annotations = require('./annotations');
 import ExternalLink = require('./external-link');
+import type {
+    GrafanaCustomTemplate,
+    GrafanaDashboard,
+    GrafanaGraphiteAnnotation,
+} from './grafana';
+import type Row from './row';
+import type Graphite from './annotations/graphite';
+import type Query from './templates/query';
+import type Custom from './templates/custom';
+
+type DashboardOptions = Partial<
+    Omit<GrafanaDashboard, 'rows' | 'templating' | 'annotations'> & {
+        rows: Row[];
+        templating: GrafanaCustomTemplate[];
+        annotations: GrafanaGraphiteAnnotation[];
+    }
+>;
 
 class Dashboard {
-    state: any;
-    rows: any[];
-    links: any[];
-    constructor(opts = {}) {
+    state: GrafanaDashboard;
+    rows: Row[];
+    links: ExternalLink[];
+    constructor(opts: DashboardOptions = {}) {
+        // @ts-expect-error initialized in init calls below
         this.state = {};
         this._init(opts);
         this._initRows(opts);
@@ -35,7 +53,7 @@ class Dashboard {
         this._initAnnotations(opts);
     }
 
-    _init(opts) {
+    _init(opts: DashboardOptions) {
         this.state.id = opts.id || null;
         this.state.title = opts.title || 'Generated Grafana Dashboard';
         this.state.originalTitle = opts.originalTitle || 'Generated Dashboard';
@@ -54,7 +72,7 @@ class Dashboard {
         }
     }
 
-    _initRows(opts) {
+    _initRows(opts: DashboardOptions) {
         this.rows = [];
         this.state.rows = [];
 
@@ -65,12 +83,12 @@ class Dashboard {
         }
     }
 
-    _initLinks(opts) {
+    _initLinks(opts: DashboardOptions) {
         this.links = opts.links || [];
         this.state.links = [];
     }
 
-    _initTemplating(opts) {
+    _initTemplating(opts: DashboardOptions) {
         this.state.templating = {
             list: [],
             enable: true,
@@ -78,13 +96,12 @@ class Dashboard {
 
         if (opts.templating) {
             opts.templating.forEach((template) => {
-                template = new Templates.Custom(template);
-                this.addTemplate(template);
+                this.addTemplate(new Templates.Custom(template));
             });
         }
     }
 
-    _initAnnotations(opts) {
+    _initAnnotations(opts: DashboardOptions) {
         this.state.annotations = {
             list: [],
             enable: true,
@@ -92,21 +109,20 @@ class Dashboard {
 
         if (opts.annotations) {
             opts.annotations.forEach((annotation) => {
-                annotation = new Annotations.Graphite(annotation);
-                this.addAnnotation(annotation);
+                this.addAnnotation(new Annotations.Graphite(annotation));
             });
         }
     }
 
-    addRow(row) {
+    addRow(row: Row) {
         this.rows.push(row);
     }
 
-    addTemplate(template) {
+    addTemplate(template: Custom | Query) {
         this.state.templating.list.push(template.generate());
     }
 
-    addAnnotation(annotation) {
+    addAnnotation(annotation: Graphite) {
         this.state.annotations.list.push(annotation.generate());
     }
 

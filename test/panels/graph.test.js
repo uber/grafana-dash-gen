@@ -23,10 +23,10 @@
 const Graph = require('../../src/panels/graph');
 
 const getAlert = require('../fixtures/alert/alert.mock').getAlert;
-const simpleGraph = require('../fixtures/panels/simple_graph.js');
-const overrideGraph = require('../fixtures/panels/override_graph.js');
-const simpleGraphWithAlert = require('../fixtures/panels/graph_with_alert.js');
-const alertWithCondition = require('../fixtures/alert/alert_with_condition.js');
+const simpleGraph = require('../fixtures/panels/simple_graph');
+const overrideGraph = require('../fixtures/panels/override_graph');
+const simpleGraphWithAlert = require('../fixtures/panels/graph_with_alert');
+const alertWithCondition = require('../fixtures/alert/alert_with_condition');
 
 test('simple graph', () => {
     const graph = new Graph();
@@ -53,12 +53,14 @@ test('add graph to row and dashboard when passed', () => {
     let calledAddRow = 0;
 
     new Graph({
+        // @ts-expect-error incomplete mock
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
             },
         },
 
+        // @ts-expect-error incomplete mock
         dashboard: {
             addRow: function addRow() {
                 calledAddRow += 1;

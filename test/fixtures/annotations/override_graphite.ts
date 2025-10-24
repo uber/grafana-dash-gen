@@ -18,17 +18,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
-    title: 'My Row',
-    height: '1000px',
-    editable: false,
-    showTitle: true,
-    collapse: true,
-    panels: [
-        {
-            foo: 'foo',
-            bar: 'bar',
-            baz: 1,
-        },
-    ],
+import type { GrafanaGraphiteAnnotation } from '../../../src/grafana';
+
+const overrideGraphiteAnnotation: GrafanaGraphiteAnnotation = {
+    name: 'custom name',
+    datasource: 'custom datasource',
+    showLine: false,
+    iconColor: 'rgb(255, 0, 0)',
+    lineColor: 'rgb(0, 0, 255)',
+    iconSize: 5,
+    enable: false,
+    target: 'custom.target',
+    arbitraryProperty: 'foo',
 };
+
+export = overrideGraphiteAnnotation;

@@ -24,10 +24,16 @@ import Text = require('./text');
 import Table = require('./table');
 import DashboardList = require('./dashboard_list');
 
-export = {
+const panels = {
     Graph: Graph,
     SingleStat: SingleStat,
     Text: Text,
     Table: Table,
     DashboardList: DashboardList,
 };
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace panels {
+    export type Panel = Graph | SingleStat | Text | Table | DashboardList;
+}
+export = panels;

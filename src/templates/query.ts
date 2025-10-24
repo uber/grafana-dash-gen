@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import type { GrafanaQueryTemplate } from '../grafana';
+
 /**
  * Provide a query to populate template variable.
  *
@@ -38,13 +40,14 @@
  * @see http://docs.grafana.org/reference/templating/
  */
 class Query {
-    state: any;
+    state: GrafanaQueryTemplate;
     private _required: string[];
     private _overridable: string[];
-    constructor(query: any, opts: any = {}) {
+    constructor(query: string, opts: Partial<GrafanaQueryTemplate> = {}) {
         this.state = {
             query: query,
-            name: opts.name,
+            // todo: added default
+            name: opts.name || '',
             datasource: opts.datasource,
             type: 'query',
             includeAll: true,

@@ -18,54 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import type { GrafanaDashboard } from '../../src/grafana';
 
-module.exports = {
-    cacheTimeout: null,
-    colorBackground: false,
-    colorValue: false,
-    colors: [
-        'rgba(71, 212, 59, 0.4)',
-        'rgba(245, 150, 40, 0.73)',
-        'rgba(225, 40, 40, 0.59)',
-    ],
+const simpleDashboard: GrafanaDashboard = {
+    id: null,
+    title: 'Generated Grafana Dashboard',
+    originalTitle: 'Generated Dashboard',
+    tags: [],
+    style: 'dark',
+    timezone: 'browser',
     editable: true,
-    error: false,
-    format: 'none',
-    id: 2,
-    interval: null,
+    hideControls: false,
+    sharedCrosshair: false,
+    refresh: false,
+    schemaVersion: 6,
+    hideAllLegends: false,
+    rows: [],
+    annotations: { list: [], enable: true },
+    templating: { list: [], enable: true },
+    time: null,
     links: [],
-    maxDataPoints: 100,
-    nullPointMode: 'connected',
-    nullText: null,
-    postfix: '',
-    postfixFontSize: '50%',
-    prefix: '',
-    prefixFontSize: '50%',
-    span: 4,
-    sparkline: {
-        fillColor: 'rgba(134, 178, 214, 0.41)',
-        full: true,
-        lineColor: 'rgb(31, 193, 58)',
-        show: true,
-    },
-    targets: [
-        {
-            target: 'target',
-        },
-    ],
-    thresholds: '',
-    title: 'custom title',
-    type: 'singlestat',
-    valueFontSize: '80%',
-    valueMaps: [
-        {
-            op: '=',
-            text: 'N/A',
-            value: 'null',
-        },
-    ],
-    valueName: 'current',
-    datasource: 'M3',
-    arbitraryProperty: 'foo',
 };
+
+export = simpleDashboard;

@@ -18,14 +18,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
-    title: 'Uber Home Page',
-    tooltip: '',
-    url: 'www.uber.com',
-    tags: [],
-    icon: 'external link',
-    targetBlank: true,
-    type: 'link',
-    includeVars: false,
-    keepTime: false,
+import type { GrafanaCustomTemplate } from '../../../src/grafana';
+
+const overrideCustomTextValue: GrafanaCustomTemplate = {
+    name: 'custom',
+    type: 'custom',
+    options: [
+        {
+            text: 'myText',
+            value: 'myValue',
+        },
+    ],
+    datasource: null,
+    refresh: 0,
+    refresh_on_load: false,
+    includeAll: false,
+    allValue: '',
+    allFormat: 'glob',
+    query: 'myValue',
+    current: {
+        text: 'myText',
+        value: 'myValue',
+    },
+    arbitraryProperty: 'foo',
 };
+
+export = overrideCustomTextValue;

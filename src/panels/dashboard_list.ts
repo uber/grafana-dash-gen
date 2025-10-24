@@ -19,10 +19,20 @@
 // THE SOFTWARE.
 
 import generateGraphId = require('../id');
+import type { GrafanaDashboardListPanel } from '../grafana';
+import type Row from '../row';
+import type Dashboard from '../dashboard';
+
+type DashboardListPanelOptions = Partial<
+    GrafanaDashboardListPanel & {
+        row: Row;
+        dashboard: Dashboard;
+    }
+>;
 
 class DashboardList {
-    state: any;
-    constructor(opts: any = {}) {
+    state: GrafanaDashboardListPanel;
+    constructor(opts: DashboardListPanelOptions = {}) {
         this.state = {
             title: 'dashboard list',
             error: false,
@@ -50,7 +60,7 @@ class DashboardList {
         }
     }
 
-    setTitle(title) {
+    setTitle(title: string) {
         this.state.title = title;
     }
 

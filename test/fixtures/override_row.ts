@@ -18,16 +18,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
-    name: 'template',
-    type: 'custom',
-    options: [],
-    datasource: null,
-    refresh: 0,
-    refresh_on_load: false,
-    includeAll: false,
-    allValue: '',
-    allFormat: 'glob',
-    query: null,
-    current: {},
+import { GrafanaRow } from '../../src/grafana';
+
+const overrideRow: GrafanaRow = {
+    title: 'My Row',
+    height: '1000px',
+    editable: false,
+    showTitle: true,
+    collapse: true,
+    panels: [
+        // @ts-expect-error todo: unexpected type
+        {
+            foo: 'foo',
+            bar: 'bar',
+            baz: 1,
+        },
+    ],
 };
+
+export = overrideRow;

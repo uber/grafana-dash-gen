@@ -135,6 +135,7 @@ test('Target helper-method - summarize15min', function () {
     var expected = 'summarize(path.to.metric, "15min")';
     var target = new Target(arg).summarize15min().toString();
     expect(target).toBe(expected);
+    // @ts-expect-error todo: useless test as it is always to pass
     expect(target.hide).toBe(undefined);
 });
 

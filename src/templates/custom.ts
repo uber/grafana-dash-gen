@@ -18,12 +18,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import type { GrafanaCustomTemplate } from '../grafana';
+
 const DEFAULT_VARIABLE_ALL = '$__all';
 
 class Custom {
-    state: any;
+    state: GrafanaCustomTemplate;
     private defaultValue: string;
-    constructor(opts = {}) {
+    constructor(opts: Partial<GrafanaCustomTemplate> = {}) {
         this.state = {
             allFormat: 'glob',
             current: {},

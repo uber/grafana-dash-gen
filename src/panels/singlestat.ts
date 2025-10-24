@@ -19,11 +19,21 @@
 // THE SOFTWARE.
 
 import generateGraphId = require('../id');
+import type { GrafanaSingleStatPanel } from '../grafana';
+import type Row from '../row';
+import type Dashboard from '../dashboard';
+
+type SingleStatOptions = Partial<
+    GrafanaSingleStatPanel & {
+        row: Row;
+        dashboard: Dashboard;
+    }
+>;
 
 class SingleStat {
-    state: any;
-    constructor(opts: any = {}) {
-        const defaults = {
+    state: GrafanaSingleStatPanel;
+    constructor(opts: SingleStatOptions = {}) {
+        const defaults: GrafanaSingleStatPanel = {
             id: generateGraphId(),
             title: 'single stat',
             targets: [],
@@ -92,7 +102,7 @@ class SingleStat {
         return this.state;
     }
 
-    setTitle(title) {
+    setTitle(title: string) {
         this.state.title = title;
     }
 
