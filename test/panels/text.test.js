@@ -20,7 +20,7 @@
 
 'use strict';
 
-var Text = require('../../grafana/panels/text');
+var Text = require('../../src/panels/text');
 
 var simpleText = require('../fixtures/panels/simple_text.js');
 var overrideText = require('../fixtures/panels/override_text.js');

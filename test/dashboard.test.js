@@ -20,9 +20,9 @@
 
 'use strict';
 
-var Dashboard = require('../grafana/dashboard');
-var ExternalLink = require('../grafana/external-link');
-require('../grafana/panels'); // for coverage
+var Dashboard = require('../src/dashboard');
+var ExternalLink = require('../src/external-link');
+require('../src/panels'); // for coverage
 
 var simpleDashboard = require('./fixtures/simple_dashboard');
 var overrideDashboard = require('./fixtures/override_dashboard');

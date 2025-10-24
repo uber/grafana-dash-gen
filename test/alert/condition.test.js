@@ -1,4 +1,4 @@
-const Condition = require('../../grafana/alert/condition');
+const Condition = require('../../src/alert/condition');
 
 test('condition .withEvaluator', () => {
     const condition = new Condition().withEvaluator(2, 'gt').generate();

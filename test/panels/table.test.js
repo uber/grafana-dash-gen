@@ -20,7 +20,7 @@
 
 'use strict';
 
-var Table = require('../../grafana/panels/table');
+var Table = require('../../src/panels/table');
 
 var simpleTable = require('../fixtures/panels/simple_table.js');
 var overrideTable = require('../fixtures/panels/override_table.js');

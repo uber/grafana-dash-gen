@@ -20,7 +20,7 @@
 
 'use strict';
 
-var Graphite = require('../../grafana/annotations/graphite');
+var Graphite = require('../../src/annotations/graphite');
 
 var simpleGraphite = require('../fixtures/annotations/simple_graphite');
 var overrideGraphite = require('../fixtures/annotations/override_graphite');

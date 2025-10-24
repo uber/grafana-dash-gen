@@ -1,5 +1,5 @@
-const Alert = require('../../grafana/alert/alert');
-const Condition = require('../../grafana/alert/condition');
+const Alert = require('../../src/alert/alert');
+const Condition = require('../../src/alert/condition');
 const simpleAlert = require('../fixtures/alert/simple_alert');
 const alertWithCondition = require('../fixtures/alert/alert_with_condition');
 

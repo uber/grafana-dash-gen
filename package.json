@@ -2,13 +2,17 @@
   "name": "grafana-dash-gen",
   "version": "4.0.2",
   "description": "A grafana dashboard generator",
-  "main": "index.js",
+  "main": "grafana/index.js",
+  "types": "grafana/index.d.ts",
   "scripts": {
     "fast-test": "jest",
     "test-cover": "jest --coverage",
     "view-cover": "rm -rf ./coverage && npm run test-cover && open ./coverage/index.html",
     "test": "npm run fast-test && npm run test-cover",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -32,6 +36,11 @@
     "@babel/preset-env": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@eslint/js": "^9.38.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.9.1",
+    "@types/node-fetch": "^2.6.13",
+    "@types/underscore": "^1.13.0",
+    "@types/xtend": "^4.0.6",
     "babel-jest": "^30.2.0",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
@@ -40,6 +49,7 @@
     "jest": "^30.2.0",
     "nock": "^13.5.6",
     "prettier": "3.6.2",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2"
   },
   "files": [
@@ -49,6 +59,7 @@
     "README.md",
     "example.js",
     "grafana",
+    "src",
     "index.js",
     "package.json"
   ],

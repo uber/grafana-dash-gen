@@ -20,7 +20,7 @@
 
 'use strict';
 
-var Custom = require('../../grafana/templates/custom');
+var Custom = require('../../src/templates/custom');
 
 var simpleCustom = require('../fixtures/templates/simple_custom');
 var overrideCustom = require('../fixtures/templates/override_custom');

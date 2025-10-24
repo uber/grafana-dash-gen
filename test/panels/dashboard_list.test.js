@@ -20,7 +20,7 @@
 
 'use strict';
 
-var DashboardList = require('../../grafana/panels/dashboard_list');
+var DashboardList = require('../../src/panels/dashboard_list');
 
 var dashboardList = require('../fixtures/panels/simple_dashboard_list.js');
 var overrideDashboardList = require('../fixtures/panels/override_dashboard_list.js');

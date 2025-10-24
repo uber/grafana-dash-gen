@@ -20,7 +20,7 @@
 
 'use strict';
 
-var SingleStat = require('../../grafana/panels/singlestat');
+var SingleStat = require('../../src/panels/singlestat');
 
 var simpleSingleStat = require('../fixtures/panels/simple_singlestat.js');
 var overrideSingleStat = require('../fixtures/panels/override_singlestat.js');

@@ -20,7 +20,7 @@
 
 'use strict';
 
-var config = require('../grafana/config');
+var config = require('../src/config');
 
 test('config extends default configuration', function () {
     var foo = 'foo';

@@ -21,7 +21,7 @@
 'use strict';
 
 var util = require('util');
-var Target = require('../grafana/target');
+var Target = require('../src/target');
 
 test('Target throws exception on invalid invocation', function () {
     expect(function shouldThrow() {
