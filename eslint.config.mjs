@@ -26,6 +26,7 @@ export default defineConfig([
         rules: {
             '@typescript-eslint/no-require-imports': 'off',
             '@typescript-eslint/no-this-alias': 'off',
+            '@typescript-eslint/no-explicit-any': 'off',
         },
     },
 ]);
