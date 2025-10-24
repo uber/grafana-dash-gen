@@ -22,43 +22,42 @@
 
 var generateGraphId = require('../id');
 
-function DashboardList(opts) {
-    opts = opts || {};
-    var self = this;
+class DashboardList {
+    constructor(opts = {}) {
+        this.state = {
+            title: 'dashboard list',
+            error: false,
+            span: 3,
+            editable: true,
+            type: 'dashlist',
+            isNew: true,
+            id: generateGraphId(),
+            mode: 'search',
+            query: 'dashboard list',
+            limit: 10,
+            tags: [],
+            links: [],
+        };
 
-    this.state = {
-        title: 'dashboard list',
-        error: false,
-        span: 3,
-        editable: true,
-        type: 'dashlist',
-        isNew: true,
-        id: generateGraphId(),
-        mode: 'search',
-        query: 'dashboard list',
-        limit: 10,
-        tags: [],
-        links: [],
-    };
+        // Overwrite defaults with custom values
+        Object.keys(opts).forEach((opt) => {
+            this.state[opt] = opts[opt];
+        });
 
-    // Overwrite defaults with custom values
-    Object.keys(opts).forEach(function eachOpt(opt) {
-        self.state[opt] = opts[opt];
-    });
+        // finally add to row/dashboard if given
+        if (opts.row && opts.dashboard) {
+            opts.row.addPanel(this);
+            opts.dashboard.addRow(opts.row);
+        }
+    }
 
-    // finally add to row/dashboard if given
-    if (opts.row && opts.dashboard) {
-        opts.row.addPanel(this);
-        opts.dashboard.addRow(opts.row);
+    setTitle(title) {
+        this.state.title = title;
+    }
+
+    generate() {
+        return this.state;
     }
 }
-
-DashboardList.prototype.setTitle = function setTitle(title) {
-    this.state.title = title;
-};
-
-DashboardList.prototype.generate = function generate() {
-    return this.state;
-};
 
 module.exports = DashboardList;

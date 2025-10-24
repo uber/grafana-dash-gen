@@ -22,41 +22,36 @@
 
 var xtend = require('xtend');
 
-function Row(opts) {
-    opts = opts || {};
-    var self = this;
+class Row {
+    constructor(opts) {
+        opts = opts || {};
+        var state = {
+            title: 'New row',
+            height: '250px',
+            editable: true,
+            collapse: false,
+            panels: [],
+            showTitle: true,
+        };
 
-    var state = {
-        title: 'New row',
-        height: '250px',
-        editable: true,
-        collapse: false,
-        panels: [],
-        showTitle: true,
-    };
+        this.state = xtend(state, opts);
+        this.panels = [];
 
-    this.state = xtend(state, opts);
-    this.panels = [];
+        if (opts.panels) {
+            opts.panels.forEach((panel) => {
+                this.addPanel(panel);
+            });
+        }
+    }
 
-    if (opts.panels) {
-        opts.panels.forEach(function addP(panel) {
-            self.addPanel(panel);
-        });
+    generate() {
+        this.state.panels = this.panels.map((panel) => panel.generate());
+        return this.state;
+    }
+
+    addPanel(panel) {
+        this.panels.push(panel);
     }
 }
-
-Row.prototype.generate = function generate() {
-    var generatedJson = [];
-    this.panels.forEach(function generatePanelJson(panel) {
-        generatedJson.push(panel.generate());
-    });
-
-    this.state.panels = generatedJson;
-    return this.state;
-};
-
-Row.prototype.addPanel = function addPanel(panel) {
-    this.panels.push(panel);
-};
 
 module.exports = Row;

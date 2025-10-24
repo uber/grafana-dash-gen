@@ -22,96 +22,100 @@
 
 const DEFAULT_VARIABLE_ALL = '$__all';
 
-function Custom(opts) {
-    opts = opts || {};
-    this.state = {
-        allFormat: 'glob',
-        current: {},
-        datasource: null,
-        includeAll: false,
-        allValue: '',
-        name: 'template',
-        options: [],
-        query: null,
-        refresh: 0,
-        refresh_on_load: false,
-        type: 'custom',
-    };
-    this.defaultValue = '';
+class Custom {
+    constructor(opts = {}) {
+        this.state = {
+            allFormat: 'glob',
+            current: {},
+            datasource: null,
+            includeAll: false,
+            allValue: '',
+            name: 'template',
+            options: [],
+            query: null,
+            refresh: 0,
+            refresh_on_load: false,
+            type: 'custom',
+        };
+        this.defaultValue = '';
 
-    // Overwrite defaults with custom values
-    Object.keys(opts).forEach((key) => {
-        switch (key) {
-            case 'defaultValue':
-                this.defaultValue = opts[key];
-                break;
-            default:
-                this.state[key] = opts[key];
-        }
-    });
-    this._processOptions();
-}
-
-/*
- * Ensures options are objects, and updates the state's query and current
- * values.
- */
-Custom.prototype._processOptions = function _processOptions() {
-    if (!this.state.options.length) {
-        if (this.defaultValue !== '') {
-            throw new SyntaxError(
-                'cannot define default value without any options'
-            );
-        }
-        return;
-    }
-
-    let newOptions = [];
-    let newQuery = [];
-
-    let hasAll = false;
-    for (let i = 0; i < this.state.options.length; i++) {
-        const option = this.state.options[i];
-        const isObject =
-            typeof option === 'object' && option.constructor === Object;
-        const opt = isObject
-            ? option
-            : {
-                  text: option,
-                  value: option,
-              };
-        if (opt.value === DEFAULT_VARIABLE_ALL) {
-            if (hasAll) {
-                continue;
+        // Overwrite defaults with custom values
+        Object.keys(opts).forEach((key) => {
+            switch (key) {
+                case 'defaultValue':
+                    this.defaultValue = opts[key];
+                    break;
+                default:
+                    this.state[key] = opts[key];
             }
-            hasAll = true;
-        }
-
-        newOptions.push(opt);
-        newQuery.push(opt.value);
+        });
+        this._processOptions();
     }
 
-    if (this.defaultValue !== '') {
-        const defaultOption = newOptions.find(
-            (option) => option.value === this.defaultValue
-        );
-        if (!defaultOption) {
-            throw new SyntaxError('default value not found in options list');
+    /*
+     * Ensures options are objects, and updates the state's query and current
+     * values.
+     */
+    _processOptions() {
+        if (!this.state.options.length) {
+            if (this.defaultValue !== '') {
+                throw new SyntaxError(
+                    'cannot define default value without any options'
+                );
+            }
+            return;
         }
-        this.state.current = defaultOption;
-    } else if (
-        (!this.state.current || Object.keys(this.state.current).length === 0) &&
-        !this.state.includeAll
-    ) {
-        this.state.current = newOptions[0];
+
+        let newOptions = [];
+        let newQuery = [];
+
+        let hasAll = false;
+        for (let i = 0; i < this.state.options.length; i++) {
+            const option = this.state.options[i];
+            const isObject =
+                typeof option === 'object' && option.constructor === Object;
+            const opt = isObject
+                ? option
+                : {
+                      text: option,
+                      value: option,
+                  };
+            if (opt.value === DEFAULT_VARIABLE_ALL) {
+                if (hasAll) {
+                    continue;
+                }
+                hasAll = true;
+            }
+
+            newOptions.push(opt);
+            newQuery.push(opt.value);
+        }
+
+        if (this.defaultValue !== '') {
+            const defaultOption = newOptions.find(
+                (option) => option.value === this.defaultValue
+            );
+            if (!defaultOption) {
+                throw new SyntaxError(
+                    'default value not found in options list'
+                );
+            }
+            this.state.current = defaultOption;
+        } else if (
+            (!this.state.current ||
+                Object.keys(this.state.current).length === 0) &&
+            !this.state.includeAll
+        ) {
+            this.state.current = newOptions[0];
+        }
+
+        this.state.options = newOptions;
+        this.state.query = newQuery.join(',');
     }
 
-    this.state.options = newOptions;
-    this.state.query = newQuery.join(',');
-};
-
-Custom.prototype.generate = function generate() {
-    return this.state;
-};
+    generate() {
+        return this.state;
+    }
+}
 
 module.exports = Custom;

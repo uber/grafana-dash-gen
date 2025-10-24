@@ -22,104 +22,104 @@
 
 const generateGraphId = require('../id');
 
-function Graph(opts) {
-    opts = opts || {};
-    const self = this;
-    this._currentRefIndex = 0;
+class Graph {
+    constructor(opts = {}) {
+        this._currentRefIndex = 0;
 
-    const defaults = {
-        type: 'graph',
-        id: generateGraphId(),
-        renderer: 'flot',
-        title: 'no title (click here)',
-        error: false,
-        editable: true,
-        'x-axis': true,
-        'y-axis': true,
-        y_formats: ['short', 'short'],
-        grid: {
-            leftMax: null,
-            rightMax: null,
-            leftMin: null,
-            rightMin: null,
-            threshold1: null,
-            threshold2: null,
-            threshold1Color: 'rgba(216, 200, 27, 0.27)',
-            threshold2Color: 'rgba(234, 112, 112, 0.22)',
-        },
-        lines: true,
-        span: 12,
-        fill: 0,
-        linewidth: 1,
-        points: false,
-        pointradius: 5,
-        bars: false,
-        stack: false,
-        percentage: false,
-        targets: [],
-        legend: {
-            show: true,
-            values: true,
-            min: false,
-            max: true,
-            current: false,
-            total: false,
-            avg: true,
-        },
-        nullPointMode: 'null as zero',
-        steppedLine: false,
-        tooltip: {
-            value_type: 'cumulative',
-            shared: false,
-        },
-        aliasColors: {},
-        seriesOverrides: [{}],
-        links: [],
-        datasource: 'graphite',
-    };
-    this.state = defaults;
+        const defaults = {
+            type: 'graph',
+            id: generateGraphId(),
+            renderer: 'flot',
+            title: 'no title (click here)',
+            error: false,
+            editable: true,
+            'x-axis': true,
+            'y-axis': true,
+            y_formats: ['short', 'short'],
+            grid: {
+                leftMax: null,
+                rightMax: null,
+                leftMin: null,
+                rightMin: null,
+                threshold1: null,
+                threshold2: null,
+                threshold1Color: 'rgba(216, 200, 27, 0.27)',
+                threshold2Color: 'rgba(234, 112, 112, 0.22)',
+            },
+            lines: true,
+            span: 12,
+            fill: 0,
+            linewidth: 1,
+            points: false,
+            pointradius: 5,
+            bars: false,
+            stack: false,
+            percentage: false,
+            targets: [],
+            legend: {
+                show: true,
+                values: true,
+                min: false,
+                max: true,
+                current: false,
+                total: false,
+                avg: true,
+            },
+            nullPointMode: 'null as zero',
+            steppedLine: false,
+            tooltip: {
+                value_type: 'cumulative',
+                shared: false,
+            },
+            aliasColors: {},
+            seriesOverrides: [{}],
+            links: [],
+            datasource: 'graphite',
+        };
+        this.state = defaults;
 
-    // Overwrite defaults with custom values
-    Object.keys(opts).forEach(function eachOpt(opt) {
-        self.state[opt] = opts[opt];
-    });
-
-    if (opts.targets) {
-        this.state.targets = [];
-        opts.targets.forEach(function addT(target) {
-            self.addTarget(target);
+        // Overwrite defaults with custom values
+        Object.keys(opts).forEach((opt) => {
+            this.state[opt] = opts[opt];
         });
+
+        if (opts.targets) {
+            this.state.targets = [];
+            opts.targets.forEach((target) => {
+                this.addTarget(target);
+            });
+        }
+
+        // finally add to row/dashboard if given
+        if (opts.row && opts.dashboard) {
+            opts.row.addPanel(this);
+            opts.dashboard.addRow(opts.row);
+        }
     }
 
-    // finally add to row/dashboard if given
-    if (opts.row && opts.dashboard) {
-        opts.row.addPanel(this);
-        opts.dashboard.addRow(opts.row);
+    generate() {
+        return this.state;
+    }
+
+    addAlert(alert) {
+        this.state.alert = alert.generate();
+    }
+
+    addTarget(target) {
+        const refs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const builtTarget = target.toString();
+
+        const targetWithRefs = {
+            target: builtTarget,
+            hide: target.hide,
+            refId: refs[this._currentRefIndex++],
+        };
+
+        const targetFull = handleRefTargets(builtTarget, this.state.targets);
+        const targetToAdd = Object.assign({}, targetWithRefs, targetFull);
+        this.state.targets.push(targetToAdd);
     }
 }
-
-Graph.prototype.generate = function generate() {
-    return this.state;
-};
-
-Graph.prototype.addAlert = function addAlert(alert) {
-    this.state.alert = alert.generate();
-};
-
-Graph.prototype.addTarget = function addTarget(target) {
-    const refs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const builtTarget = target.toString();
-
-    const targetWithRefs = {
-        target: builtTarget,
-        hide: target.hide,
-        refId: refs[this._currentRefIndex++],
-    };
-
-    const targetFull = handleRefTargets(builtTarget, this.state.targets);
-    const targetToAdd = Object.assign({}, targetWithRefs, targetFull);
-    this.state.targets.push(targetToAdd);
-};
 
 function getRefsFromTarget(target) {
     const refMatchRegex = /.*?#(\w)[,)]/g;

@@ -24,108 +24,103 @@ var Templates = require('./templates');
 var Annotations = require('./annotations');
 var ExternalLink = require('./external-link');
 
-function Dashboard(opts) {
-    opts = opts || {};
-    this.state = {};
-    this._init(opts);
-    this._initRows(opts);
-    this._initLinks(opts);
-    this._initTemplating(opts);
-    this._initAnnotations(opts);
-}
-
-Dashboard.prototype._init = function _init(opts) {
-    this.state.id = opts.id || null;
-    this.state.title = opts.title || 'Generated Grafana Dashboard';
-    this.state.originalTitle = opts.originalTitle || 'Generated Dashboard';
-    this.state.tags = opts.tags || [];
-    this.state.style = opts.style || 'dark';
-    this.state.timezone = opts.timezone || 'browser';
-    this.state.editable = true;
-    this.state.hideControls = !!opts.hideControls;
-    this.state.sharedCrosshair = !!opts.sharedCrosshair;
-    this.state.refresh = opts.refresh || false;
-    this.state.schemaVersion = opts.schemaVersion || 6;
-    this.state.hideAllLegends = !!opts.hideAllLegends;
-    this.state.time = opts.time || null;
-    if ('editable' in opts) {
-        this.state.editable = opts.editable;
+class Dashboard {
+    constructor(opts = {}) {
+        this.state = {};
+        this._init(opts);
+        this._initRows(opts);
+        this._initLinks(opts);
+        this._initTemplating(opts);
+        this._initAnnotations(opts);
     }
-};
 
-Dashboard.prototype._initRows = function _initRows(opts) {
-    var self = this;
-
-    this.rows = [];
-    this.state.rows = [];
-
-    if (opts.rows) {
-        opts.rows.forEach(function r(row) {
-            self.addRow(row);
-        });
-    }
-};
-
-Dashboard.prototype._initLinks = function _initLinks(opts) {
-    this.links = opts.links || [];
-    this.state.links = [];
-};
-
-Dashboard.prototype._initTemplating = function _initRows(opts) {
-    var self = this;
-
-    this.state.templating = {
-        list: [],
-        enable: true,
-    };
-
-    if (opts.templating) {
-        opts.templating.forEach(function temp(template) {
-            template = new Templates.Custom(template);
-            self.addTemplate(template);
-        });
-    }
-};
-
-Dashboard.prototype._initAnnotations = function _initAnnotations(opts) {
-    var self = this;
-
-    this.state.annotations = {
-        list: [],
-        enable: true,
-    };
-
-    if (opts.annotations) {
-        opts.annotations.forEach(function temp(annotation) {
-            annotation = new Annotations.Graphite(annotation);
-            self.addAnnotation(annotation);
-        });
-    }
-};
-
-Dashboard.prototype.addRow = function addRow(row) {
-    this.rows.push(row);
-};
-
-Dashboard.prototype.addTemplate = function addTemplate(template) {
-    this.state.templating.list.push(template.generate());
-};
-
-Dashboard.prototype.addAnnotation = function addAnnotation(annotation) {
-    this.state.annotations.list.push(annotation.generate());
-};
-
-Dashboard.prototype.generate = function generate() {
-    // Generate jsons.
-    this.state.rows = this.rows.map((row) => row.generate());
-    this.state.links = this.links.map((link) => {
-        if (link instanceof ExternalLink) {
-            return link.generate();
+    _init(opts) {
+        this.state.id = opts.id || null;
+        this.state.title = opts.title || 'Generated Grafana Dashboard';
+        this.state.originalTitle = opts.originalTitle || 'Generated Dashboard';
+        this.state.tags = opts.tags || [];
+        this.state.style = opts.style || 'dark';
+        this.state.timezone = opts.timezone || 'browser';
+        this.state.editable = true;
+        this.state.hideControls = !!opts.hideControls;
+        this.state.sharedCrosshair = !!opts.sharedCrosshair;
+        this.state.refresh = opts.refresh || false;
+        this.state.schemaVersion = opts.schemaVersion || 6;
+        this.state.hideAllLegends = !!opts.hideAllLegends;
+        this.state.time = opts.time || null;
+        if ('editable' in opts) {
+            this.state.editable = opts.editable;
         }
-        return link;
-    });
+    }
 
-    return this.state;
-};
+    _initRows(opts) {
+        this.rows = [];
+        this.state.rows = [];
+
+        if (opts.rows) {
+            opts.rows.forEach((row) => {
+                this.addRow(row);
+            });
+        }
+    }
+
+    _initLinks(opts) {
+        this.links = opts.links || [];
+        this.state.links = [];
+    }
+
+    _initTemplating(opts) {
+        this.state.templating = {
+            list: [],
+            enable: true,
+        };
+
+        if (opts.templating) {
+            opts.templating.forEach((template) => {
+                template = new Templates.Custom(template);
+                this.addTemplate(template);
+            });
+        }
+    }
+
+    _initAnnotations(opts) {
+        this.state.annotations = {
+            list: [],
+            enable: true,
+        };
+
+        if (opts.annotations) {
+            opts.annotations.forEach((annotation) => {
+                annotation = new Annotations.Graphite(annotation);
+                this.addAnnotation(annotation);
+            });
+        }
+    }
+
+    addRow(row) {
+        this.rows.push(row);
+    }
+
+    addTemplate(template) {
+        this.state.templating.list.push(template.generate());
+    }
+
+    addAnnotation(annotation) {
+        this.state.annotations.list.push(annotation.generate());
+    }
+
+    generate() {
+        // Generate jsons.
+        this.state.rows = this.rows.map((row) => row.generate());
+        this.state.links = this.links.map((link) => {
+            if (link instanceof ExternalLink) {
+                return link.generate();
+            }
+            return link;
+        });
+
+        return this.state;
+    }
+}
 
 module.exports = Dashboard;

@@ -22,42 +22,41 @@
 
 var generateGraphId = require('../id');
 
-function Text(opts) {
-    opts = opts || {};
-    var self = this;
+class Text {
+    constructor(opts = {}) {
+        var defaults = {
+            title: '',
+            id: generateGraphId(),
+            error: false,
+            span: 12,
+            editable: true,
+            type: 'text',
+            mode: 'markdown',
+            content: '',
+            style: {},
+            links: [],
+        };
+        this.state = defaults;
 
-    var defaults = {
-        title: '',
-        id: generateGraphId(),
-        error: false,
-        span: 12,
-        editable: true,
-        type: 'text',
-        mode: 'markdown',
-        content: '',
-        style: {},
-        links: [],
-    };
-    this.state = defaults;
+        // Overwrite defaults with custom values
+        Object.keys(opts).forEach((opt) => {
+            this.state[opt] = opts[opt];
+        });
 
-    // Overwrite defaults with custom values
-    Object.keys(opts).forEach(function eachOpt(opt) {
-        self.state[opt] = opts[opt];
-    });
+        // finally add to row/dashboard if given
+        if (opts.row && opts.dashboard) {
+            opts.row.addPanel(this);
+            opts.dashboard.addRow(opts.row);
+        }
+    }
 
-    // finally add to row/dashboard if given
-    if (opts.row && opts.dashboard) {
-        opts.row.addPanel(this);
-        opts.dashboard.addRow(opts.row);
+    generate() {
+        return this.state;
+    }
+
+    setTitle(title) {
+        this.state.title = title;
     }
 }
-
-Text.prototype.generate = function generate() {
-    return this.state;
-};
-
-Text.prototype.setTitle = function setTitle(title) {
-    this.state.title = title;
-};
 
 module.exports = Text;

@@ -18,50 +18,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-function ExternalLink(opts) {
-    opts = opts || {};
-
-    const defaults = {
-        title: '',
-        tooltip: '',
-        url: '',
-        ...opts,
-        tags: [],
-        icon: 'external link',
-        targetBlank: true,
-        type: 'link',
-        includeVars: false,
-        keepTime: false,
-    };
-    this.state = defaults;
-}
-
-ExternalLink.prototype.generate = function generate() {
-    if (this.state.title === '') {
-        throw new SyntaxError('a title for the link must be provided');
+class ExternalLink {
+    constructor(opts = {}) {
+        const defaults = {
+            title: '',
+            tooltip: '',
+            url: '',
+            ...opts,
+            tags: [],
+            icon: 'external link',
+            targetBlank: true,
+            type: 'link',
+            includeVars: false,
+            keepTime: false,
+        };
+        this.state = defaults;
     }
-    if (this.state.url === '') {
-        throw new SyntaxError('a url for the link must be provided');
-    }
-    return this.state;
-};
 
-ExternalLink.prototype.includeVariableValues =
-    function includeVariableValues() {
+    generate() {
+        if (this.state.title === '') {
+            throw new SyntaxError('a title for the link must be provided');
+        }
+        if (this.state.url === '') {
+            throw new SyntaxError('a url for the link must be provided');
+        }
+        return this.state;
+    }
+
+    includeVariableValues() {
         this.state.includeVars = true;
         return this;
-    };
+    }
 
-ExternalLink.prototype.includeTimeFilter = function includeTimeFilter() {
-    this.state.keepTime = true;
-    return this;
-};
+    includeTimeFilter() {
+        this.state.keepTime = true;
+        return this;
+    }
 
-ExternalLink.prototype.withIcon = function withIcon(iconName) {
-    this.state.icon = iconName;
-    return this;
-};
+    withIcon(iconName) {
+        this.state.icon = iconName;
+        return this;
+    }
+}
 
 module.exports = ExternalLink;
