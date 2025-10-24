@@ -27,7 +27,7 @@ function publish(dashboard, opts) {
     opts = opts || {};
 
     if (!dashboard) {
-        throw errors.UnfulfilledRequirement(
+        throw errors.UnfulfilledRequirement.create(
             '{component} missing requirement: {unfulfilledArg}',
             {
                 component: 'grafana.publish',
@@ -40,7 +40,7 @@ function publish(dashboard, opts) {
     const cfg = config.getConfig();
 
     if (!state || !state.title) {
-        throw errors.InvalidState(
+        throw errors.InvalidState.create(
             '{component} state is invalid: state.{invalidArg} {reason}',
             {
                 component: 'grafana.Dashboard',
@@ -51,7 +51,7 @@ function publish(dashboard, opts) {
     }
 
     if (!cfg.url) {
-        throw errors.Misconfigured(
+        throw errors.Misconfigured.create(
             'Incorrect configuration: config.{invalidArg} {reason} - {resolution}',
             {
                 invalidArg: 'url',
@@ -62,7 +62,7 @@ function publish(dashboard, opts) {
     }
 
     if (!cfg.cookie) {
-        throw errors.Misconfigured(
+        throw errors.Misconfigured.create(
             'Incorrect configuration: config.{invalidArg} {reason} - {resolution}',
             {
                 invalidArg: 'cookie',
@@ -91,7 +91,7 @@ function publish(dashboard, opts) {
                 console.log('Published the dashboard', state.title);
                 return resp.text();
             } else {
-                throw new errors.ResponseError('request failed: {name}', {
+                throw errors.ResponseError.create('request failed: {name}', {
                     name: resp.statusText,
                     response: resp,
                 });

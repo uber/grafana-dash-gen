@@ -20,7 +20,6 @@
 
 'use strict';
 
-var test = require('tape');
 var Row = require('../grafana/row');
 
 var simpleRow = require('./fixtures/simple_row.js');
@@ -31,13 +30,12 @@ var panelData = {
     baz: 1,
 };
 
-test('Simple row', function t(assert) {
+test('Simple row', function () {
     var row = new Row();
-    assert.deepEqual(row.generate(), simpleRow);
-    assert.end();
+    expect(row.generate()).toEqual(simpleRow);
 });
 
-test('Row with overriden information', function t(assert) {
+test('Row with overriden information', function () {
     var panel1 = {
         generate: function generate() {
             return panelData;
@@ -50,11 +48,10 @@ test('Row with overriden information', function t(assert) {
         collapse: true,
         panels: [panel1],
     });
-    assert.deepEqual(row.generate(), overrideRow);
-    assert.end();
+    expect(row.generate()).toEqual(overrideRow);
 });
 
-test('Add panels to row when passed', function t(assert) {
+test('Add panels to row when passed', function () {
     var panel1 = {
         foo: 'foo',
         bar: 'bar',
@@ -69,11 +66,10 @@ test('Add panels to row when passed', function t(assert) {
         panels: [panel1, panel2],
     });
 
-    assert.deepEqual(row.state.panels, [panel1, panel2]);
-    assert.end();
+    expect(row.state.panels).toEqual([panel1, panel2]);
 });
 
-test('Row can add panels', function t(assert) {
+test('Row can add panels', function () {
     var row = new Row({
         title: 'My Row',
         height: '1000px',
@@ -93,11 +89,10 @@ test('Row can add panels', function t(assert) {
 
     row.addPanel(panel1);
     row.addPanel(panel2);
-    assert.deepEqual(row.panels, [panel1, panel2]);
-    assert.end();
+    expect(row.panels).toEqual([panel1, panel2]);
 });
 
-test('Row generates state', function t(assert) {
+test('Row generates state', function () {
     var panel = {
         generate: function generate() {
             return panelData;
@@ -111,6 +106,5 @@ test('Row generates state', function t(assert) {
         panels: [panel],
     });
 
-    assert.deepEqual(row.generate(), overrideRow);
-    assert.end();
+    expect(row.generate()).toEqual(overrideRow);
 });

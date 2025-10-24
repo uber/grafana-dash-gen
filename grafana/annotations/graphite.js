@@ -27,7 +27,7 @@ function Graphite(opts) {
     var self = this;
 
     if (!opts.name) {
-        throw errors.UnfulfilledRequirement(
+        throw errors.UnfulfilledRequirement.create(
             '{component} missing requirement: {unfulfilledArg}',
             {
                 component: 'grafana.annotations.Graphite',
@@ -37,7 +37,7 @@ function Graphite(opts) {
     }
 
     if (!opts.target) {
-        throw errors.UnfulfilledRequirement(
+        throw errors.UnfulfilledRequirement.create(
             '{component} missing requirement: {unfulfilledArg}',
             {
                 component: 'grafana.annotations.Graphite',

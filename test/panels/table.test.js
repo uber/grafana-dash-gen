@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Uber Technologies, Inc.
+// Copyright (c) 2015 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,45 +20,35 @@
 
 'use strict';
 
-var test = require('tape');
-var DashboardList = require('../../grafana/panels/dashboard_list');
+var Table = require('../../grafana/panels/table');
 
-var dashboardList = require('../fixtures/panels/simple_dashboard_list.js');
-var overrideDashboardList = require('../fixtures/panels/override_dashboard_list.js');
+var simpleTable = require('../fixtures/panels/simple_table.js');
+var overrideTable = require('../fixtures/panels/override_table.js');
 
-test('simple DashboardList panel', function t(assert) {
-    var graph = new DashboardList();
-    graph.state.id = dashboardList.id;
-
-    assert.deepEqual(graph.generate(), dashboardList);
-    assert.end();
+test('simple table', function () {
+    var table = new Table();
+    table.state.id = simpleTable.id;
+    expect(table.generate()).toEqual(simpleTable);
 });
 
-test('DashboardList panel with overriden information', function t(assert) {
-    var graph = new DashboardList({
-        span: 3,
-        title: 'dashboard list',
-        mode: 'search',
+test('table with overriden information', function () {
+    var table = new Table({
+        span: 4,
+        title: 'custom title',
+        targets: ['target'],
+        datasource: 'M3',
+        arbitraryProperty: 'foo',
     });
-    graph.state.id = overrideDashboardList.id;
+    table.state.id = overrideTable.id;
 
-    assert.deepEqual(graph.generate(), overrideDashboardList);
-    assert.end();
+    expect(table.generate()).toEqual(overrideTable);
 });
 
-test('DashboardList can set title', function t(assert) {
-    var title = 'title';
-    var graph = new DashboardList();
-    graph.setTitle(title);
-    assert.deepEqual(graph.state.title, title);
-    assert.end();
-});
-
-test('add graph to row and dashboard when passed', function t(assert) {
+test('add graph to row and dashboard when passed', function () {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 
-    new DashboardList({
+    new Table({
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
@@ -72,7 +62,19 @@ test('add graph to row and dashboard when passed', function t(assert) {
         },
     });
 
-    assert.deepEqual(calledAddRow, 1);
-    assert.deepEqual(calledAddPanel, 1);
-    assert.end();
+    expect(calledAddRow).toEqual(1);
+    expect(calledAddPanel).toEqual(1);
+});
+
+test('table with overriden info and title', function () {
+    var table = new Table({
+        span: 4,
+        targets: ['target'],
+        datasource: 'M3',
+        arbitraryProperty: 'foo',
+    });
+    table.state.id = overrideTable.id;
+    table.setTitle('custom title');
+
+    expect(table.generate()).toEqual(overrideTable);
 });

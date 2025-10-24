@@ -1,4 +1,4 @@
-// Copyright (c) 2015 Uber Technologies, Inc.
+// Copyright (c) 2018 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,47 +20,41 @@
 
 'use strict';
 
-var test = require('tape');
-var SingleStat = require('../../grafana/panels/singlestat');
+var DashboardList = require('../../grafana/panels/dashboard_list');
 
-var simpleSingleStat = require('../fixtures/panels/simple_singlestat.js');
-var overrideSingleStat = require('../fixtures/panels/override_singlestat.js');
+var dashboardList = require('../fixtures/panels/simple_dashboard_list.js');
+var overrideDashboardList = require('../fixtures/panels/override_dashboard_list.js');
 
-test('simple SingleStat panel', function t(assert) {
-    var graph = new SingleStat();
-    graph.state.id = simpleSingleStat.id;
+test('simple DashboardList panel', function () {
+    var graph = new DashboardList();
+    graph.state.id = dashboardList.id;
 
-    assert.deepEqual(graph.generate(), simpleSingleStat);
-    assert.end();
+    expect(graph.generate()).toEqual(dashboardList);
 });
 
-test('SingleStat panel with overriden information', function t(assert) {
-    var graph = new SingleStat({
-        span: 4,
-        title: 'custom title',
-        targets: ['target'],
-        datasource: 'M3',
-        arbitraryProperty: 'foo',
+test('DashboardList panel with overriden information', function () {
+    var graph = new DashboardList({
+        span: 3,
+        title: 'dashboard list',
+        mode: 'search',
     });
-    graph.state.id = overrideSingleStat.id;
+    graph.state.id = overrideDashboardList.id;
 
-    assert.deepEqual(graph.generate(), overrideSingleStat);
-    assert.end();
+    expect(graph.generate()).toEqual(overrideDashboardList);
 });
 
-test('SingleStat can set title', function t(assert) {
+test('DashboardList can set title', function () {
     var title = 'title';
-    var graph = new SingleStat();
+    var graph = new DashboardList();
     graph.setTitle(title);
-    assert.deepEqual(graph.state.title, title);
-    assert.end();
+    expect(graph.state.title).toEqual(title);
 });
 
-test('add graph to row and dashboard when passed', function t(assert) {
+test('add graph to row and dashboard when passed', function () {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 
-    new SingleStat({
+    new DashboardList({
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
@@ -74,7 +68,6 @@ test('add graph to row and dashboard when passed', function t(assert) {
         },
     });
 
-    assert.deepEqual(calledAddRow, 1);
-    assert.deepEqual(calledAddPanel, 1);
-    assert.end();
+    expect(calledAddRow).toEqual(1);
+    expect(calledAddPanel).toEqual(1);
 });

@@ -1,17 +1,15 @@
-const test = require('tape');
 const Alert = require('../../grafana/alert/alert');
 const Condition = require('../../grafana/alert/condition');
 const simpleAlert = require('../fixtures/alert/simple_alert');
 const alertWithCondition = require('../fixtures/alert/alert_with_condition');
 
-test('simple alert', function t(assert) {
+test('simple alert', function () {
     const alert = new Alert();
 
-    assert.deepEqual(alert.generate(), simpleAlert);
-    assert.end();
+    expect(alert.generate()).toEqual(simpleAlert);
 });
 
-test('alert should be able to add condition', (assert) => {
+test('alert should be able to add condition', () => {
     const alert = new Alert();
     const condition = new Condition()
         .onQuery('B', '5m', 'now')
@@ -20,11 +18,10 @@ test('alert should be able to add condition', (assert) => {
 
     alert.addCondition(condition);
 
-    assert.deepEqual(alert.generate(), alertWithCondition);
-    assert.end();
+    expect(alert.generate()).toEqual(alertWithCondition);
 });
 
-test('alert should be able to override defaults from the constructor', (assert) => {
+test('alert should be able to override defaults from the constructor', () => {
     const overrideOptions = {
         name: 'override name',
         for: '30min',
@@ -33,12 +30,11 @@ test('alert should be able to override defaults from the constructor', (assert) 
     const alert = new Alert(overrideOptions);
     const actualAlert = alert.generate();
 
-    assert.deepEqual(actualAlert.name, overrideOptions.name);
-    assert.deepEqual(actualAlert.for, overrideOptions.for);
-    assert.end();
+    expect(actualAlert.name).toEqual(overrideOptions.name);
+    expect(actualAlert.for).toEqual(overrideOptions.for);
 });
 
-test('alert should be able to receive conditions in the constructor', (assert) => {
+test('alert should be able to receive conditions in the constructor', () => {
     const condition = new Condition({
         type: 'query',
         query: {
@@ -60,6 +56,5 @@ test('alert should be able to receive conditions in the constructor', (assert) =
     const overrideConditions = { conditions: [condition] };
     const alert = new Alert(overrideConditions);
 
-    assert.deepEqual(alert.generate(), alertWithCondition);
-    assert.end();
+    expect(alert.generate()).toEqual(alertWithCondition);
 });

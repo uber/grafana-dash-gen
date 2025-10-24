@@ -20,7 +20,6 @@
 
 'use strict';
 
-var test = require('tape');
 var Dashboard = require('../grafana/dashboard');
 var ExternalLink = require('../grafana/external-link');
 require('../grafana/panels'); // for coverage
@@ -28,14 +27,13 @@ require('../grafana/panels'); // for coverage
 var simpleDashboard = require('./fixtures/simple_dashboard');
 var overrideDashboard = require('./fixtures/override_dashboard');
 
-test('Simple Dashboard', function t(assert) {
+test('Simple Dashboard', function () {
     var dashboard = new Dashboard();
     dashboard.state.id = simpleDashboard.id;
-    assert.deepEqual(dashboard.state, simpleDashboard);
-    assert.end();
+    expect(dashboard.state).toEqual(simpleDashboard);
 });
 
-test('Dashboard with overriden information', function t(assert) {
+test('Dashboard with overriden information', function () {
     var dashboard = new Dashboard({
         title: 'custom title',
         tags: ['foo', 'bar'],
@@ -68,19 +66,17 @@ test('Dashboard with overriden information', function t(assert) {
         editable: true,
     });
     dashboard.state.id = overrideDashboard.id;
-    assert.deepEqual(dashboard.state, overrideDashboard);
-    assert.end();
+    expect(dashboard.state).toEqual(overrideDashboard);
 });
 
-test('Dashboard can add rows', function t(assert) {
+test('Dashboard can add rows', function () {
     var dashboard = new Dashboard();
     var row = { foo: 'foo' };
     dashboard.addRow(row);
-    assert.deepEqual(dashboard.rows, [row]);
-    assert.end();
+    expect(dashboard.rows).toEqual([row]);
 });
 
-test('Dashboard can add links', function t(assert) {
+test('Dashboard can add links', function () {
     const externalLinks = [
         new ExternalLink({
             title: 'Uber Homepage',
@@ -90,11 +86,10 @@ test('Dashboard can add links', function t(assert) {
     var dashboard = new Dashboard({
         links: externalLinks,
     });
-    assert.deepEqual(dashboard.links, externalLinks);
-    assert.end();
+    expect(dashboard.links).toEqual(externalLinks);
 });
 
-test('Dashboard can set time', function t(assert) {
+test('Dashboard can set time', function () {
     var d = new Dashboard({
         time: {
             from: 'now-1h',
@@ -102,14 +97,13 @@ test('Dashboard can set time', function t(assert) {
         },
     });
 
-    assert.deepEqual(d.generate().time, {
+    expect(d.generate().time).toEqual({
         from: 'now-1h',
         to: 'now',
     });
-    assert.end();
 });
 
-test('Dashboard can generate correct body', function t(assert) {
+test('Dashboard can generate correct body', function () {
     var rowData = { foo: 'foo' };
     var dashboard = new Dashboard({
         links: [
@@ -164,6 +158,5 @@ test('Dashboard can generate correct body', function t(assert) {
             },
         ],
     };
-    assert.deepEqual(json, expectedJson);
-    assert.end();
+    expect(json).toEqual(expectedJson);
 });

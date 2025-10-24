@@ -20,51 +20,49 @@
 
 'use strict';
 
-var test = require('tape');
-var Text = require('../../grafana/panels/text');
+var SingleStat = require('../../grafana/panels/singlestat');
 
-var simpleText = require('../fixtures/panels/simple_text.js');
-var overrideText = require('../fixtures/panels/override_text.js');
+var simpleSingleStat = require('../fixtures/panels/simple_singlestat.js');
+var overrideSingleStat = require('../fixtures/panels/override_singlestat.js');
 
-test('simple Text panel', function t(assert) {
-    var graph = new Text();
-    graph.state.id = overrideText.id;
+test('simple SingleStat panel', function () {
+    var graph = new SingleStat();
+    graph.state.id = simpleSingleStat.id;
 
-    assert.deepEqual(graph.generate(), simpleText);
-    assert.end();
+    expect(graph.generate()).toEqual(simpleSingleStat);
 });
 
-test('Text panel with overriden information', function t(assert) {
-    var graph = new Text({
+test('SingleStat panel with overriden information', function () {
+    var graph = new SingleStat({
         span: 4,
-        content: 'TEST',
-        height: '100px',
-        transparent: true,
+        title: 'custom title',
+        targets: ['target'],
+        datasource: 'M3',
+        arbitraryProperty: 'foo',
     });
-    graph.state.id = overrideText.id;
+    graph.state.id = overrideSingleStat.id;
 
-    assert.deepEqual(graph.generate(), overrideText);
-    assert.end();
+    expect(graph.generate()).toEqual(overrideSingleStat);
 });
 
-test('Text can set title', function t(assert) {
+test('SingleStat can set title', function () {
     var title = 'title';
-    var graph = new Text();
+    var graph = new SingleStat();
     graph.setTitle(title);
-    assert.deepEqual(graph.state.title, title);
-    assert.end();
+    expect(graph.state.title).toEqual(title);
 });
 
-test('add graph to row and dashboard when passed', function t(assert) {
+test('add graph to row and dashboard when passed', function () {
     var calledAddPanel = 0;
     var calledAddRow = 0;
 
-    new Text({
+    new SingleStat({
         row: {
             addPanel: function addPanel() {
                 calledAddPanel += 1;
             },
         },
+
         dashboard: {
             addRow: function addRow() {
                 calledAddRow += 1;
@@ -72,7 +70,6 @@ test('add graph to row and dashboard when passed', function t(assert) {
         },
     });
 
-    assert.deepEqual(calledAddRow, 1);
-    assert.deepEqual(calledAddPanel, 1);
-    assert.end();
+    expect(calledAddRow).toEqual(1);
+    expect(calledAddPanel).toEqual(1);
 });

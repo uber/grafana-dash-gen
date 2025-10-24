@@ -18,8 +18,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-require('./graph');
-require('./singlestat');
-require('./text');
-require('./table');
-require('./dashboard_list');
+'use strict';
+
+var config = require('../grafana/config');
+
+test('config extends default configuration', function () {
+    var foo = 'foo';
+    var bar = 1;
+    var user = 'notguest';
+    var group = 'guest';
+    var url = 'http://myfakeurl.com';
+    var cookie = 'auth=value';
+    var headers = { asdf: 'qwer' };
+
+    var cfg = {
+        foo: foo,
+        bar: bar,
+        user: user,
+        url: url,
+        cookie: cookie,
+        headers: headers,
+    };
+
+    var expected = {
+        foo: foo,
+        bar: bar,
+        user: user,
+        group: group,
+        url: url,
+        cookie: cookie,
+        headers: headers,
+    };
+
+    config.configure(cfg);
+    var result = config.getConfig();
+
+    expect(result).toEqual(expected);
+});
