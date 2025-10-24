@@ -39,5 +39,5 @@
     "skipLibCheck": true,
     "esModuleInterop": true
   },
-  "exclude": ["coverage", "grafana"]
+  "exclude": ["coverage", "grafana", "index.js", "example.js"]
 }
