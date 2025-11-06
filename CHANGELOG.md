@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+v4.1.0 (2026-02-09)
+-------------------
+
+ - Fix crash when referencing non-existent target ref ID (#128)
+ - Add Typescript types (#122, #123)
+ - Refactors to use modern JS syntax (#121)
+ - Add label support for query entity (#131)
+ - CI fixes/cleanup (#120, #119, #118)
+
+
 v4.0.2 (2025-08-27)
 -------------------
 
