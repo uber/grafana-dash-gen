@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v4.0.3 (2025-11-05)
+-------------------
+
+ - Add Typescript types (#122, #123)
+ - Refactors to use modern JS syntax (#121)
+ - CI fixes/cleanup (#120, #119, #118)
+
+
 v4.0.2 (2025-08-27)
 -------------------
 
