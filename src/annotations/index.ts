@@ -18,8 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Graphite = require('./graphite');
+import _Graphite = require('./graphite');
 
-export = {
-    Graphite: Graphite,
-};
+namespace annotations {
+    export type Graphite = _Graphite;
+    export const Graphite = _Graphite;
+}
+
+export = annotations;
