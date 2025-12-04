@@ -18,22 +18,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Graph = require('./graph');
-import SingleStat = require('./singlestat');
-import Text = require('./text');
-import Table = require('./table');
-import DashboardList = require('./dashboard_list');
+import _Graph = require('./graph');
+import _SingleStat = require('./singlestat');
+import _Text = require('./text');
+import _Table = require('./table');
+import _DashboardList = require('./dashboard_list');
 
-const panels = {
-    Graph: Graph,
-    SingleStat: SingleStat,
-    Text: Text,
-    Table: Table,
-    DashboardList: DashboardList,
-};
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace panels {
+    export type Graph = _Graph;
+    export const Graph = _Graph;
+    export type SingleStat = _SingleStat;
+    export const SingleStat = _SingleStat;
+    export type Text = _Text;
+    export const Text = _Text;
+    export type Table = _Table;
+    export const Table = _Table;
+    export type DashboardList = _DashboardList;
+    export const DashboardList = _DashboardList;
     export type Panel = Graph | SingleStat | Text | Table | DashboardList;
 }
 export = panels;

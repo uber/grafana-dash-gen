@@ -22,6 +22,7 @@ test('condition .withEvaluator should accept array of values', () => {
 
 test('condition .witEvaluator should throw when passing a weird value', () => {
     const condition = new Condition();
+    // @ts-expect-error intentionally bad input
     expect(() => condition.withEvaluator(2, 'bla')).toThrow();
 });
 
@@ -33,6 +34,7 @@ test('condition .withOperator', () => {
 
 test('condition .withOperator should throw when passing invalid value', () => {
     const condition = new Condition();
+    // @ts-expect-error intentionally bad input
     expect(() => condition.withOperator('bla')).toThrow();
 });
 
@@ -64,6 +66,7 @@ test('condition should allow setting the query metric with .onQuery', () => {
 
 test('condition should throw when using .onQuery with a weird value', () => {
     const condition = new Condition();
+    // @ts-expect-error intentionally bad input
     expect(() => condition.onQuery(2)).toThrow();
 });
 
@@ -75,6 +78,7 @@ test('condition should allow choosing condition reducer type', () => {
 
 test('condition should throw when using .withReducer with a weird value', () => {
     const condition = new Condition();
+    // @ts-expect-error intentionally bad input
     expect(() => condition.withReducer('bla')).toThrow();
 });
 
@@ -85,6 +89,7 @@ test('override condition values from constructor', () => {
             type: 'max',
         },
     };
+    // @ts-expect-error type is not inferred correctly in js file
     const condition = new Condition(overrideReducer).generate();
 
     expect(condition.reducer).toEqual({

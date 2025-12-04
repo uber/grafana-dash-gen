@@ -66,12 +66,32 @@ export interface GrafanaDashboardListPanel extends GrafanaSharedProps {
     links: any[];
 }
 
+export type GrafanaEvaluatorType = 'gt' | 'lt' | 'within_range';
+
+export type GrafanaOperatorType = 'and' | 'or';
+
+export type GrafanaReducerType =
+    | 'min'
+    | 'max'
+    | 'sum'
+    | 'avg'
+    | 'count'
+    | 'last'
+    | 'median'
+    | 'diff';
+
 export interface GrafanaCondition extends GrafanaSharedProps {
-    type: string;
-    query: { params: string[] };
-    reducer: { type: string; params: any[] };
-    evaluator: { type: string; params: any[] };
-    operator: { type: string };
+    type: 'query';
+    query: {
+        params: [
+            query: string,
+            duration: string | undefined,
+            from: string | undefined,
+        ];
+    };
+    reducer: { params: string[]; type: GrafanaReducerType };
+    evaluator: { params: (string | number)[]; type: GrafanaEvaluatorType };
+    operator: { type: GrafanaOperatorType };
 }
 
 export interface GrafanaAlert extends GrafanaSharedProps {
@@ -91,97 +111,122 @@ export interface GrafanaGraphPanel extends GrafanaSharedProps {
     alert?: GrafanaAlert;
     aliasColors: any;
     bars: boolean;
-    editable: boolean;
-    error: boolean;
+    editable?: boolean;
+    error?: boolean;
     fill: number;
-    grid: {
-        leftMax: null;
-        leftMin: null;
-        rightMax: null;
-        rightMin: null;
-        threshold1: null;
-        threshold1Color: string;
-        threshold2: null;
-        threshold2Color: string;
+    grid?: {
+        leftMax?: null;
+        leftMin?: null;
+        rightMax?: null;
+        rightMin?: null;
+        threshold1?: null;
+        threshold1Color?: string;
+        threshold2?: null;
+        threshold2Color?: string;
     };
     id: number;
     legend: {
+        alignAsTable?: boolean;
+        rightSide?: boolean;
         avg: boolean;
         current: boolean;
         max: boolean;
         min: boolean;
-        show: boolean;
+        show?: boolean;
         total: boolean;
         values: boolean;
+        sort?: string;
+        sortDesc?: boolean;
+        table?: boolean;
+        hideEmpty?: boolean;
+        hideZero?: boolean;
+        sideWidth?: number;
     };
     lines: boolean;
     linewidth: number;
-    links: any[];
+    links?: any[];
     nullPointMode: string;
     percentage: boolean;
     pointradius: number;
     points: boolean;
     renderer: string;
     seriesOverrides: any[];
-    span: number;
+    span?: number;
     stack: boolean;
     steppedLine: boolean;
     targets: any[];
     title: string;
-    tooltip: { shared: boolean; value_type: string };
+    tooltip: { shared: boolean; value_type: string; sort?: number };
     type: 'graph';
-    'x-axis': boolean;
-    'y-axis': boolean;
-    y_formats: string[];
-    datasource: string;
+    'x-axis'?: boolean;
+    'y-axis'?: boolean;
+    y_formats?: string[];
+    datasource?:
+        | null
+        | {
+              type: string;
+              uid: string;
+          }
+        | string;
 }
 
 export interface GrafanaSingleStatPanel extends GrafanaSharedProps {
-    cacheTimeout: null;
-    colorBackground: boolean;
-    colorValue: boolean;
-    colors: string[];
-    editable: boolean;
-    error: boolean;
-    format: string;
+    cacheTimeout?: null;
+    colorBackground?: boolean;
+    colorValue?: boolean;
+    colors?: string[];
+    editable?: boolean;
+    error?: boolean;
+    format?: string;
     id: number;
-    interval: null;
-    links: any[];
-    maxDataPoints: number;
-    nullPointMode: string;
-    nullText: null;
-    postfix: string;
-    postfixFontSize: string;
-    prefix: string;
-    prefixFontSize: string;
-    span: number;
-    sparkline: {
+    interval?: null;
+    links?: any[];
+    maxDataPoints?: number;
+    nullPointMode?: string;
+    nullText?: null;
+    postfix?: string;
+    postfixFontSize?: string;
+    prefix?: string;
+    prefixFontSize?: string;
+    span?: number;
+    sparkline?: {
         fillColor: string;
         full: boolean;
         lineColor: string;
         show: boolean;
     };
     targets: any[];
-    thresholds: string;
+    thresholds?: string;
     title: string;
-    type: 'singlestat';
-    valueFontSize: string;
-    valueMaps: { op: string; text: string; value: string }[];
-    valueName: string;
-    datasource: string;
+    type: 'singlestat' | 'stat';
+    valueFontSize?: string;
+    valueMaps?: { op: string; text: string; value: string }[];
+    valueName?: string;
+    datasource?:
+        | null
+        | {
+              type: string;
+              uid: string;
+          }
+        | string;
 }
 
 export interface GrafanaTablePanel extends GrafanaSharedProps {
     title: string;
-    error: boolean;
-    span: number;
-    editable: boolean;
+    error?: boolean;
+    span?: number;
+    editable?: boolean;
     type: 'table';
-    isNew: boolean;
+    isNew?: boolean;
     id: number;
-    // todo: should this be required?
-    datasource?: string;
-    styles: (
+    datasource?:
+        | null
+        | {
+              type: string;
+              uid: string;
+          }
+        | string;
+    styles?: (
         | { type: 'date'; pattern: string; dateFormat: string }
         | {
               unit: string;
@@ -194,27 +239,27 @@ export interface GrafanaTablePanel extends GrafanaSharedProps {
           }
     )[];
     targets: any[];
-    transform: string;
-    pageSize: null;
-    showHeader: boolean;
-    columns: { text: string; value: string }[];
-    scroll: boolean;
-    fontSize: string;
-    sort: { col: number; desc: boolean };
-    links: any[];
+    transform?: string;
+    pageSize?: null;
+    showHeader?: boolean;
+    columns?: { text: string; value: string }[];
+    scroll?: boolean;
+    fontSize?: string;
+    sort?: { col: number; desc: boolean };
+    links?: any[];
 }
 
 export interface GrafanaTextPanel extends GrafanaSharedProps {
-    title: string;
-    error: boolean;
-    span: number;
-    editable: boolean;
+    title?: string;
+    error?: boolean;
+    span?: number;
+    editable?: boolean;
     type: 'text';
     id: number;
-    mode: string;
-    content: string;
-    style: any;
-    links: any[];
+    mode?: string;
+    content?: string;
+    style?: any;
+    links?: any[];
 }
 
 export type GrafanaPanel =
@@ -222,15 +267,20 @@ export type GrafanaPanel =
     | GrafanaGraphPanel
     | GrafanaSingleStatPanel
     | GrafanaTablePanel
-    | GrafanaTextPanel;
+    | GrafanaTextPanel
+    | GrafanaRowPanel;
 
 export interface GrafanaRow extends GrafanaSharedProps {
-    title: string;
-    showTitle: boolean;
-    height: string;
-    editable: boolean;
-    collapse: boolean;
+    title?: string;
+    showTitle?: boolean;
+    height?: string;
+    editable?: boolean;
+    collapse?: boolean;
     panels: GrafanaPanel[];
+}
+
+export interface GrafanaRowPanel extends GrafanaRow {
+    type: 'row';
 }
 
 export interface GrafanaExternalLink extends GrafanaSharedProps {
@@ -260,7 +310,8 @@ export interface GrafanaDashboard extends GrafanaSharedProps {
     refresh: boolean | string;
     schemaVersion: number;
     hideAllLegends?: boolean;
-    rows: GrafanaRow[];
+    rows?: GrafanaRow[];
+    panels?: GrafanaPanel[];
     annotations: { list: GrafanaGraphiteAnnotation[]; enable?: boolean };
     templating: { list: GrafanaTemplate[]; enable?: boolean };
     time?: null | {

@@ -1,7 +1,11 @@
-import Alert = require('./alert');
-import Condition = require('./condition');
+import _Alert = require('./alert');
+import _Condition = require('./condition');
 
-export = {
-    Alert: Alert,
-    Condition: Condition,
-};
+namespace alert {
+    export type Alert = _Alert;
+    export const Alert = _Alert;
+    export type Condition = _Condition;
+    export const Condition = _Condition;
+}
+
+export = alert;

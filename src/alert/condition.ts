@@ -1,13 +1,17 @@
-import type { GrafanaCondition } from '../grafana';
+import type {
+    GrafanaCondition,
+    GrafanaEvaluatorType,
+    GrafanaOperatorType,
+    GrafanaReducerType,
+} from '../grafana';
 
 class Condition {
-    private state: GrafanaCondition;
-    private _evaluator: { params: any[]; type: string };
-    private _operator: { type: string };
-    private _query: { params: string[] };
-    private _reducer: { params: any[]; type: string };
+    private state: Partial<GrafanaCondition>;
+    private _evaluator: GrafanaCondition['evaluator'];
+    private _operator: GrafanaCondition['operator'];
+    private _query: GrafanaCondition['query'];
+    private _reducer: GrafanaCondition['reducer'];
     constructor(opts: Partial<GrafanaCondition> = {}) {
-        // @ts-expect-error todo: should fields be optional?
         this.state = {};
 
         this._evaluator = {
@@ -32,7 +36,12 @@ class Condition {
             this.state[opt] = opts[opt];
         });
     }
-    withEvaluator(value, type) {
+    withEvaluator(value: (string | number)[], type: 'within_range'): Condition;
+    withEvaluator(value: string | number, type: 'gt' | 'lt'): Condition;
+    withEvaluator(
+        value: (string | number) | (string | number)[],
+        type: GrafanaEvaluatorType
+    ) {
         const types = ['gt', 'lt', 'within_range'];
 
         if (!types.includes(type)) {
@@ -42,15 +51,15 @@ class Condition {
         this._evaluator.type = type;
 
         if (['gt', 'lt'].includes(type)) {
-            this._evaluator.params = [value];
+            this._evaluator.params = [value as string];
         } else if (Array.isArray(value)) {
             this._evaluator.params = value;
         }
 
         return this;
     }
-    withOperator(operator) {
-        const types = ['and', 'or'];
+    withOperator(operator: GrafanaOperatorType) {
+        const types = ['and', 'or'] as const;
 
         if (!types.includes(operator)) {
             throw Error(`Operator must be one of [${types.toString}]`);
@@ -67,7 +76,7 @@ class Condition {
         this._operator.type = 'and';
         return this;
     }
-    onQuery(query, duration, from) {
+    onQuery(query: string, duration?: string, from?: string) {
         if (typeof query !== 'string') {
             throw Error(
                 'Query identifier must be a string. eg. "A" or "B", etc...'
@@ -79,7 +88,7 @@ class Condition {
 
         return this;
     }
-    withReducer(type) {
+    withReducer(type: GrafanaReducerType) {
         const types = [
             'min',
             'max',
@@ -89,7 +98,7 @@ class Condition {
             'last',
             'median',
             'diff',
-        ];
+        ] satisfies GrafanaReducerType[];
 
         if (!types.includes(type)) {
             throw Error(`Reducer has to be one of [${types.toString()}]`);
@@ -98,7 +107,7 @@ class Condition {
         this._reducer.type = type;
         return this;
     }
-    generate() {
+    generate(): GrafanaCondition {
         return Object.assign(
             {},
             {
