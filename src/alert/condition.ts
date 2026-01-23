@@ -62,7 +62,7 @@ class Condition {
         const types = ['and', 'or'] as const;
 
         if (!types.includes(operator)) {
-            throw Error(`Operator must be one of [${types.toString}]`);
+            throw Error(`Operator must be one of [${types.toString()}]`);
         }
 
         this._operator.type = operator;
