@@ -142,3 +142,14 @@ test('graph should add other targets when a target contains refs', () => {
 
     expect(actualDivideTarget).toEqual(expectedDivideTarget);
 });
+
+test('graph should throw descriptive error when referencing non-existent target', () => {
+    expect(() => {
+        new Graph({
+            targets: [
+                'target-1',
+                "alias(divideSeries(#Z, #A), 'invalid ref')", // #Z doesn't exist
+            ],
+        });
+    }).toThrow(/Invalid target reference: #Z does not exist/);
+});
