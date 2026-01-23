@@ -158,8 +158,15 @@ function handleRefTargets(
 ): { targetFull?: string | undefined } {
     if (target.includes('#')) {
         const refs = getRefsFromTarget(target);
-        const findTargetByRefId = (targets: TargetObject[], refId: string) =>
-            targets.find((target) => target.refId === refId)!.target;
+        const findTargetByRefId = (targets: TargetObject[], refId: string) => {
+            const found = targets.find((target) => target.refId === refId);
+            if (!found) {
+                throw new Error(
+                    `Invalid target reference: #${refId} does not exist. Available refs: ${targets.map((t) => t.refId).join(', ')}`
+                );
+            }
+            return found.target;
+        };
 
         return {
             targetFull: refs.reduce(
