@@ -48,6 +48,7 @@ class Query {
             query: query,
             // todo: added default
             name: opts.name || '',
+            label: opts.name || '',
             datasource: opts.datasource,
             type: 'query',
             includeAll: true,
@@ -70,6 +71,7 @@ class Query {
             'refresh',
             'regex',
             'tag',
+            "label",
         ];
 
         // Override overridable values

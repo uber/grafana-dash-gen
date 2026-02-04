@@ -24,6 +24,7 @@ const simpleQueryTemplate: GrafanaQueryTemplate = {
     type: 'query',
     query: 'servers.*',
     name: 'foo',
+    label: 'foo',
     datasource: 'default',
     options: [],
     current: {},
