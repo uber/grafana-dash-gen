@@ -39,7 +39,7 @@ const overrideCustomTemplate: GrafanaCustomTemplate = {
     includeAll: false,
     allValue: '',
     allFormat: 'glob',
-    query: 'a,b',
+    query: null,
     current: {
         text: 'a',
         value: 'a',

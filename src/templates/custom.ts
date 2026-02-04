@@ -69,7 +69,6 @@ class Custom {
         }
 
         const newOptions = [];
-        const newQuery = [];
 
         let hasAll = false;
         for (let i = 0; i < this.state.options.length; i++) {
@@ -90,7 +89,6 @@ class Custom {
             }
 
             newOptions.push(opt);
-            newQuery.push(opt.value);
         }
 
         if (this.defaultValue !== '') {
@@ -112,7 +110,6 @@ class Custom {
         }
 
         this.state.options = newOptions;
-        this.state.query = newQuery.join(',');
     }
 
     generate() {
