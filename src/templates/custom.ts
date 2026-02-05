@@ -69,6 +69,7 @@ class Custom {
         }
 
         const newOptions = [];
+        const queryParts = [];
 
         let hasAll = false;
         for (let i = 0; i < this.state.options.length; i++) {
@@ -89,6 +90,8 @@ class Custom {
             }
 
             newOptions.push(opt);
+            const valueWithEscapedCommas = String(opt.value).replace(/,/g, '\\,');
+            queryParts.push(`${opt.text} : ${valueWithEscapedCommas}`);
         }
 
         if (this.defaultValue !== '') {
@@ -110,6 +113,7 @@ class Custom {
         }
 
         this.state.options = newOptions;
+        this.state.query = queryParts.join(', ');
     }
 
     generate() {

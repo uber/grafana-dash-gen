@@ -35,7 +35,7 @@ const overrideCustomTextValue: GrafanaCustomTemplate = {
     includeAll: false,
     allValue: '',
     allFormat: 'glob',
-    query: null,
+    query: 'myText : myValue',
     current: {
         text: 'myText',
         value: 'myValue',
