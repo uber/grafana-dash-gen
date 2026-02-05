@@ -71,7 +71,7 @@ class Query {
             'refresh',
             'regex',
             'tag',
-            "label",
+            'label',
         ];
 
         // Override overridable values
