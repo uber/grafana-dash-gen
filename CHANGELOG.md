@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v4.1.1 (2026-02-09)
+-------------------
+
+ - Remove query parameter value from Custom entity (#132)
+ - Update CI containers for Node 24 (#133)
+ - Update dependencies (#134)
+
+
 v4.1.0 (2026-02-09)
 -------------------
 
