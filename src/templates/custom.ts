@@ -69,7 +69,7 @@ class Custom {
         }
 
         const newOptions = [];
-        const newQuery = [];
+        const queryParts = [];
 
         let hasAll = false;
         for (let i = 0; i < this.state.options.length; i++) {
@@ -90,7 +90,11 @@ class Custom {
             }
 
             newOptions.push(opt);
-            newQuery.push(opt.value);
+            const valueWithEscapedCommas = String(opt.value).replace(
+                /,/g,
+                '\\,'
+            );
+            queryParts.push(`${opt.text} : ${valueWithEscapedCommas}`);
         }
 
         if (this.defaultValue !== '') {
@@ -112,7 +116,7 @@ class Custom {
         }
 
         this.state.options = newOptions;
-        this.state.query = newQuery.join(',');
+        this.state.query = queryParts.join(', ');
     }
 
     generate() {
