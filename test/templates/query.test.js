@@ -91,6 +91,7 @@ test('Query template state cannot be mutated after init', function () {
 test('Query template state overridden on init', function () {
     var template = new Query('stats.*', {
         name: 'template',
+        label: 'template label',
         datasource: 'datasource',
         includeAll: false,
         allFormat: 'glob',

@@ -24,6 +24,7 @@ const overrideQueryTemplate: GrafanaQueryTemplate = {
     type: 'query',
     query: 'stats.*',
     name: 'template',
+    label: 'template label',
     datasource: 'datasource',
     options: [],
     current: {},
