@@ -90,7 +90,10 @@ class Custom {
             }
 
             newOptions.push(opt);
-            const valueWithEscapedCommas = String(opt.value).replace(/,/g, '\\,');
+            const valueWithEscapedCommas = String(opt.value).replace(
+                /,/g,
+                '\\,'
+            );
             queryParts.push(`${opt.text} : ${valueWithEscapedCommas}`);
         }
 
