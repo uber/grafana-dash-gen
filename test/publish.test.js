@@ -287,14 +287,14 @@ test('Publish dashboard - passes headers', async function () {
         .reply(201, function createdHandler() {
             const reqHeaders = this.req.headers;
             Object.keys(headers).forEach(function (key) {
-                expect(reqHeaders[key]).toEqual(headers[key]);
+                expect(reqHeaders[key]).toEqual(headers[key].toString());
             });
         })
         .post('/dashboard')
         .reply(200, function okHandler() {
             const reqHeaders = this.req.headers;
             Object.keys(headers).forEach(function (key) {
-                expect(reqHeaders[key]).toEqual(headers[key]);
+                expect(reqHeaders[key]).toEqual(headers[key].toString());
             });
         });
     await publish(dashboard) // 201
