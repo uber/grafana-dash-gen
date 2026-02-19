@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaQueryTemplate } from '../grafana';
+import type { GrafanaQueryTemplate } from '../grafana.js';
 
 /**
  * Provide a query to populate template variable.
@@ -97,4 +97,4 @@ class Query {
     }
 }
 
-export = Query;
+export default Query;

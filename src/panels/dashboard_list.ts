@@ -18,10 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import generateGraphId = require('../id');
-import type { GrafanaDashboardListPanel } from '../grafana';
-import type Row from '../row';
-import type Dashboard from '../dashboard';
+import generateGraphId from '../id.js';
+import type { GrafanaDashboardListPanel } from '../grafana.js';
+import type Row from '../row.js';
+import type Dashboard from '../dashboard.js';
 
 type DashboardListPanelOptions = Partial<
     GrafanaDashboardListPanel & {
@@ -69,4 +69,4 @@ class DashboardList {
     }
 }
 
-export = DashboardList;
+export default DashboardList;

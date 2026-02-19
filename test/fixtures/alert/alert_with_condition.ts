@@ -1,4 +1,4 @@
-import { GrafanaAlert } from '../../../src/grafana';
+import type { GrafanaAlert } from '../../../src/grafana.js';
 
 const alertWithCondition: GrafanaAlert = {
     name: 'Panel Title alert',
@@ -31,4 +31,4 @@ const alertWithCondition: GrafanaAlert = {
     handler: 1,
 };
 
-export = alertWithCondition;
+export default alertWithCondition;

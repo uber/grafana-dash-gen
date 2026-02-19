@@ -18,12 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Text from '../../src/panels/text.js';
 
-var Text = require('../../src/panels/text');
-
-var simpleText = require('../fixtures/panels/simple_text');
-var overrideText = require('../fixtures/panels/override_text');
+import simpleText from '../fixtures/panels/simple_text.js';
+import overrideText from '../fixtures/panels/override_text.js';
 
 test('simple Text panel', function () {
     var graph = new Text();

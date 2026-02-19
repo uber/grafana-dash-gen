@@ -2,8 +2,12 @@
   "name": "grafana-dash-gen",
   "version": "4.1.1",
   "description": "A grafana dashboard generator",
+  "type": "module",
   "main": "grafana/index.js",
   "types": "grafana/index.d.ts",
+  "exports": {
+    ".": "./grafana/index.js"
+  },
   "scripts": {
     "fast-test": "jest",
     "test-cover": "jest --coverage",
@@ -28,8 +32,7 @@
   "dependencies": {
     "error": "^10.4.0",
     "node-fetch": "^2.7.0",
-    "underscore": "^1.13.7",
-    "xtend": "^4.0.2"
+    "underscore": "^1.13.7"
   },
   "devDependencies": {
     "@babel/core": "^7.28.5",
@@ -40,7 +43,6 @@
     "@types/node": "^25.0.0",
     "@types/node-fetch": "^2.6.13",
     "@types/underscore": "^1.13.0",
-    "@types/xtend": "^4.0.6",
     "babel-jest": "^30.2.0",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
@@ -60,10 +62,9 @@
     "example.js",
     "grafana",
     "src",
-    "index.js",
     "package.json"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   }
 }
