@@ -18,12 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import SingleStat from '../../src/panels/singlestat.js';
 
-var SingleStat = require('../../src/panels/singlestat');
-
-var simpleSingleStat = require('../fixtures/panels/simple_singlestat');
-var overrideSingleStat = require('../fixtures/panels/override_singlestat');
+import simpleSingleStat from '../fixtures/panels/simple_singlestat.js';
+import overrideSingleStat from '../fixtures/panels/override_singlestat.js';
 
 test('simple SingleStat panel', function () {
     var graph = new SingleStat();

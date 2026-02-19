@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaTablePanel } from '../../../src/grafana';
+import type { GrafanaTablePanel } from '../../../src/grafana.js';
 
 const overrideTablePanel: GrafanaTablePanel = {
     title: 'custom title',
@@ -74,4 +74,4 @@ const overrideTablePanel: GrafanaTablePanel = {
     arbitraryProperty: 'foo',
 };
 
-export = overrideTablePanel;
+export default overrideTablePanel;

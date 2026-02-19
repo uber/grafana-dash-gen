@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaGraphPanel } from '../../../src/grafana';
+import type { GrafanaGraphPanel } from '../../../src/grafana.js';
 
 const simpleGraphPanel: GrafanaGraphPanel = {
     aliasColors: {},
@@ -71,4 +71,4 @@ const simpleGraphPanel: GrafanaGraphPanel = {
     datasource: 'graphite',
 };
 
-export = simpleGraphPanel;
+export default simpleGraphPanel;

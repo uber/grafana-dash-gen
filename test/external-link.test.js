@@ -18,10 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var ExternalLink = require('../src/external-link');
-var defaultExternalLink = require('./fixtures/external_link');
+import ExternalLink from '../src/external-link.js';
+import defaultExternalLink from './fixtures/external_link.js';
 
 test('default external link', function () {
     var externalLink = new ExternalLink({

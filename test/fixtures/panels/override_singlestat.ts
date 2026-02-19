@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaSingleStatPanel } from '../../../src/grafana';
+import type { GrafanaSingleStatPanel } from '../../../src/grafana.js';
 
 const overrideSingleStatPanel: GrafanaSingleStatPanel = {
     cacheTimeout: null,
@@ -70,4 +70,4 @@ const overrideSingleStatPanel: GrafanaSingleStatPanel = {
     arbitraryProperty: 'foo',
 };
 
-export = overrideSingleStatPanel;
+export default overrideSingleStatPanel;

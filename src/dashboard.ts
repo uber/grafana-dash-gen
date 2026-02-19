@@ -18,18 +18,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Templates = require('./templates');
-import Annotations = require('./annotations');
-import ExternalLink = require('./external-link');
+import * as Templates from './templates/index.js';
+import * as Annotations from './annotations/index.js';
+import ExternalLink from './external-link.js';
 import type {
     GrafanaCustomTemplate,
     GrafanaDashboard,
     GrafanaGraphiteAnnotation,
-} from './grafana';
-import type Row from './row';
-import type Graphite from './annotations/graphite';
-import type Query from './templates/query';
-import type Custom from './templates/custom';
+} from './grafana.js';
+import type Row from './row.js';
+import type Graphite from './annotations/graphite.js';
+import type Query from './templates/query.js';
+import type Custom from './templates/custom.js';
 
 type DashboardOptions = Partial<
     Omit<GrafanaDashboard, 'rows' | 'templating' | 'annotations'> & {
@@ -140,4 +140,4 @@ class Dashboard {
     }
 }
 
-export = Dashboard;
+export default Dashboard;

@@ -18,12 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Query from '../../src/templates/query.js';
 
-var Query = require('../../src/templates/query');
-
-var simpleQuery = require('../fixtures/templates/simple_query');
-var overrideQuery = require('../fixtures/templates/override_query');
+import simpleQuery from '../fixtures/templates/simple_query.js';
+import overrideQuery from '../fixtures/templates/override_query.js';
 
 test('Interval template has defaults', function () {
     var template = new Query('servers.*', {

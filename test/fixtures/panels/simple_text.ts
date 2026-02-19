@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import { GrafanaTextPanel } from '../../../src/grafana';
+import type { GrafanaTextPanel } from '../../../src/grafana.js';
 
 const simpleTextPanel: GrafanaTextPanel = {
     title: '',
@@ -33,4 +33,4 @@ const simpleTextPanel: GrafanaTextPanel = {
     links: [],
 };
 
-export = simpleTextPanel;
+export default simpleTextPanel;

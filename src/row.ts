@@ -18,9 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import xtend = require('xtend');
-import type { GrafanaRow } from './grafana';
-import { Panel } from './panels';
+import type { GrafanaRow } from './grafana.js';
+import type { Panel } from './panels/index.js';
 
 type RowOptions = Omit<Partial<GrafanaRow>, 'panels'> & {
     panels?: Panel[];
@@ -39,7 +38,7 @@ class Row {
             showTitle: true,
         };
 
-        this.state = xtend(state, opts);
+        this.state = { ...state, ...opts } as GrafanaRow;
         this.panels = [];
 
         if (opts.panels) {
@@ -59,4 +58,4 @@ class Row {
     }
 }
 
-export = Row;
+export default Row;

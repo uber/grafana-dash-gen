@@ -17,9 +17,6 @@ importers:
       underscore:
         specifier: ^1.13.8
         version: 1.13.8
-      xtend:
-        specifier: ^4.0.2
-        version: 4.0.2
     devDependencies:
       '@babel/core':
         specifier: ^8.0.0
@@ -45,9 +42,6 @@ importers:
       '@types/underscore':
         specifier: ^1.13.0
         version: 1.13.0
-      '@types/xtend':
-        specifier: ^4.0.6
-        version: 4.0.6
       babel-jest:
         specifier: ^30.4.1
         version: 30.4.1(@babel/core@8.0.1)
@@ -1007,9 +1001,6 @@ packages:
 
   '@types/underscore@1.13.0':
     resolution: {integrity: sha512-L6LBgy1f0EFQZ+7uSA57+n2g/s4Qs5r06Vwrwn0/nuK1de+adz00NWaztRQ30aEqw5qOaWbPI8u2cGQ52lj6VA==}
-
-  '@types/xtend@4.0.6':
-    resolution: {integrity: sha512-lOPBpPQ9AFXDY78rLRyLDZg/PgSCN/m1jCdjRC06RzUTRkaxMkirPx6RUQH2tV5im8gmJ8/7/i1BVLLy0vaBVg==}
 
   '@types/yargs-parser@21.0.3':
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
@@ -2389,10 +2380,6 @@ packages:
     resolution: {integrity: sha512-+QU2zd6OTD8XWIJCbffaiQeH9U73qIqafo1x6V1snCWYGJf6cVE0cDR4D8xRzcEnfI21IFrUPzPGtcPf8AC+Rw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  xtend@4.0.2:
-    resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
-    engines: {node: '>=0.4'}
-
   y18n@5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
@@ -3646,8 +3633,6 @@ snapshots:
   '@types/stack-utils@2.0.3': {}
 
   '@types/underscore@1.13.0': {}
-
-  '@types/xtend@4.0.6': {}
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -5168,8 +5153,6 @@ snapshots:
     dependencies:
       imurmurhash: 0.1.4
       signal-exit: 4.1.0
-
-  xtend@4.0.2: {}
 
   y18n@5.0.8: {}
 
