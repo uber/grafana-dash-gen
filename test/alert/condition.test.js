@@ -1,4 +1,4 @@
-const Condition = require('../../src/alert/condition');
+import Condition from '../../src/alert/condition.js';
 
 test('condition .withEvaluator', () => {
     const condition = new Condition().withEvaluator(2, 'gt').generate();

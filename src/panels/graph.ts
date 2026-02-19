@@ -18,11 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import generateGraphId = require('../id');
-import type { GrafanaGraphPanel } from '../grafana';
-import type Row from '../row';
-import type Dashboard from '../dashboard';
-import type Alert from '../alert/alert';
+import generateGraphId from '../id.js';
+import type { GrafanaGraphPanel } from '../grafana.js';
+import type Row from '../row.js';
+import type Dashboard from '../dashboard.js';
+import type Alert from '../alert/alert.js';
 
 type GraphPanelOptions = Partial<
     GrafanaGraphPanel & {
@@ -180,4 +180,4 @@ function handleRefTargets(
     return {};
 }
 
-export = Graph;
+export default Graph;

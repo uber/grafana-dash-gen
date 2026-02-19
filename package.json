@@ -2,15 +2,30 @@
   "name": "grafana-dash-gen",
   "version": "4.1.1",
   "description": "A grafana dashboard generator",
-  "main": "grafana/index.js",
+  "type": "module",
+  "main": "grafana/cjs/cjs/index.js",
   "types": "grafana/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./grafana/index.d.ts",
+        "default": "./grafana/index.js"
+      },
+      "require": {
+        "types": "./grafana/cjs/cjs/index.d.ts",
+        "default": "./grafana/cjs/cjs/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "fast-test": "jest",
     "test-cover": "jest --coverage",
     "view-cover": "rm -rf ./coverage && pnpm run test-cover && open ./coverage/index.html",
     "test": "pnpm run fast-test && pnpm run test-cover",
     "lint": "eslint",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rm -rf grafana && tsc -p tsconfig.build.json && tsc -p tsconfig.cjs.json && node scripts/mark-cjs.mjs",
+    "check-package": "node scripts/check-package.mjs",
     "typecheck": "tsc",
     "prepublish": "pnpm run build"
   },
@@ -28,8 +43,7 @@
   "dependencies": {
     "error": "^10.4.0",
     "node-fetch": "^2.7.0",
-    "underscore": "^1.13.8",
-    "xtend": "^4.0.2"
+    "underscore": "^1.13.8"
   },
   "devDependencies": {
     "@babel/core": "^8.0.0",
@@ -40,7 +54,6 @@
     "@types/node": "^26.0.0",
     "@types/node-fetch": "^2.6.13",
     "@types/underscore": "^1.13.0",
-    "@types/xtend": "^4.0.6",
     "babel-jest": "^30.4.1",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
@@ -60,10 +73,9 @@
     "example.js",
     "grafana",
     "src",
-    "index.js",
     "package.json"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   }
 }

@@ -18,10 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var ExternalLink = require('../src/external-link');
-var defaultExternalLink = require('./fixtures/external_link');
+import Dashboard from '../src/dashboard.js';
+import ExternalLink from '../src/external-link.js';
+import defaultExternalLink from './fixtures/external_link.js';
 
 test('default external link', function () {
     var externalLink = new ExternalLink({
@@ -64,7 +63,6 @@ test('external link validates required fields', function () {
 });
 
 test('external link preserves constructor options in generated dashboards', () => {
-    const Dashboard = require('../src/dashboard');
     const options = {
         title: 'Related dashboards',
         tooltip: 'Keep the current context',

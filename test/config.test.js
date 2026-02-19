@@ -18,9 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var config = require('../src/config');
+import { configure, getConfig } from '../src/config.js';
 
 test('config extends default configuration', function () {
     var foo = 'foo';
@@ -50,8 +48,8 @@ test('config extends default configuration', function () {
         headers: headers,
     };
 
-    config.configure(cfg);
-    var result = config.getConfig();
+    configure(cfg);
+    var result = getConfig();
 
     expect(result).toEqual(expected);
 });
