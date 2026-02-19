@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import { GrafanaQueryTemplate } from '../../../src/grafana';
+import type { GrafanaQueryTemplate } from '../../../src/grafana.js';
 
 const overrideQueryTemplate: GrafanaQueryTemplate = {
     type: 'query',
@@ -35,4 +35,4 @@ const overrideQueryTemplate: GrafanaQueryTemplate = {
     multi: true,
 };
 
-export = overrideQueryTemplate;
+export default overrideQueryTemplate;

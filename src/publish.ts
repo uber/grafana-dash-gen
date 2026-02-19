@@ -18,17 +18,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import fetch = require('node-fetch');
-import config = require('./config');
-import errors = require('./errors');
-import type Dashboard from './dashboard';
+import fetch from 'node-fetch';
+import { getConfig } from './config.js';
+import {
+    UnfulfilledRequirement,
+    InvalidState,
+    Misconfigured,
+    ResponseError,
+} from './errors.js';
+import type Dashboard from './dashboard.js';
 
 function publish(
     dashboard: Dashboard,
     opts: Partial<{ timeout: number }> = {}
 ) {
     if (!dashboard) {
-        throw errors.UnfulfilledRequirement.create(
+        throw UnfulfilledRequirement.create(
             '{component} missing requirement: {unfulfilledArg}',
             {
                 component: 'grafana.publish',
@@ -38,10 +43,10 @@ function publish(
     }
 
     const state = dashboard.state;
-    const cfg = config.getConfig();
+    const cfg = getConfig();
 
     if (!state || !state.title) {
-        throw errors.InvalidState.create(
+        throw InvalidState.create(
             '{component} state is invalid: state.{invalidArg} {reason}',
             {
                 component: 'grafana.Dashboard',
@@ -52,7 +57,7 @@ function publish(
     }
 
     if (!cfg.url) {
-        throw errors.Misconfigured.create(
+        throw Misconfigured.create(
             'Incorrect configuration: config.{invalidArg} {reason} - {resolution}',
             {
                 invalidArg: 'url',
@@ -63,7 +68,7 @@ function publish(
     }
 
     if (!cfg.cookie) {
-        throw errors.Misconfigured.create(
+        throw Misconfigured.create(
             'Incorrect configuration: config.{invalidArg} {reason} - {resolution}',
             {
                 invalidArg: 'cookie',
@@ -92,7 +97,7 @@ function publish(
                 console.log('Published the dashboard', state.title);
                 return resp.text();
             } else {
-                throw errors.ResponseError.create('request failed: {name}', {
+                throw ResponseError.create('request failed: {name}', {
                     name: resp.statusText,
                     response: resp,
                 });
@@ -120,4 +125,4 @@ function publish(
         });
 }
 
-export = publish;
+export default publish;

@@ -19,6 +19,8 @@ You will be able to generate and publish a grafana graph using the following ste
 
 #### Step 1: Configure grafana 
 if you would like grafana to publish your dashboard you need this step. If you do not need grafana to publish your dashboard, you can skip this step. 
+
+The package supports both CommonJS and ES modules: use `require('grafana-dash-gen')` as below, or `import grafana from 'grafana-dash-gen'` (named imports such as `import { Dashboard } from 'grafana-dash-gen'` also work).
 ```js
 const grafana = require('grafana-dash-gen');
 const Row = grafana.Row;

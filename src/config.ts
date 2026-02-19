@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import xtend = require('xtend');
-
 /**
  * `user` - Auth user, defaults to "guest"
  * `group` - Auth group, defaults to "guest"
@@ -44,14 +42,11 @@ type Config = {
 };
 
 function configure(opts: Partial<Config> = {}) {
-    configurations = xtend(configurations, opts);
+    configurations = { ...configurations, ...opts };
 }
 
 function getConfig(): Config {
     return configurations;
 }
 
-export = {
-    configure: configure,
-    getConfig: getConfig,
-};
+export { configure, getConfig };

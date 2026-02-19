@@ -1,4 +1,4 @@
-import { GrafanaCondition } from '../../../src/grafana';
+import type { GrafanaCondition } from '../../../src/grafana.js';
 
 const simpleCondition: GrafanaCondition = {
     type: 'query',
@@ -18,4 +18,4 @@ const simpleCondition: GrafanaCondition = {
     },
 };
 
-export = simpleCondition;
+export default simpleCondition;

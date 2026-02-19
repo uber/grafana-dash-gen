@@ -18,12 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Graphite from '../../src/annotations/graphite.js';
 
-var Graphite = require('../../src/annotations/graphite');
-
-var simpleGraphite = require('../fixtures/annotations/simple_graphite');
-var overrideGraphite = require('../fixtures/annotations/override_graphite');
+import simpleGraphite from '../fixtures/annotations/simple_graphite.js';
+import overrideGraphite from '../fixtures/annotations/override_graphite.js';
 
 test('Graphite annotation has requirements', function () {
     expect(function assertThrows() {

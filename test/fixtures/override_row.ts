@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import { GrafanaRow } from '../../src/grafana';
+import type { GrafanaRow } from '../../src/grafana.js';
 
 const overrideRow: GrafanaRow = {
     title: 'My Row',
@@ -36,4 +36,4 @@ const overrideRow: GrafanaRow = {
     ],
 };
 
-export = overrideRow;
+export default overrideRow;
