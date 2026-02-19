@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaExternalLink } from '../../src/grafana';
+import type { GrafanaExternalLink } from '../../src/grafana.js';
 
 const externalLink: GrafanaExternalLink = {
     title: 'Uber Home Page',
@@ -32,4 +32,4 @@ const externalLink: GrafanaExternalLink = {
     keepTime: false,
 };
 
-export = externalLink;
+export default externalLink;

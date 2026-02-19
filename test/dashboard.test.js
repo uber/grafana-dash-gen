@@ -18,14 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Dashboard from '../src/dashboard.js';
+import ExternalLink from '../src/external-link.js';
+import '../src/panels/index.js'; // for coverage
 
-var Dashboard = require('../src/dashboard');
-var ExternalLink = require('../src/external-link');
-require('../src/panels'); // for coverage
-
-var simpleDashboard = require('./fixtures/simple_dashboard');
-var overrideDashboard = require('./fixtures/override_dashboard');
+import simpleDashboard from './fixtures/simple_dashboard.js';
+import overrideDashboard from './fixtures/override_dashboard.js';
 
 test('Simple Dashboard', function () {
     var dashboard = new Dashboard();

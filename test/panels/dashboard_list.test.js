@@ -18,12 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import DashboardList from '../../src/panels/dashboard_list.js';
 
-var DashboardList = require('../../src/panels/dashboard_list');
-
-var dashboardList = require('../fixtures/panels/simple_dashboard_list');
-var overrideDashboardList = require('../fixtures/panels/override_dashboard_list');
+import dashboardList from '../fixtures/panels/simple_dashboard_list.js';
+import overrideDashboardList from '../fixtures/panels/override_dashboard_list.js';
 
 test('simple DashboardList panel', function () {
     var graph = new DashboardList();

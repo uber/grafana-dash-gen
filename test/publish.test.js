@@ -18,12 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-const nock = require('nock');
-const config = require('../src/config');
-const publish = require('../src/publish');
-const Dashboard = require('../src/dashboard');
-const ExternalLink = require('../src/external-link');
+import nock from 'nock';
+import { configure, getConfig } from '../src/config.js';
+import publish from '../src/publish.js';
+import Dashboard from '../src/dashboard.js';
+import ExternalLink from '../src/external-link.js';
 
 // configuration values, held constant for assertions
 const baseUrl = 'http://awesome.com';
@@ -64,7 +63,7 @@ const dashboard = new Dashboard({
 
 test('Publish dashboard - requires dashboard', async () => {
     await expect(async () => {
-        config.configure();
+        configure();
         // @ts-expect-error intentionally invalid arguments
         return publish();
     }).rejects.toThrow('grafana.publish missing requirement: dashboard');
@@ -72,7 +71,7 @@ test('Publish dashboard - requires dashboard', async () => {
 
 test('Publish dashboard - invalid state', async () => {
     await expect(async () => {
-        config.configure();
+        configure();
         // @ts-expect-error intentionally invalid arguments
         return publish({});
     }).rejects.toThrow(
@@ -82,7 +81,7 @@ test('Publish dashboard - invalid state', async () => {
 
 test('Publish dashboard - invalid title', async () => {
     await expect(async () => {
-        config.configure();
+        configure();
         return publish({
             // @ts-expect-error intentionally invalid arguments
             state: {},
@@ -94,7 +93,7 @@ test('Publish dashboard - invalid title', async () => {
 
 test('Publish dashboard - misconfigured url', async () => {
     await expect(async () => {
-        config.configure({
+        configure({
             cookie: cookie,
             url: null,
         });
@@ -111,7 +110,7 @@ test('Publish dashboard - misconfigured url', async () => {
 
 test('Publish dashboard - misconfigured cookie', async () => {
     await expect(async () => {
-        config.configure({
+        configure({
             cookie: null,
             url: url,
         });
@@ -126,7 +125,7 @@ test('Publish dashboard - misconfigured cookie', async () => {
 
 test('Publish dashboard - default empty headers', async function () {
     expect.assertions(1);
-    config.configure({
+    configure({
         cookie: cookie,
         headers: null,
         url: url,
@@ -142,7 +141,7 @@ test('Publish dashboard - default empty headers', async function () {
 
 test('Publish dashboard - client error', async function () {
     expect.assertions(1);
-    config.configure({
+    configure({
         cookie: cookie,
         url: url,
     });
@@ -158,7 +157,7 @@ test('Publish dashboard - client error', async function () {
 
 test('Publish dashboard - client error (invalid)', async function () {
     expect.assertions(1);
-    config.configure({
+    configure({
         cookie: cookie,
         url: url,
     });
@@ -170,7 +169,7 @@ test('Publish dashboard - client error (invalid)', async function () {
 
 test('Publish dashboard - client error (n/a)', async function () {
     expect.assertions(1);
-    config.configure({
+    configure({
         cookie: cookie,
         url: url,
     });
@@ -182,7 +181,7 @@ test('Publish dashboard - client error (n/a)', async function () {
 
 test('Publish dashboard - bad response', async function () {
     expect.assertions(1);
-    config.configure({
+    configure({
         cookie: cookie,
         url: url,
     });
@@ -194,7 +193,7 @@ test('Publish dashboard - bad response', async function () {
 
 test('Publish dashboard - server unavailable', async function () {
     expect.assertions(1);
-    config.configure({
+    configure({
         cookie: cookie,
         url: 'http://111.111.111.111',
     });
@@ -205,7 +204,7 @@ test('Publish dashboard - server unavailable', async function () {
 
 test('Publish dashboard - server error', async function () {
     expect.assertions(1);
-    config.configure({
+    configure({
         cookie: cookie,
         url: url,
     });
@@ -217,7 +216,7 @@ test('Publish dashboard - server error', async function () {
 
 test('Publish dashboard - success', async function () {
     expect.assertions(2);
-    config.configure({
+    configure({
         cookie: cookie,
         url: url,
     });
@@ -242,7 +241,7 @@ test('Publish dashboard - success', async function () {
 });
 
 test('Publish dashboard - success w/ custom timeout', async function () {
-    config.configure({
+    configure({
         cookie: cookie,
         url: url,
     });
@@ -273,7 +272,7 @@ test('Publish dashboard - success w/ custom timeout', async function () {
 });
 
 test('Publish dashboard - passes headers', async function () {
-    config.configure({
+    configure({
         cookie: cookie,
         // @ts-expect-error bad mock
         headers: headers,
@@ -287,14 +286,14 @@ test('Publish dashboard - passes headers', async function () {
         .reply(201, function createdHandler() {
             const reqHeaders = this.req.headers;
             Object.keys(headers).forEach(function (key) {
-                expect(reqHeaders[key]).toEqual(headers[key].toString());
+                expect(reqHeaders[key]).toEqual(headers[key]);
             });
         })
         .post('/dashboard')
         .reply(200, function okHandler() {
             const reqHeaders = this.req.headers;
             Object.keys(headers).forEach(function (key) {
-                expect(reqHeaders[key]).toEqual(headers[key].toString());
+                expect(reqHeaders[key]).toEqual(headers[key]);
             });
         });
     await publish(dashboard) // 201
@@ -304,7 +303,7 @@ test('Publish dashboard - passes headers', async function () {
 test('Publish dashboard - follows redirect', async () => {
     expect.assertions(1);
     const redirectBase = 'http://willredirect.com';
-    config.configure({
+    configure({
         cookie: cookie,
         url: redirectBase + '/dashboard',
     });

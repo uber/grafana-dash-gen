@@ -20,8 +20,8 @@
 
 /* eslint-disable @typescript-eslint/no-unsafe-declaration-merging,prefer-rest-params */
 
-import _ = require('underscore');
-import util = require('util');
+import _ from 'underscore';
+import util from 'util';
 
 class Target {
     source: string | { toString(): string };
@@ -345,4 +345,4 @@ _.each(Target.COLORS, function each(color) {
     };
 });
 
-export = Target;
+export default Target;

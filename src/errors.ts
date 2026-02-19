@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import error = require('error');
+import error from 'error';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare class _SError extends error.SError {
@@ -31,9 +31,9 @@ class InvalidState extends SError {}
 class Misconfigured extends SError {}
 class ResponseError extends SError {}
 
-export = {
-    UnfulfilledRequirement: UnfulfilledRequirement,
-    InvalidState: InvalidState,
-    Misconfigured: Misconfigured,
-    ResponseError: ResponseError,
+export {
+    UnfulfilledRequirement,
+    InvalidState,
+    Misconfigured,
+    ResponseError,
 };

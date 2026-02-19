@@ -1,4 +1,4 @@
-import { GrafanaAlert } from '../../../src/grafana';
+import type { GrafanaAlert } from '../../../src/grafana.js';
 
 const simpleAlert: GrafanaAlert = {
     name: 'Panel Title alert',
@@ -13,4 +13,4 @@ const simpleAlert: GrafanaAlert = {
     handler: 1,
 };
 
-export = simpleAlert;
+export default simpleAlert;

@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaSingleStatPanel } from '../../../src/grafana';
+import type { GrafanaSingleStatPanel } from '../../../src/grafana.js';
 
 const simpleSingleStatPanel: GrafanaSingleStatPanel = {
     cacheTimeout: null,
@@ -65,4 +65,4 @@ const simpleSingleStatPanel: GrafanaSingleStatPanel = {
     datasource: 'graphite',
 };
 
-export = simpleSingleStatPanel;
+export default simpleSingleStatPanel;

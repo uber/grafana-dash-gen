@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaExternalLink } from './grafana';
+import type { GrafanaExternalLink } from './grafana.js';
 
 class ExternalLink {
     private state: GrafanaExternalLink;
@@ -64,4 +64,4 @@ class ExternalLink {
     }
 }
 
-export = ExternalLink;
+export default ExternalLink;

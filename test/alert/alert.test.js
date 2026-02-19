@@ -1,7 +1,7 @@
-const Alert = require('../../src/alert/alert');
-const Condition = require('../../src/alert/condition');
-const simpleAlert = require('../fixtures/alert/simple_alert');
-const alertWithCondition = require('../fixtures/alert/alert_with_condition');
+import Alert from '../../src/alert/alert.js';
+import Condition from '../../src/alert/condition.js';
+import simpleAlert from '../fixtures/alert/simple_alert.js';
+import alertWithCondition from '../fixtures/alert/alert_with_condition.js';
 
 test('simple alert', function () {
     const alert = new Alert();

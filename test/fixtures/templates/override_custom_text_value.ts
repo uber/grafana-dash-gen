@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaCustomTemplate } from '../../../src/grafana';
+import type { GrafanaCustomTemplate } from '../../../src/grafana.js';
 
 const overrideCustomTextValue: GrafanaCustomTemplate = {
     name: 'custom',
@@ -43,4 +43,4 @@ const overrideCustomTextValue: GrafanaCustomTemplate = {
     arbitraryProperty: 'foo',
 };
 
-export = overrideCustomTextValue;
+export default overrideCustomTextValue;

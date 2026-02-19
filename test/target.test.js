@@ -18,10 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var util = require('util');
-var Target = require('../src/target');
+import util from 'util';
+import Target from '../src/target.js';
 
 test('Target throws exception on invalid invocation', function () {
     expect(function shouldThrow() {
