@@ -9,7 +9,7 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "CommonJS",
-    "target": "es5",
+    "target": "ES6",
     "lib": ["esnext"],
     "types": ["node", "jest"],
 
