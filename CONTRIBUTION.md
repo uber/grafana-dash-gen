@@ -28,6 +28,6 @@ Declaring formal releases requires peer review.
 ### Cutting a new version
 
  - Get your branch merged on master
- - Run `npm version major` or `npm version minor` or `npm version patch`
+ - Run `pnpm version major` or `pnpm version minor` or `pnpm version patch`
  - `git push origin master --tags`
- - If you are a project owner, then `npm publish`
+ - If you are a project owner, then `pnpm publish`

@@ -151,11 +151,15 @@ console.log(JSON.stringify(dashboard.generate()));
 
 ## Installation
 
+`pnpm install grafana-dash-gen`
+
+OR
+
 `npm install grafana-dash-gen`
 
 ## Tests
 
-`npm test`
+`pnpm test`
 
 ## Contributors
 
