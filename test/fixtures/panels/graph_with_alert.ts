@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaGraphPanel } from '../../../src/grafana';
+import type { GrafanaGraphPanel } from '../../../src/grafana.js';
 
 const graphWithAlertPanel: GrafanaGraphPanel = {
     alert: {
@@ -101,4 +101,4 @@ const graphWithAlertPanel: GrafanaGraphPanel = {
     datasource: 'graphite',
 };
 
-export = graphWithAlertPanel;
+export default graphWithAlertPanel;

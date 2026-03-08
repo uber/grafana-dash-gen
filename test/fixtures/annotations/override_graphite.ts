@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaGraphiteAnnotation } from '../../../src/grafana';
+import type { GrafanaGraphiteAnnotation } from '../../../src/grafana.js';
 
 const overrideGraphiteAnnotation: GrafanaGraphiteAnnotation = {
     name: 'custom name',
@@ -32,4 +32,4 @@ const overrideGraphiteAnnotation: GrafanaGraphiteAnnotation = {
     arbitraryProperty: 'foo',
 };
 
-export = overrideGraphiteAnnotation;
+export default overrideGraphiteAnnotation;

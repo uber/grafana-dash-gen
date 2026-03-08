@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaRow } from '../../src/grafana';
+import type { GrafanaRow } from '../../src/grafana.js';
 
 const simpleRow: GrafanaRow = {
     title: 'New row',
@@ -29,4 +29,4 @@ const simpleRow: GrafanaRow = {
     panels: [],
 };
 
-export = simpleRow;
+export default simpleRow;

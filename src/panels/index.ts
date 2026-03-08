@@ -18,23 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import _Graph = require('./graph');
-import _SingleStat = require('./singlestat');
-import _Text = require('./text');
-import _Table = require('./table');
-import _DashboardList = require('./dashboard_list');
+export { default as Graph } from './graph.js';
+export { default as SingleStat } from './singlestat.js';
+export { default as Text } from './text.js';
+export { default as Table } from './table.js';
+export { default as DashboardList } from './dashboard_list.js';
 
-namespace panels {
-    export type Graph = _Graph;
-    export const Graph = _Graph;
-    export type SingleStat = _SingleStat;
-    export const SingleStat = _SingleStat;
-    export type Text = _Text;
-    export const Text = _Text;
-    export type Table = _Table;
-    export const Table = _Table;
-    export type DashboardList = _DashboardList;
-    export const DashboardList = _DashboardList;
-    export type Panel = Graph | SingleStat | Text | Table | DashboardList;
-}
-export = panels;
+import type Graph from './graph.js';
+import type SingleStat from './singlestat.js';
+import type Text from './text.js';
+import type Table from './table.js';
+import type DashboardList from './dashboard_list.js';
+export type Panel = Graph | SingleStat | Text | Table | DashboardList;

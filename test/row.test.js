@@ -18,12 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Row from '../src/row.js';
 
-var Row = require('../src/row');
-
-var simpleRow = require('./fixtures/simple_row');
-var overrideRow = require('./fixtures/override_row');
+import simpleRow from './fixtures/simple_row.js';
+import overrideRow from './fixtures/override_row.js';
 var panelData = {
     foo: 'foo',
     bar: 'bar',

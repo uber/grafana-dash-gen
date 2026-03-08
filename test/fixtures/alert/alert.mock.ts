@@ -1,5 +1,5 @@
-import Condition = require('../../../src/alert/condition');
-import Alert = require('../../../src/alert/alert');
+import Condition from '../../../src/alert/condition.js';
+import Alert from '../../../src/alert/alert.js';
 
 const getAlert = () => {
     const condition = new Condition()
@@ -10,4 +10,4 @@ const getAlert = () => {
     return new Alert().addCondition(condition);
 };
 
-export = { getAlert };
+export { getAlert };

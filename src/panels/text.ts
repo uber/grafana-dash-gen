@@ -18,10 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import generateGraphId = require('../id');
-import type { GrafanaTextPanel } from '../grafana';
-import type Dashboard from '../dashboard';
-import type Row from '../row';
+import generateGraphId from '../id.js';
+import type { GrafanaTextPanel } from '../grafana.js';
+import type Dashboard from '../dashboard.js';
+import type Row from '../row.js';
 
 type TextPanelOptions = Partial<
     GrafanaTextPanel & {
@@ -68,4 +68,4 @@ class Text {
     }
 }
 
-export = Text;
+export default Text;

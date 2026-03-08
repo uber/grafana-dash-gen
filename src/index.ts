@@ -18,38 +18,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import _Dashboard = require('./dashboard');
-import _Row = require('./row');
-import _ExternalLink = require('./external-link');
-import _Target = require('./target');
-import _Panels = require('./panels');
-import _Alert = require('./alert/alert');
-import _Condition = require('./alert/condition');
-import _Templates = require('./templates');
-import _publish = require('./publish');
-import _generateGraphId = require('./id');
-import config = require('./config');
-import _Annotations = require('./annotations');
+import Dashboard from './dashboard.js';
+import Row from './row.js';
+import ExternalLink from './external-link.js';
+import Target from './target.js';
+import * as Panels from './panels/index.js';
+import Alert from './alert/alert.js';
+import Condition from './alert/condition.js';
+import * as Templates from './templates/index.js';
+import publish from './publish.js';
+import generateGraphId from './id.js';
+import { configure } from './config.js';
+import * as Annotations from './annotations/index.js';
 
-namespace _dashgen {
-    export type Dashboard = _Dashboard;
-    export const Dashboard = _Dashboard;
-    export type Row = _Row;
-    export const Row = _Row;
-    export type ExternalLink = _ExternalLink;
-    export const ExternalLink = _ExternalLink;
-    export const Panels = _Panels;
-    export const Templates = _Templates;
-    export type Alert = _Alert;
-    export const Alert = _Alert;
-    export type Condition = _Condition;
-    export const Condition = _Condition;
-    export const Annotations = _Annotations;
-    export type Target = _Target;
-    export const Target = _Target;
-    export const publish = _publish;
-    export const generateGraphId = _generateGraphId;
-    export const configure = config.configure;
-}
+export {
+    Dashboard, Row, ExternalLink, Target,
+    Panels, Alert, Condition, Templates,
+    publish, generateGraphId, configure, Annotations,
+};
 
-export = _dashgen;
+export default {
+    Dashboard, Row, ExternalLink, Target,
+    Panels, Alert, Condition, Templates,
+    publish, generateGraphId, configure, Annotations,
+};

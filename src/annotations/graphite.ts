@@ -18,14 +18,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import errors = require('../errors');
-import type { GrafanaGraphiteAnnotation } from '../grafana';
+import { UnfulfilledRequirement } from '../errors.js';
+import type { GrafanaGraphiteAnnotation } from '../grafana.js';
 
 class Graphite {
     state: GrafanaGraphiteAnnotation;
     constructor(opts: Partial<GrafanaGraphiteAnnotation> = {}) {
         if (!opts.name) {
-            throw errors.UnfulfilledRequirement.create(
+            throw UnfulfilledRequirement.create(
                 '{component} missing requirement: {unfulfilledArg}',
                 {
                     component: 'grafana.annotations.Graphite',
@@ -35,7 +35,7 @@ class Graphite {
         }
 
         if (!opts.target) {
-            throw errors.UnfulfilledRequirement.create(
+            throw UnfulfilledRequirement.create(
                 '{component} missing requirement: {unfulfilledArg}',
                 {
                     component: 'grafana.annotations.Graphite',
@@ -67,4 +67,4 @@ class Graphite {
     }
 }
 
-export = Graphite;
+export default Graphite;
