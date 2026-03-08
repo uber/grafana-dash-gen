@@ -21,13 +21,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 10
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
-    - run: npm run lint
-    - run: npm run typecheck
+        cache: 'pnpm'
+    - run: pnpm install
+    - run: pnpm run build
+    - run: pnpm test
+    - run: pnpm run lint
+    - run: pnpm run typecheck
