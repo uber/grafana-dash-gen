@@ -1,6 +1,5 @@
-'use strict';
+import grafana from './grafana/index.js';
 
-var grafana = require('./index');
 var Row = grafana.Row;
 var Dashboard = grafana.Dashboard;
 var Panels = grafana.Panels;
@@ -160,10 +159,4 @@ function generateDashboard() {
     grafana.publish(dashboard);
 }
 
-module.exports = {
-    generate: generateDashboard,
-};
-
-if (require.main === module) {
-    generateDashboard();
-}
+export { generateDashboard as generate };

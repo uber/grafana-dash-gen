@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaGraphiteAnnotation } from '../../../src/grafana';
+import type { GrafanaGraphiteAnnotation } from '../../../src/grafana.js';
 
 const simpleGraphiteAnnotation: GrafanaGraphiteAnnotation = {
     name: 'name',
@@ -31,4 +31,4 @@ const simpleGraphiteAnnotation: GrafanaGraphiteAnnotation = {
     target: 'target',
 };
 
-export = simpleGraphiteAnnotation;
+export default simpleGraphiteAnnotation;
