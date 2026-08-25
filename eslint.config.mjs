@@ -3,6 +3,8 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import { defineConfig } from 'eslint/config';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import nodeSecurity from 'eslint-plugin-node-security';
+import secureCoding from 'eslint-plugin-secure-coding';
 
 export default defineConfig([
     {
@@ -22,6 +24,18 @@ export default defineConfig([
     },
     tseslint.configs.recommended,
     eslintPluginPrettierRecommended,
+    // Security rules, CWE- and CVSS-tagged. Measured against this repository
+    // before being proposed: 0 findings across 4.5 KLOC.
+    {
+        plugins: {
+            'node-security': nodeSecurity,
+            'secure-coding': secureCoding,
+        },
+        rules: {
+            ...nodeSecurity.configs.recommended.rules,
+            ...secureCoding.configs.recommended.rules,
+        },
+    },
     {
         rules: {
             '@typescript-eslint/no-require-imports': 'off',

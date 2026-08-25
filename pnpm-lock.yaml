@@ -57,9 +57,15 @@ importers:
       eslint-config-prettier:
         specifier: ^10.1.8
         version: 10.1.8(eslint@10.7.0)
+      eslint-plugin-node-security:
+        specifier: ^5.2.1
+        version: 5.2.1(@typescript-eslint/utils@8.64.0(eslint@10.7.0)(typescript@5.9.3))(eslint@10.7.0)(typescript@5.9.3)
       eslint-plugin-prettier:
         specifier: ^5.5.6
         version: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.7.0))(eslint@10.7.0)(prettier@3.6.2)
+      eslint-plugin-secure-coding:
+        specifier: ^5.1.2
+        version: 5.1.2(@typescript-eslint/utils@8.64.0(eslint@10.7.0)(typescript@5.9.3))(eslint@10.7.0)(typescript@5.9.3)
       globals:
         specifier: ^17.7.0
         version: 17.7.0
@@ -808,6 +814,22 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
+  '@interlace/eslint-devkit@1.17.1':
+    resolution: {integrity: sha512-rKSJAdtJGHKgTOZm1S/DUSRFgAdjvG1fQA6JvxpSiiT9YYRwSaiuYsckyijAg9krPmHWwN+3Ho3WiyNSu548lg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      '@typescript-eslint/utils': ^7.0.0 || ^8.0.0
+      eslint: ^8.40.0 || ^9.0.0 || ^10.0.0
+      oxc-resolver: ^11.24.2
+      typescript: '>=4.8.4'
+    peerDependenciesMeta:
+      '@typescript-eslint/utils':
+        optional: true
+      oxc-resolver:
+        optional: true
+      typescript:
+        optional: true
+
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
     engines: {node: '>=12'}
@@ -1475,6 +1497,12 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
+  eslint-plugin-node-security@5.2.1:
+    resolution: {integrity: sha512-dhCeJFA445o+/bkl92lMdaTJ8nPd0h+c0qsAZz6cMWFTT0vuxAv/b2bN888cZOxOa1+haZAPRFEnzsU0tDuHTA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      eslint: ^8.40.0 || ^9.0.0 || ^10.0.0
+
   eslint-plugin-prettier@5.5.6:
     resolution: {integrity: sha512-ifetmTcxWfz+4qRW3pH/ujdTq2jQIj59AxJMIN26K5avYgU8dxycUETQonWiW+wPrYXA0j3Try0l1CnwVQtDqQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -1487,6 +1515,16 @@ packages:
       '@types/eslint':
         optional: true
       eslint-config-prettier:
+        optional: true
+
+  eslint-plugin-secure-coding@5.1.2:
+    resolution: {integrity: sha512-mHLB7LYSIQWdvjkqgmvZXloE38JJLd+ukK8VpkokW3HbcUQglyVAAJhs+gpTXV/BoWqdO0ZTLndeG2UkaJXBqQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      eslint: ^8.40.0 || ^9.0.0 || ^10.0.0
+      recheck: ^4.5.0
+    peerDependenciesMeta:
+      recheck:
         optional: true
 
   eslint-scope@9.1.2:
@@ -2152,12 +2190,20 @@ packages:
   react-is@19.2.7:
     resolution: {integrity: sha512-kZFnouyVv7eP/Phmrlo9FK+zcAdriZJvzxXHF1Sl1P377WSGe2G/JxVolhTrB/jeV47lKImhNUsijjHAAbcl/A==}
 
+  refa@0.12.1:
+    resolution: {integrity: sha512-J8rn6v4DBb2nnFqkqwy6/NnTYMcgLA+sLr0iIO41qpv0n+ngb7ksag2tMRl0inb1bbO/esUwzW1vbJi7K0sI0g==}
+    engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
+
   regenerate-unicode-properties@10.2.2:
     resolution: {integrity: sha512-m03P+zhBeQd1RGnYxrGyDAPpWX/epKirLrp8e3qevZdVkKtnCrjjWczIbYc8+xd6vcTStVlqfycTx1KR4LOr0g==}
     engines: {node: '>=4'}
 
   regenerate@1.4.2:
     resolution: {integrity: sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==}
+
+  regexp-ast-analysis@0.7.1:
+    resolution: {integrity: sha512-sZuz1dYW/ZsfG17WSAG7eS85r5a0dDsvg+7BiiYR5o6lKCAtUrEwdmRmaGF6rwVj3LcmAeYkOWKEPlbPzN3Y3A==}
+    engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
 
   regexpu-core@6.4.0:
     resolution: {integrity: sha512-0ghuzq67LI9bLXpOX/ISfve/Mq33a4aFRzoQYhnnok1JOFpmE/A2TBGkNVenOGEeSBCjIiWcc6MVOG5HEQv0sA==}
@@ -2181,6 +2227,10 @@ packages:
   resolve-from@5.0.0:
     resolution: {integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==}
     engines: {node: '>=8'}
+
+  scslre@0.3.0:
+    resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
+    engines: {node: ^14.0.0 || >=16.0.0}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -3327,6 +3377,13 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
+  '@interlace/eslint-devkit@1.17.1(@typescript-eslint/utils@8.64.0(eslint@10.7.0)(typescript@5.9.3))(eslint@10.7.0)(typescript@5.9.3)':
+    dependencies:
+      eslint: 10.7.0
+    optionalDependencies:
+      '@typescript-eslint/utils': 8.64.0(eslint@10.7.0)(typescript@5.9.3)
+      typescript: 5.9.3
+
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -4108,6 +4165,15 @@ snapshots:
     dependencies:
       eslint: 10.7.0
 
+  eslint-plugin-node-security@5.2.1(@typescript-eslint/utils@8.64.0(eslint@10.7.0)(typescript@5.9.3))(eslint@10.7.0)(typescript@5.9.3):
+    dependencies:
+      '@interlace/eslint-devkit': 1.17.1(@typescript-eslint/utils@8.64.0(eslint@10.7.0)(typescript@5.9.3))(eslint@10.7.0)(typescript@5.9.3)
+      eslint: 10.7.0
+    transitivePeerDependencies:
+      - '@typescript-eslint/utils'
+      - oxc-resolver
+      - typescript
+
   eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@10.7.0))(eslint@10.7.0)(prettier@3.6.2):
     dependencies:
       eslint: 10.7.0
@@ -4116,6 +4182,17 @@ snapshots:
       synckit: 0.11.13
     optionalDependencies:
       eslint-config-prettier: 10.1.8(eslint@10.7.0)
+
+  eslint-plugin-secure-coding@5.1.2(@typescript-eslint/utils@8.64.0(eslint@10.7.0)(typescript@5.9.3))(eslint@10.7.0)(typescript@5.9.3):
+    dependencies:
+      '@eslint-community/regexpp': 4.12.2
+      '@interlace/eslint-devkit': 1.17.1(@typescript-eslint/utils@8.64.0(eslint@10.7.0)(typescript@5.9.3))(eslint@10.7.0)(typescript@5.9.3)
+      eslint: 10.7.0
+      scslre: 0.3.0
+    transitivePeerDependencies:
+      - '@typescript-eslint/utils'
+      - oxc-resolver
+      - typescript
 
   eslint-scope@9.1.2:
     dependencies:
@@ -4929,11 +5006,20 @@ snapshots:
 
   react-is@19.2.7: {}
 
+  refa@0.12.1:
+    dependencies:
+      '@eslint-community/regexpp': 4.12.2
+
   regenerate-unicode-properties@10.2.2:
     dependencies:
       regenerate: 1.4.2
 
   regenerate@1.4.2: {}
+
+  regexp-ast-analysis@0.7.1:
+    dependencies:
+      '@eslint-community/regexpp': 4.12.2
+      refa: 0.12.1
 
   regexpu-core@6.4.0:
     dependencies:
@@ -4957,6 +5043,12 @@ snapshots:
       resolve-from: 5.0.0
 
   resolve-from@5.0.0: {}
+
+  scslre@0.3.0:
+    dependencies:
+      '@eslint-community/regexpp': 4.12.2
+      refa: 0.12.1
+      regexp-ast-analysis: 0.7.1
 
   semver@6.3.1: {}
 
