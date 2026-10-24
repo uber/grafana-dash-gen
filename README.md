@@ -111,6 +111,8 @@ const requestVolume = new Panels.SingleStat({
 
 #### Step 5: Create an alert and add it to the graph
 _Alerts are optional_. An alert is set on a target, each target added to the panel receives a refId of 'A', 'B', ..., 'Z'.
+
+`onQuery(refId, duration, from)` uses `'5m'` and `'now'` when the time arguments are omitted. Pass explicit values to customize the time range.
 ```js
 const conditionOnRequestLowVolume = new Condition()
         .onQuery('A')
