@@ -61,6 +61,11 @@ const dashboard = new Dashboard({
 
 If you do not wish to have any templates and annotations
 
+Pass `grafana.ExternalLink` objects in the dashboard's `links` option to add links.
+Their constructor accepts link settings such as `targetBlank`, `icon`, `tags`,
+`includeVars`, and `keepTime`; omitted settings use the defaults. Fluent helpers
+such as `.withIcon()` can override the constructor settings afterward.
+
 #### Step 3: Create a new row
 As said abolve, grafana dashboard contains a number of rows. 
 ```js
