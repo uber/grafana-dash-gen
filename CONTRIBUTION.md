@@ -13,8 +13,7 @@ Before you get started, here are some suggestions:
 
 ## Licencing
 
- - Every file must have a licence block at the top. This is enforced using `uber-licence`
- - If you contribute to a file in this project and are not an Uber employee, then you should add your name to the copyright section of the licence file.
+ - Sign the [Uber Contributor License Agreement (CLA)](https://cla-assistant.io/uber/).  It will be required when making a pull request.
  - Work that you contribute must be your own.
 
 ## Releases
