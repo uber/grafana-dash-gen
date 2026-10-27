@@ -95,6 +95,11 @@ const panel = new Panels.Graph({
 row.addPanel(panel);
 ```
 
+Graph targets can reference earlier targets using `#A`, `#B`, and so on.
+References can be chained: if B references A and C references B, C's
+`targetFull` contains the fully expanded expression. The original expressions
+are preserved in each target's `target` field.
+
 If you would like to create a full width single stat (as in the image) the code is below. Notice how we create a new row on the fly. 
 ```js
 const requestVolume = new Panels.SingleStat({

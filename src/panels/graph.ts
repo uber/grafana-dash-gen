@@ -165,7 +165,7 @@ function handleRefTargets(
                     `Invalid target reference: #${refId} does not exist. Available refs: ${targets.map((t) => t.refId).join(', ')}`
                 );
             }
-            return found.target;
+            return found.targetFull ?? found.target;
         };
 
         return {

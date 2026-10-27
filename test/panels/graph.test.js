@@ -153,3 +153,40 @@ test('graph should throw descriptive error when referencing non-existent target'
         });
     }).toThrow(/Invalid target reference: #Z does not exist/);
 });
+
+test('graph should fully expand chained target references', () => {
+    const graph = new Graph({
+        targets: ['requests', 'scale(#A, 2)', 'offset(#B, 3)'],
+    });
+    const targets = graph.generate().targets;
+
+    expect(targets[1].targetFull).toBe('scale(requests, 2)');
+    expect(targets[2].targetFull).toBe('offset(scale(requests, 2), 3)');
+    expect(targets[1].target).toBe('scale(#A, 2)');
+    expect(targets[2].target).toBe('offset(#B, 3)');
+});
+
+test('graph should expand repeated references to an expanded target', () => {
+    const graph = new Graph({
+        targets: ['requests', 'scale(#A, 2)', 'sumSeries(#B, #B)'],
+    });
+
+    expect(graph.generate().targets[2].targetFull).toBe(
+        'sumSeries(scale(requests, 2), scale(requests, 2))'
+    );
+});
+
+test('graph should expand multiple levels of references in the same target', () => {
+    const graph = new Graph({
+        targets: [
+            'requests',
+            'scale(#A, 2)',
+            'offset(#B, 3)',
+            'sumSeries(#C, #B, #A)',
+        ],
+    });
+
+    expect(graph.generate().targets[3].targetFull).toBe(
+        'sumSeries(offset(scale(requests, 2), 3), scale(requests, 2), requests)'
+    );
+});
