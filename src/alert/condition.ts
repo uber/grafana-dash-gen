@@ -76,7 +76,7 @@ class Condition {
         this._operator.type = 'and';
         return this;
     }
-    onQuery(query: string, duration?: string, from?: string) {
+    onQuery(query: string, duration: string = '5m', from: string = 'now') {
         if (typeof query !== 'string') {
             throw Error(
                 'Query identifier must be a string. eg. "A" or "B", etc...'
