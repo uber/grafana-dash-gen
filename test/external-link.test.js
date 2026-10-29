@@ -62,3 +62,42 @@ test('external link validates required fields', function () {
         new ExternalLink({ title: 'Uber Home Page' }).generate()
     ).toThrow(new SyntaxError('a url for the link must be provided'));
 });
+
+test('external link preserves constructor options in generated dashboards', () => {
+    const Dashboard = require('../src/dashboard');
+    const options = {
+        title: 'Related dashboards',
+        tooltip: 'Keep the current context',
+        url: 'https://grafana.example.com/d/related',
+        tags: ['production'],
+        icon: 'dashboard',
+        targetBlank: false,
+        type: 'dashboards',
+        includeVars: true,
+        keepTime: true,
+    };
+    const link = new ExternalLink(options);
+    const dashboard = new Dashboard({ links: [link] });
+
+    expect(link.generate()).toEqual(options);
+    expect(dashboard.generate().links).toEqual([options]);
+});
+
+test('external link fluent helpers override constructor options', () => {
+    const link = new ExternalLink({
+        title: 'Related dashboard',
+        url: 'https://grafana.example.com/d/related',
+        icon: 'dashboard',
+        includeVars: false,
+        keepTime: false,
+    })
+        .withIcon('custom icon')
+        .includeVariableValues()
+        .includeTimeFilter();
+
+    expect(link.generate()).toMatchObject({
+        icon: 'custom icon',
+        includeVars: true,
+        keepTime: true,
+    });
+});

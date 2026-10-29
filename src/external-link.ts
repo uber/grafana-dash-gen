@@ -27,13 +27,13 @@ class ExternalLink {
             title: '',
             tooltip: '',
             url: '',
-            ...opts,
             tags: [],
             icon: 'external link',
             targetBlank: true,
             type: 'link',
             includeVars: false,
             keepTime: false,
+            ...opts,
         };
         this.state = defaults;
     }
