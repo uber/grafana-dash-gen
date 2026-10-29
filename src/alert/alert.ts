@@ -1,5 +1,5 @@
-import type { GrafanaAlert } from '../grafana';
-import type Condition from './condition';
+import type { GrafanaAlert } from '../grafana.js';
+import type Condition from './condition.js';
 
 type AlertOptions = Partial<
     Omit<GrafanaAlert, 'conditions'> & {
@@ -59,4 +59,4 @@ class Alert {
     }
 }
 
-export = Alert;
+export default Alert;

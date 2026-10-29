@@ -18,12 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Table from '../../src/panels/table.js';
 
-var Table = require('../../src/panels/table');
-
-var simpleTable = require('../fixtures/panels/simple_table');
-var overrideTable = require('../fixtures/panels/override_table');
+import simpleTable from '../fixtures/panels/simple_table.js';
+import overrideTable from '../fixtures/panels/override_table.js';
 
 test('simple table', function () {
     var table = new Table();

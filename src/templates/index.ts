@@ -18,14 +18,5 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import _Custom = require('./custom');
-import _Query = require('./query');
-
-namespace templates {
-    export type Custom = _Custom;
-    export const Custom = _Custom;
-    export type Query = _Query;
-    export const Query = _Query;
-}
-
-export = templates;
+export { default as Custom } from './custom.js';
+export { default as Query } from './query.js';

@@ -18,15 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Graph from '../../src/panels/graph.js';
 
-const Graph = require('../../src/panels/graph');
-
-const getAlert = require('../fixtures/alert/alert.mock').getAlert;
-const simpleGraph = require('../fixtures/panels/simple_graph');
-const overrideGraph = require('../fixtures/panels/override_graph');
-const simpleGraphWithAlert = require('../fixtures/panels/graph_with_alert');
-const alertWithCondition = require('../fixtures/alert/alert_with_condition');
+import { getAlert } from '../fixtures/alert/alert.mock.js';
+import simpleGraph from '../fixtures/panels/simple_graph.js';
+import overrideGraph from '../fixtures/panels/override_graph.js';
+import simpleGraphWithAlert from '../fixtures/panels/graph_with_alert.js';
+import alertWithCondition from '../fixtures/alert/alert_with_condition.js';
 
 test('simple graph', () => {
     const graph = new Graph();

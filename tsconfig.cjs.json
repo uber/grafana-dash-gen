@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node10",
+    "esModuleInterop": true,
+    "rootDir": "./src",
+    "outDir": "./grafana/cjs",
+    "noEmit": false,
+  },
+  "include": ["./src"],
+  "exclude": [],
+}

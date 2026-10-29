@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaDashboardListPanel } from '../../../src/grafana';
+import type { GrafanaDashboardListPanel } from '../../../src/grafana.js';
 
 const overrideDashboardListPanel: GrafanaDashboardListPanel = {
     title: 'dashboard list',
@@ -35,4 +35,4 @@ const overrideDashboardListPanel: GrafanaDashboardListPanel = {
     links: [],
 };
 
-export = overrideDashboardListPanel;
+export default overrideDashboardListPanel;

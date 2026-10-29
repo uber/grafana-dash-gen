@@ -3,7 +3,7 @@ import type {
     GrafanaEvaluatorType,
     GrafanaOperatorType,
     GrafanaReducerType,
-} from '../grafana';
+} from '../grafana.js';
 
 class Condition {
     private state: Partial<GrafanaCondition>;
@@ -122,4 +122,4 @@ class Condition {
     }
 }
 
-export = Condition;
+export default Condition;
