@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+v4.1.2 (2026-10-30)
+-------------------
+
+ - Fix chained graph target references (`#A`, `#B`, ...) not being fully expanded in `targetFull` (#147)
+ - Fix `ExternalLink` constructor options being overridden by defaults (#148)
+ - Default alert `Condition.onQuery` to `5m` and `now` when the time range is omitted (#146)
+ - Update TypeScript target to ES6 (#137)
+ - Switch from npm to pnpm (#140)
+ - Update node releases tested in CI (#144)
+ - Update dependencies (#136, #138, #139, #142)
+
+
 v4.1.1 (2026-02-09)
 -------------------
 
