@@ -71,14 +71,7 @@ export type GrafanaEvaluatorType = 'gt' | 'lt' | 'within_range';
 export type GrafanaOperatorType = 'and' | 'or';
 
 export type GrafanaReducerType =
-    | 'min'
-    | 'max'
-    | 'sum'
-    | 'avg'
-    | 'count'
-    | 'last'
-    | 'median'
-    | 'diff';
+    'min' | 'max' | 'sum' | 'avg' | 'count' | 'last' | 'median' | 'diff';
 
 export interface GrafanaCondition extends GrafanaSharedProps {
     type: 'query';
