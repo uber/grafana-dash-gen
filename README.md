@@ -177,7 +177,6 @@ OR
 
  - Evan Culver
  - Madan Thangavelu
+ - Albert Wang
 
 ## MIT Licenced
-
-
