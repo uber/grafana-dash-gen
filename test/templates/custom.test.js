@@ -18,13 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Custom from '../../src/templates/custom.js';
 
-var Custom = require('../../src/templates/custom');
-
-var simpleCustom = require('../fixtures/templates/simple_custom');
-var overrideCustom = require('../fixtures/templates/override_custom');
-var overrideCustomTextValue = require('../fixtures/templates/override_custom_text_value');
+import simpleCustom from '../fixtures/templates/simple_custom.js';
+import overrideCustom from '../fixtures/templates/override_custom.js';
+import overrideCustomTextValue from '../fixtures/templates/override_custom_text_value.js';
 
 test('Custom template has defaults', function () {
     var template = new Custom();

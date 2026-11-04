@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import type { GrafanaDashboard } from '../../src/grafana';
+import type { GrafanaDashboard } from '../../src/grafana.js';
 
 const simpleDashboard: GrafanaDashboard = {
     id: null,
@@ -40,4 +40,4 @@ const simpleDashboard: GrafanaDashboard = {
     links: [],
 };
 
-export = simpleDashboard;
+export default simpleDashboard;

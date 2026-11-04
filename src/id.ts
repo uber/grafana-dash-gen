@@ -27,4 +27,4 @@ function generateGraphId() {
     return graphId;
 }
 
-export = generateGraphId;
+export default generateGraphId;
